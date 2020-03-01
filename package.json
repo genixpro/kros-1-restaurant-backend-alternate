@@ -1,5 +1,5 @@
 {
-  "name": "appseed-platform",
+  "name": "kobid-1-restaraunt-backend",
   "version": "1.0.0",
   "main": "server/app.js",
   "dependencies": {
