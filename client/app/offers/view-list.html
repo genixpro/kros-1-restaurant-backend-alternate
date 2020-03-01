@@ -1,0 +1,79 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{'OFFERS_LIST_PANEL_HEADING' | translate}} <a ui-sref="offers.add" title="Add offer" class="pull-right">{{'OFFERS_LIST_PANEL_ADD' | translate}}</a>
+  </div>
+
+  <div class="panel-body">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the data when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'OFFERS_LIST_TABLE_NAME' | translate}}</th>
+              <th></th>
+              <th class="cell-actions">{{'OFFERS_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="record in data.records" ng-controller="OffersItemCtrl">
+              <td ui-sref="offers.details({id: record._id})">
+                {{record.name}}
+              </td>
+              <td ui-sref="offers.details({id: record._id})">
+                <span ng-if="record.active" class="label label-success">
+                  <span>{{'OFFERS_LIST_RECORD_ACTIVE' | translate}}</span>
+                </span>
+                <span ng-if="!record.active" class="label label-default">
+                  <span>{{'OFFERS_LIST_RECORD_INACTIVE' | translate}}</span>
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="offers.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'OFFERS_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteOffer(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'OFFERS_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--
+        <!-- data pager --
+        <ul class="pager">
+          <!-- Previous button when enabled--
+          <li ng-hide="paginator.previous()" class="previous">
+            <a href ng-click="previousPage()">{{'OFFERS_LIST_PAGER_PREVIOUS' | translate}}</a>
+          </li>
+
+          <!-- Previous button when disabled--
+          <li class="previous disabled" ng-show="paginator.previous()">
+            <a href>{{'OFFERS_LIST_PAGER_PREVIOUS' | translate}}</a>
+          </li>
+
+          <!-- Next button when enabled--
+          <li ng-hide="paginator.next()" class="next">
+            <a href ng-click="nextPage()">{{'OFFERS_LIST_PAGER_NEXT' | translate}}</a>
+          </li>
+
+          <!-- Next button when disabled--
+          <li class="next disabled" ng-show="paginator.next()">
+            <a href>{{'OFFERS_LIST_PAGER_NEXT' | translate}}</a>
+          </li>
+        </ul>
+        -->
+      </div>
+
+      <!-- Say sorry when we are not able to display the data -->
+      <div ng-switch-default>
+        {{'OFFERS_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    </div>
+  </div> <!-- //.panel-body -->
+  <div class="panel-footer">
+      <p translate="OFFERS_LIST_FOOTER_DESCR" translate-values="{value: '{{active}}'}"></p>
+  </div>
+
+</div>

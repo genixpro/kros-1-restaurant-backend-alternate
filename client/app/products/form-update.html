@@ -1,0 +1,168 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('products.update'), 'csspinner traditional': ui.inProgress }" ng-file-drop="onFileSelect($files)">
+  <div class="panel-heading">{{'EDIT_PRODUCT' | translate}}</div>
+
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'PRODUCT_EDIT_FORM_TITLE_LABEL' | translate}} *</label>
+        <input class="form-control" type="text" ng-model="data.model.title" value="" placeholder="{{'PRODUCT_EDIT_FORM_TITLE_PLACEHOLDER' | translate}}" required>
+      </div>
+
+      <div class="form-group">
+        <label>{{'PRODUCT_EDIT_FORM_BODY_LABEL' | translate}}</label>
+        <textarea class="form-control" type="text" ng-model="data.model.description" value="" rows="3" placeholder="{{'PRODUCT_EDIT_FORM_BODY_PLACEHOLDER' | translate}}"></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label>{{'PRODUCT_ADD_FORM_PRICE_LABEL' | translate}}</label>
+        <input class="form-control" type="number" step=0.01 ng-model="data.model.price" value="" placeholder="{{'PRODUCT_ADD_FORM_PRICE_PLACEHOLDER' | translate}}">
+      </div>
+
+      <div class="form-group">
+        <label>{{'PRODUCT_ADD_FORM_URL_LABEL' | translate}}</label>
+        <input class="form-control" type="url" ng-model="data.model.url" value="" placeholder="{{'PRODUCT_ADD_FORM_URL_PLACEHOLDER' | translate}}">
+      </div>
+
+       <div class="form-group">
+        <label>{{'PRODUCT_ADD_FORM_PDFURL_LABEL' | translate}}</label>
+        <input class="form-control" type="url" ng-model="data.model.pdfUrl" value="" placeholder="{{'PRODUCT_ADD_FORM_PDFURL_PLACEHOLDER' | translate}}">
+      </div>
+
+
+      <div class="form-group">
+        <label>{{'PRODUCTS_EDIT_FORM_CATEGORY_LABEL' | translate}} *</label>
+        <select ng-model="data.model.category" ng-options="category.name for category in data.categories" class="form-control" required>
+          <option value="">-- {{'PRODUCTS_EDIT_FORM_CATEGORY_NO_CATEGORY_OPTION' | translate}} --</option>
+        </select>
+      </div>
+
+      <div class="checkbox c-checkbox">
+        <label>
+          <input type="checkbox" ng-model="data.model.featured">
+          <span class="fa fa-check"></span> {{'PRODUCT_ADD_FORM_FEATURED_LABEL' | translate}}
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>{{'PRODUCT_EDIT_FORM_CUSTOMFIELDS_LABEL' | translate}} *</label> <a title="Add field" class="pull-right" ng-click="addCustomFieldInputs()">{{'PRODUCT_ADD_FORM_CUSTOMFIELD_ADD' | translate}}</a>
+
+        <div class="well">
+          <table class="table-condensed">
+            <thead>
+              <tr>
+                <th>{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_LABEL' | translate}}</th>
+                <th>{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_VALUE' | translate}}</th>
+                <th>{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_TYPE' | translate}}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody ui-sortable="sortableOptions" ng-model="data.model.customFields">
+              <tr ng-repeat="field in data.model.customFields track by $index">
+                 <td style="width: 30%">
+                   <input class="form-control" type="text" ng-model="field.name" value="" placeholder="{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+                 </td>
+                 <td style="width: 30%">
+                   <input class="form-control"
+                    ng-if="field.valueType.toLowerCase()=='numeric'"
+                    type="number" ng-model="field.value" value=""
+                    placeholder="{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_VALUE_PLACEHOLDER' | translate}}" required>
+
+                   <input class="form-control"
+                    ng-if="field.valueType.toLowerCase()=='string'"
+                    type="text" ng-model="field.value" value=""
+                    placeholder="{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_VALUE_PLACEHOLDER' | translate}}" required>
+
+                    <ui-select
+                      ng-if="field.valueType.toLowerCase()!='numeric' && field.valueType.toLowerCase()!='string'"
+                      ng-model="field.value"
+                      class=""
+                      theme="bootstrap"
+                      style="width: 100%">
+                      <ui-select-match  placeholder="Select value...">
+                        <span >{{$select.selected}}</span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="c in field.currentOptions">
+                        <span no-enter="true" ng-bind-html="c | highlight: $select.search"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                 </td>
+                 <td style="width: 30%">
+                   <select class="form-control" name="typeSelect" ng-change="findOptions(field.valueType,$index)" ng-model="field.valueType">
+                     <option ng-repeat="o in simpleLists track by o.name">{{o.name}}</option>
+                     <!--<option value="String">String</option>-->
+                     <!--<option value="Numeric">Numeric</option>-->
+                   </select>
+                   <!--<input class="form-control" type="text" ng-model="field.valueType" value="" placeholder="{{'PRODUCT_EDIT_FORM_CUSTOMFIELD_TYPE_PLACEHOLDER' | translate}}" required>-->
+                 </td>
+                 <td style="min-width: 53px">
+                   <button type="button" class="btn btn-danger btn-xs pull-left" ng-click="removeCustomFieldInputs($index)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Remove</span>
+                   </button>
+                 </td>
+               </tr>
+             </tbody>
+          </table>
+        </div><!-- /.well -->
+
+      </div><!-- /.form-group -->
+
+
+      <div class="form-group">
+        <label>{{'PRODUCT_EDIT_FORM_PHOTO_LABEL' | translate}}</label>
+
+        <div class="well">
+          <!-- <p>
+            <img ng-if="product.picture" ng-src="{{product.picture}}" class="img-responsive img-thumbnail" alt="{{product.name}}" width="100%">
+          </p> -->
+
+          <div class="row">
+              <div ng-repeat="picture in ui.pictures" class="image col-sm-6">
+                <img ng-if="picture" ng-src="{{picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}} - {{$index}}" width="100%">
+                <button type="button" class="btn btn-danger btn-xs pull-right" style="top: -28px; position: relative; right: 5px;" ng-click="deleteImage($index)">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+                </button>
+              </div>
+          </div>
+          <style>
+            .row > div.image:nth-child(odd) {clear: both;}
+          </style>
+
+
+          <p>
+            <button ng-if="ui.picture" type="button" class="btn btn-danger btn-xs" ng-click="deleteImage(product)">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+          </p>
+          <div ng-file-drop="onFileSelect($files)" ng-file-select="onFileSelect($files)" ng-file-drag-over-class="bg-success" ng-show="dropSupported" class="drop-box">
+            {{'PRODUCT_EDIT_FORM_PHOTO_PLACEHOLDER' | translate}}
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">
+            {{'PRODUCT_EDIT_FORM_HTML5_DROP' | translate}}
+            <input type="file" name="image" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ui.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+
+        </div>
+        <!-- /.well -->
+      </div>
+
+
+      <div class="required">* {{'PRODUCT_EDIT_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(!updateForm.$valid)" class="btn btn-success" ng-click="update()">{{'PRODUCT_EDIT_FORM_SAVE_BUTTON' | translate}}</button>
+      <button ui-sref="products.details({id: product._id})" class="btn btn-warning">{{'PRODUCT_EDIT_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{'MY_ORDER_LIST_PANEL_HEADING' | translate}}</div>
+  <div class="panel-body">
+    <div ng-switch on="data.orders.length > 0">
+      <div ng-switch-when="true">
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'MY_ORDER_LIST_TABLE_DATE' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_FULL_NAME' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_PURCHASE_ID' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_PRODUCT_ID' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_QUANTITY' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_EMAIL' | translate}}</th>
+              <th>{{'MY_ORDER_LIST_TABLE_ACTIONS' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in data.orders">
+              <td ui-sref="my_orders.details({id: item._id})"> {{ item.purchaseDate.date | localdate | date:'d MMMM yyyy h:mm'}}</td>
+              <td ui-sref="my_orders.details({id: item._id})" ng-bind="item.name"></td>
+              <td ui-sref="my_orders.details({id: item._id})" ng-bind="item.purchaseId"></td>
+              <td ui-sref="my_orders.details({id: item._id})" ng-bind="item.purchaseId"></td>
+              <td ui-sref="my_orders.details({id: item._id})" ng-bind="item.quantity"></td>
+              <td ui-sref="my_orders.details({id: item._id})" ng-bind="item.email"></td>
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default"><em class="fa fa-eye"></em></button>
+                  <button type="button" class="btn btn-default"><em class="fa fa-print"></em></button>
+                  <button type="button" class="btn btn-default" ><em class="fa fa-ellipsis-v" style="min-width: 11px;"></em></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ul class="pager">
+          <!-- Previous button when enabled-->
+          <li class="previous" ng-hide="paginator.previous()">
+            <a href ng-click="previousPage()">Previous</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="paginator.previous()">
+            <a href>Previous</a>
+          </li>
+
+          <li>
+              page {{paginator.getPage()}} / {{paginator.getPages()}}
+          </li>
+
+          <!-- Next button when enabled-->
+          <li class="next" ng-hide="paginator.next()">
+            <a ng-click="nextPage()">Next</a>
+          </li>
+
+          <!-- Next button when disabled-->
+          <li class="next disabled" ng-show="paginator.next()">
+            <a href>Next</a>
+          </li>
+        </ul>
+        
+      </div>
+      <div ng-switch-default>
+        There are no data available.
+      </div>
+    </div>
+  </div>
+</div>

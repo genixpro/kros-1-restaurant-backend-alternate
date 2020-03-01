@@ -1,0 +1,35 @@
+<div class="panel panel-default"
+  ng-class="{ active: $state.includes('simpleLists.add'), 'csspinner traditional': ui.inProgress}">
+  <div class="panel-heading">{{'SIMPLELISTS_ADD_PANEL_HEADING' | translate}}</div>
+
+  <form role="form" name="addForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'SIMPLELISTS_ADD_FORM_TITLE_LABEL' | translate}} *</label>
+        <input type="text"
+          placeholder="{{'SIMPLELISTS_ADD_FORM_TITLE_PLACEHOLDER' | translate}}"
+          class="form-control" ng-model="data.model.name" required>
+      </div>
+
+      <div class="form-group">
+        <label>{{'SIMPLELISTS_ADD_FORM_BODY_LABEL' | translate}}</label>
+        <textarea class="form-control ng-pristine ng-valid ng-touched"
+          type="text" ng-model="data.model.body"
+          value=""
+          rows="6"
+          placeholder="{{'SIMPLELISTS_ADD_FORM_BODY_PLACEHOLDER' | translate}}">
+        </textarea>
+      </div>
+
+      <div class="required">* {{'SIMPLELISTS_EDIT_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div><!-- /panel-body -->
+    <div class="panel-footer">
+      <button ng-disabled="(addForm.$valid && !ui.inProgress) ? false : true"
+        class="btn btn-success" ng-click="save()">
+        {{'SIMPLELISTS_ADD_FORM_SAVE_BUTTON' | translate}}</button>
+
+      <button ui-sref="catalogueCategories" class="btn btn-warning">
+        {{'SIMPLELISTS_ADD_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div><!-- /panel-footer -->
+  </form>
+</div>

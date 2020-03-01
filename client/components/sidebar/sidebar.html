@@ -1,0 +1,459 @@
+<!--
+<div ng-controller="SidebarCtrl" ng-show="currentUser" class="col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li><a ui-sref="main">Home</a>
+    </li>
+    <li><a ui-sref="news">News</a>
+    </li>
+  </ul>
+</div>
+-->
+
+<!-- START Sidebar (left)-->
+<nav ng-controller="SidebarCtrl" ng-show="currentUser" class="sidebar">
+  <ul class="nav">
+    <!-- START Menu-->
+    <li class="nav-heading">{{currentUser.name}}</li>
+
+    <li>
+      <select class="form-control" ng-model="currentUser.selectedApplication"
+              ng-options="application._id as application.name for application in applications"
+              ng-change="selectApplication()">
+        <option value="">{{'SIDEBAR_SELECT_OPTION' | translate}}</option>
+      </select>
+    </li>
+
+    <li ng-class="{active: isGroupActive('dashboard')}" ng-if="true">
+      <a ui-sref="main" title="Dashboard" data-toggle="" class="no-submenu">
+        <em class="fa fa-dashboard"></em>
+        <span class="item-text">{{'SIDEBAR_DASHBOARD' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('submissioncode')}" ng-if="false">
+      <a href="" title="Submission Codes" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-dashboard"></em>
+        <span class="item-text">Submission Codes</span>
+      </a>
+      <!-- Submissioncodes SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('submissioncode')}">
+        <li ng-class="{active: isItemActive('submissioncode')}">
+          <a ui-sref="submissioncode" title="Submissioncodes Orders" data-toggle="" class="no-submenu">
+            <span class="item-text">Submissioncode Retrieval</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('submissioncodes-orders')}">
+          <a ui-sref="submissioncodes_orders" title="Submissioncodes Orders" data-toggle="" class="no-submenu">
+            <span class="item-text">Submissioncodes Orders</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('my-downloads')}">
+          <a ui-sref="my_downloads" title="My Downloads" data-toggle="" class="no-submenu">
+            <span class="item-text">My Downloads</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li ng-class="{active: isGroupActive('reports')}" ti-app="reports">
+      <a href="" title="Reports" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Submissions</span>
+      </a>
+      <!-- Posters SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('reports')}">
+        <!--
+        <li ng-class="{active: isItemActive('reports')}">
+          <a ui-sref="reports({slag: 'all'})" title="All the submissions" data-toggle="" class="no-submenu">
+            <span class="item-text">Submissions</span>
+          </a>
+        </li>
+      -->
+
+        <li ng-class="{active: isItemActive('reports')}">
+          <a ui-sref="reports({slag: 'confirmed'})" title="Confirmed" data-toggle="" class="no-submenu">
+            <span class="item-text">Completed</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('reports')}">
+          <a ui-sref="reports({slag: 'non-confirmed'})" title="Non Confirmed" data-toggle="" class="no-submenu">
+            <span class="item-text">Incomplete</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li ng-class="{active: isGroupActive('posters')}" ti-app="conference">
+      <a href="" title="Posters" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Posters</span>
+      </a>
+      <!-- Posters SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('posters')}">
+        <li ng-class="{active: isItemActive('posters')}">
+          <a ui-sref="posters({mode: 'simple'})" title="Search for a poster" data-toggle="" class="no-submenu">
+            <span class="item-text">Posters List</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('calendar')}" ng-if="false">
+          <a ui-sref="calendar" title="Calendar" data-toggle="" class="no-submenu">
+            <span class="item-text">Calendar</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('monitors')}">
+          <a ui-sref="monitors" title="Assign a poster" data-toggle="" class="no-submenu">
+            <span class="item-text">Assign</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('rooms-split')}">
+          <a ui-sref="rooms-split" title="Reschedule a poster" data-toggle="" class="no-submenu">
+            <span class="item-text">Reschedule</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('schedule')}">
+          <a ui-sref="schedule" title="Schedule" data-toggle="" class="no-submenu">
+          <span class="item-text">Schedule</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Posters / Advanced options -->
+    <li ng-class="{active: isGroupActive('posters-advanced')}" ti-app="conference">
+      <a href="" title="Posters / Advanced options" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-cogs"></em>
+        <span class="item-text">Advanced</span>
+      </a>
+      <!-- Posters SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('posters-advanced')}">
+        <li ng-class="{active: isItemActive('upload-csv')}">
+          <a ui-sref="upload-csv" title="Import posters by uploading a CVS file" data-toggle="" class="no-submenu">
+            <span class="item-text">Upload</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('posters')}">
+          <a ui-sref="posters({mode: 'advanced'})" title="Search for a poster" data-toggle="" class="no-submenu">
+            <span class="item-text">Posters List and Assigment</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('rooms')}">
+          <a ui-sref="rooms" title="Manage Sessions" data-toggle="" class="no-submenu">
+          <span class="item-text">Manage Sessions</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('export-csv')}">
+          <a ui-sref="export-csv" title="Export-csv" data-toggle="" class="no-submenu">
+          <span class="item-text">Export</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('clients')}">
+          <a ui-sref="clients" title="Clients" data-toggle="" class="no-submenu">
+            <span class="item-text">Clients</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('applications')}">
+          <a ui-sref="applications" title="Applications" data-toggle="" class="no-submenu">
+            <span class="item-text">Applications</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li ng-class="{active: isGroupActive('restaurant-orders')}" ng-if="!isAdmin()" ti-app="restaurant">
+      <a ui-sref="restaurant_orders({status: 'all'})" title="Restaurant orders" data-toggle="" class="no-submenu">
+        <em class="fa fa-usd"></em>
+        <span class="item-text">{{'SIDEBAR_RESTAURANT_ORDERS' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('articles')}" ng-if="!isAdmin()" ti-app="local-business,catalogue">
+      <a ui-sref="articles" title="Articles" data-toggle="" class="no-submenu">
+        <em class="fa fa-comments-o"></em>
+        <span class="item-text">{{'SIDEBAR_ARTICLES' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('lectures-group')}" ng-if="!isAdmin()" ti-app="lectures">
+      <a href="" title="Lectures" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Lectures</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('lectures-group')}">
+        <li ng-class="{active: isItemActive('grades')}">
+          <a ui-sref="grades" title="Grades" data-toggle="" class="no-submenu">
+            <em class="fa fa-trophy"></em>
+            <span class="item-text">Grades</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('courses')}">
+          <a ui-sref="courses" title="Courses" data-toggle="" class="no-submenu">
+            <em class="fa fa-university"></em>
+            <span class="item-text">Courses</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('topics')}">
+          <a ui-sref="topics" title="Topics" data-toggle="" class="no-submenu">
+            <em class="fa fa-tags"></em>
+            <span class="item-text">Topics</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('lectures')}">
+          <a ui-sref="lectures" title="Lecture" data-toggle="" class="no-submenu">
+            <em class="fa fa-file-video-o"></em>
+            <span class="item-text">Lectures</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('quizzes')}">
+          <a ui-sref="quizzes" title="Quizzes" data-toggle="" class="no-submenu">
+            <em class="fa fa-question"></em>
+            <span class="item-text">Quizzes</span>
+          </a>
+        </li>
+
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+
+    <li ng-class="{active: isGroupActive('menu')}" ng-if="!isAdmin()" ti-app="restaurant">
+      <a href="" title="Menu" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">{{'SIDEBAR_MENU' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('menu')}">
+        <li ng-class="{active: isItemActive('categories')}">
+          <a ui-sref="categories" title="Categories" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MENU_CATEGORIES' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('items')}">
+          <a ui-sref="items({category: 'all'})" title="Menu Items" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MENU_MENU_ITEMS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('offers')}">
+          <a ui-sref="offers" title="Offers" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MENU_OFFERS' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-class="{active: isGroupActive('catalogue-products')}" ng-if="!isAdmin()" ti-app="catalogue">
+      <a href="" title="Product" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-product-hunt"></em>
+        <span class="item-text">{{'SIDEBAR_PRODUCT' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('catalogue-products')}">
+        <li ng-class="{active: isItemActive('simple-lists')}">
+          <a ui-sref="simpleLists" title="Lists" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_SIMPLE_LISTS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('catalogue-categories')}">
+          <a ui-sref="catalogueCategories" title="Categories" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MENU_CATEGORIES' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('products')}">
+          <a ui-sref="products({category: 'all'})" title="Menu Items" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MENU_PRODUCTS_ITEMS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('s3downloads')}" ng-if="false">
+          <a ui-sref="s3downloads" title="S3Downloads" data-toggle="" class="no-submenu">
+            <span class="item-text">S3Downloads</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-class="{active: isGroupActive('restaurant')}" ng-if="!isAdmin()" ti-app="restaurant,local-business">
+      <a href="" title="My Restaurant" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-dot-circle-o"></em>
+        <span class="item-text">{{'SIDEBAR_MY_RESTAURANT' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('restaurant')}">
+        <li ng-class="{active: isItemActive('pages')}">
+          <a ui-sref="pages" title="Pages" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MY_RESTAURANT_PAGES' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('reviews')}">
+          <a ui-sref="reviews" title="Reviews" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_MY_RESTAURANT_REVIEWS' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-class="{active: isGroupActive('push')}" ti-app="lectures,local-business">
+      <a ui-sref="push" title="Push" data-toggle="collapse-next" class="no-submenu">
+        <em class="fa fa-bullhorn"></em>
+        <span class="item-text">{{'SIDEBAR_PUSH' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('account')}" ng-if="!isAdmin() && false" ti-app="restaurant,local-business">
+      <a href="" title="Account" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-gears"></em>
+        <span class="item-text">{{'SIDEBAR_ACCOUNT' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('account')}">
+        <li ng-class="{active: isItemActive('business')}">
+          <a ui-sref="business" title="Business" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_ACCOUNT_BUSINESS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('photos')}">
+          <a ui-sref="photos" title="Photos" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_ACCOUNT_PHOTOS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('invoice')}">
+          <a ui-sref="invoice" title="Invoice" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_ACCOUNT_INVOICE' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('contact')}">
+          <a ui-sref="contact" title="Contact" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_ACCOUNT_CONTACT' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+
+    <li ng-class="{active: isGroupActive('business')}" ng-if="!isAdmin()" ti-app="restaurant,local-business,catalogue">
+      <a href="" title="Business" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-gears"></em>
+        <span class="item-text">{{'SIDEBAR_BUSINESS' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('business')}">
+        <li ng-class="{active: isItemActive('businesses-info')}">
+          <a ui-sref="businesses_info" title="Business" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_BUSINESS_BUSINESS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('businesses-photos')}">
+          <a ui-sref="businesses_photos" title="Photos" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_BUSINESS_PHOTOS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('businesses-invoice')}">
+          <a ui-sref="businesses_invoice" title="Invoice" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_BUSINESS_INVOICE' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('businesses-contact')}">
+          <a ui-sref="businesses_contact" title="Contact" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_BUSINESS_CONTACT' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-show="isAdmin()" ng-class="{active: isGroupActive('admin')}">
+      <a href="/admin" ng-class="{active: isActive('/admin')}" class="no-submenu">
+        <em class="fa fa-users"></em>
+        <span class="item-text">Administration</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('restaurant-advanced')}" ng-if="!isAdmin()" ti-app="restaurant,catalogue">
+      <a href="" title="Restaurant / Advanced options " data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-plus"></em>
+        <span class="item-text">{{'SIDEBAR_ADVANCED' | translate}}</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('restaurant-advanced')}">
+        <li ng-class="{active: isItemActive('applications')}">
+          <a ui-sref="applications" title="Applications" data-toggle="" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_APPLICATIONS' | translate}}</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('clients')}">
+          <a ui-sref="clients" title="Clients" data-toggle="collapse-next" class="no-submenu">
+            <span class="item-text">{{'SIDEBAR_CLIENTS' | translate}}</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+
+
+    <li ng-class="{active: isGroupActive('applications')}" ti-app="lectures,local-business">
+      <a ui-sref="applications" title="Applications" data-toggle="" class="no-submenu">
+        <em class="fa fa-cubes"></em>
+        <span class="item-text">{{'SIDEBAR_APPLICATIONS' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('downloads')}" ti-app="lectures,local-business">
+      <a ui-sref="downloads()" title="Downloads" data-toggle="" class="no-submenu">
+        <em class="fa fa-download"></em>
+        <span class="item-text">{{'SIDEBAR_DOWNLOADS' | translate}}</span>
+      </a>
+    </li>
+
+
+    <li ng-class="{active: isGroupActive('platform-orders')}" ng-if="false">
+      <a ui-sref="platform_orders" title="Platform Orders" data-toggle="" class="no-submenu">
+        <span class="item-text">{{'SIDEBAR_PLATFORM_ORDERS' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('my-orders')}" ng-if="false">
+      <a ui-sref="my_orders" title="Platform Orders" data-toggle="" class="no-submenu">
+        <span class="item-text">{{'SIDEBAR_MY_ORDERS' | translate}}</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('clients')}" ti-app="lectures,local-business">
+      <a ui-sref="clients" title="Clients" data-toggle="collapse-next" class="no-submenu">
+        <em class="fa fa-mobile"></em>
+        <span class="item-text">{{'SIDEBAR_CLIENTS' | translate}}</span>
+      </a>
+    </li>
+
+    <li>
+      <a title="Languanges" data-toggle="collapse-next" class="has-submenu" ng-if="false">
+        <em class="fa fa-flag"></em>
+        <span class="item-text">Languanges</span>
+      </a>
+      <!-- Languages sub menu items -->
+      <ul class="nav collapse">
+        <li>
+          <a ng-click="onChangeLanguage('en')" title="English" data-toggle="" class="no-submenu">
+            <span class="item-text">English</span>
+          </a>
+        </li>
+        <li>
+          <a ng-click="onChangeLanguage('de')" title="Germany" data-toggle="" class="no-submenu">
+            <span class="item-text">Germany</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li ng-if="isAdmin()" ng-class="{active: isGroupActive('backup-restore')}" style="display: block!important">
+      <a ui-sref="backup-restore" title="Backup and Restore" data-toggle="" class="no-submenu">
+        <em class="fa fa-hdd-o"></em>
+        <span class="item-text">Backup and Restore</span>
+      </a>
+    </li>
+
+  </ul>
+</nav>
+<!-- END Sidebar (left)-->

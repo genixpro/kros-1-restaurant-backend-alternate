@@ -1,0 +1,108 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('offers.add'), 'csspinner traditional': ui.inProgress }">
+  <div class="panel-heading">{{'OFFERS_ADD_PANEL_HEADING' | translate}}</div>
+
+  <form role="form" name="addForm">
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_NAME_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'OFFERS_ADD_FORM_NAME_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.name" required>
+      </div>
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_INTRO_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'OFFERS_ADD_FORM_INTRO_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.intro">
+      </div>
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_DESCRIPTION_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'OFFERS_ADD_FORM_DESCRIPTION_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.description">
+      </div>
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_ΙΤΕΜ_LABEL' | translate}}</label>
+        <select ng-model="data.model.item" ng-options="item.name for item in data.items" class="form-control">
+          <option value="">-- {{'OFFERS_ADD_FORM_ΙΤΕΜ_NO_ITEM_OPTION' | translate}} --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_PRICES_LABEL' | translate}} *</label> <a title="Add more prices" class="pull-right" ng-click="addPriceInputs()">{{'OFFERS_ADD_FORM_PRICES_ADD' | translate}}</a>
+
+        <table class="table-condensed">
+          <tr>
+            <th>{{'OFFERS_ADD_FORM_PRICES_TYPE_LABEL' | translate}}</th>
+            <th>{{'OFFERS_ADD_FORM_PRICES_PRICE_LABEL' | translate}}</th>
+            <th></th>
+          </tr>
+
+          <tr ng-repeat="price in data.prices">
+            <td>
+              <input class="form-control" type="text" ng-model="price.name" value="" placeholder="{{'OFFERS_ADD_FORM_PRICES_TYPE_PLACEHOLDER' | translate}}" required>
+            </td>
+            <td>
+              <input class="form-control" type="number" ng-model="price.value" value="" placeholder="{{'OFFERS_ADD_FORM_PRICES_PRICE_PLACEHOLDER' | translate}}" required>
+            </td>
+            <td>
+              <button ng-if="$index>0" type="button" class="btn btn-danger btn-xs pull-right" ng-click="removePriceInputs($index)">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="form-group">
+        <label>{{'OFFERS_ADD_FORM_PHOTO_LABEL' | translate}}</label>
+
+        <div class="well">
+          <p>
+            <div ng-repeat="image in data.uploadedImages">
+              <img ng-src="{{image.file.path}}" class="img-responsive img-thumbnail" alt="Uploaded Image" width="100%" ng-file-drop="onFileSelect($files)">
+            </div>
+          </p>
+          <p ng-if="data.uploadedImages.length">
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteImage(category)">
+              <span aria-hidden="true">&times;</span>
+              <span>{{'OFFERS_ADD_FORM_PHOTO_DELETE' | translate}}</span>
+            </button>
+          <p>
+          <div ng-file-drop="onFileSelect($files)"
+               ng-file-select="onFileSelect($files)"
+               ng-file-drag-over-class="bg-success"
+               ng-show="dropSupported"
+               class="drop-box">
+               {{'OFFERS_ADD_FORM_PHOTO_PLACEHOLDER' | translate}}
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true"
+               ng-show="!dropSupported">
+               {{'OFFERS_ADD_FORM_HTML5_DROP' | translate}}
+               <input type="file" name="image" ng-model="item.file" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{category.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+        </div> <!-- /.well -->
+      </div><!-- /.form-group (photo) -->
+
+      <div class="checkbox c-checkbox">
+        <label>
+          <input type="checkbox" ng-model="data.model.active">
+          <span class="fa fa-check"></span>{{'OFFERS_ADD_FORM_PRICES_ACTIVE_LABEL' | translate}}
+        </label>
+      </div>
+      <span class="help-block" style="margin-left: 25px; font-size: 12px; margin-top: -8px">{{'OFFERS_ADD_FORM_PRICES_ACTIVE_DESCRIPTION' | translate}}</span>
+
+      <div class="required">* {{'OFFERS_ADD_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(addForm.$valid) ? false : true" class="btn btn-success" ng-click="save()">{{'OFFERS_ADD_FORM_SAVE_BUTTON' | translate}}</button>
+      <button ui-sref="offers" class="btn btn-warning">{{'OFFERS_ADD_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  </form>
+</div>

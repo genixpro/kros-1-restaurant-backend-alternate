@@ -1,0 +1,51 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('downloads.details') }">
+  <div class="panel-heading">
+    {{data.model.purchaseId}}
+    <a href title="Edit this platform order" class="fa fa-edit pull-right" ui-sref="platform_orders.update({id: data.model._id})"></a>
+  </div>
+  
+  <div class="panel-body">
+    <div ng-if="data.model.runningNo">
+      <label>{{'PLATFORM_ORDERS_DETAILS_RUNNINGNO_LABEL' | translate}}</label>: <span>{{data.model.runningNo}}</span>
+    </div>
+    <div ng-if="data.model.purchaseDate">
+      <label>{{'PLATFORM_ORDERS_DETAILS_PURCHASEDATE_LABEL' | translate}}</label>: <span>{{data.model.purchaseDate.date | amDateFormat:'DD MMM YYYY HH:mm'}}</span>
+    </div>
+    <div ng-if="data.model.productId">
+      <label>{{'PLATFORM_ORDERS_DETAILS_PRODUCTID_LABEL' | translate}}</label>: <span>{{data.model.productId}}</span>
+    </div>
+    <div ng-if="data.model.quantity">
+      <label>{{'PLATFORM_ORDERS_DETAILS_QUANTITY_LABEL' | translate}}</label>: <span>{{data.model.quantity}}</span>
+    </div>
+    <div ng-if="data.model.name">
+      <label>{{'PLATFORM_ORDERS_DETAILS_NAME_LABEL' | translate}}</label>: <span>{{data.model.name}}</span>
+    </div>
+    <div ng-if="data.model.email">
+      <label>{{'PLATFORM_ORDERS_DETAILS_EMAIL_LABEL' | translate}}</label>: <span>{{data.model.email}}</span>
+    </div>
+    <div ng-if="data.model.additionalEmails.length">
+      <label>{{'PLATFORM_ORDERS_DETAILS_ADDITIONALEMAILS_LABEL' | translate}}</label>: <span ng-repeat="email in data.model.additionalEmails track by $index">{{email}}{{$last ? '' : ', '}}</span>
+    </div>
+    <div ng-if="data.model.company">
+      <label>{{'PLATFORM_ORDERS_DETAILS_COMPANY_LABEL' | translate}}</label>: <span>{{data.model.company}}</span>
+    </div>
+    <div ng-if="data.model.street">
+      <label>{{'PLATFORM_ORDERS_DETAILS_STREET_LABEL' | translate}}</label>: <span>{{data.model.street}}</span>
+    </div>
+    <div ng-if="data.model.country">
+      <label>{{'PLATFORM_ORDERS_DETAILS_COUNTRY_LABEL' | translate}}</label>: <span>{{data.model.country}}</span>
+    </div>
+    <div ng-if="data.model.city">
+      <label>{{'PLATFORM_ORDERS_DETAILS_CITY_LABEL' | translate}}</label>: <span>{{data.model.city}}</span>
+    </div>
+    <div ng-if="data.model.zip">
+      <label>{{'PLATFORM_ORDERS_DETAILS_ZIP_LABEL' | translate}}</label>: <span>{{data.model.zip}}</span>
+    </div>
+    <div ng-if="data.model.notes">
+      <label>{{'PLATFORM_ORDERS_DETAILS_NOTES_LABEL' | translate}}</label>: <span>{{data.model.notes}}</span>
+    </div>
+  
+  </div>
+
+
+</div>

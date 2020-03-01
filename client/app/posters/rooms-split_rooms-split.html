@@ -1,0 +1,287 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Reschedule Posters
+      <br>
+      <small>Move poster between rooms</small>
+    </h3>
+    <div ng-switch on="postersRoomsSplit.Rooms.length > 0">
+      <div  ng-switch-when="true">
+      <!--left room-->
+      <div class="col-md-6 main">
+        <div class="panel panel-default">
+          <div id="left-room"
+               class="panel-body"
+               data-drop="true"
+               data-position="left"
+               data-jqyoui-options="{hoverClass: 'bg-drop', tolerance: 'pointer'}"
+               jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropRoom'}">
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Select Category of Rooms</label>
+              <ui-select ng-model="postersRoomsSplit.selectedCategory.left"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.changeSelectedRoom('left')">
+                <ui-select-match  placeholder="Select an room...">{{$select.selected}}</ui-select-match>
+                <ui-select-choices repeat="category in postersRoomsSplit.categories | filter: $select.search">
+                  <span  no-enter="true" ng-bind-html="category"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Room</label>
+              <ui-select ng-model="postersRoomsSplit.currentRoom.left"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.selectionOnRoom()">
+                <ui-select-match  placeholder="Select an room...">{{postersRoomsSplit.currentRoom.left.title}} - {{postersRoomsSplit.currentRoom.left.roomName}}</ui-select-match>
+                <ui-select-choices repeat="room in postersRoomsSplit.Rooms | roomByCategory: postersRoomsSplit.selectedCategory.left | filter: $select.search">
+                  <span  no-enter="true" ng-model="room.title" ng-bind-html="room.title | highlight: $select.search">{{room.title}} - {{room.roomName}}</span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <!--
+               - TODO: Do we need a date control any more?
+               - -->
+            <div class="display-inline-block vertical-align-top" style="display:none">
+              <label>Date</label>
+              <input class="form-control" type="text" id="left-datepicker">
+            </div>
+
+            <script type="text/ng-template" id="split_posterPopoverTemplate.html">
+
+                <!--
+                <span class="poster-title">{{poster.title}}</span><br/>
+                -->
+                <h5 style="min-width: 260px">{{poster.title}}</h5>
+                <p data-ng-hide="poster.startDate"><small><em>The date and time have not yet assigned</em></small></p>
+                <p data-ng-show="poster.startDate">{{poster.startDate | localdate | date :'MMM dd, yyyy, hh:mm a'}} - {{poster.startDate + poster.duration *60 * 1000 | localdate | date :'hh:mm a'}}</p>
+                <h6>Authors</h6>
+                <ul class="list-unstyled" style="margin-left:16px">
+                  <li ng-repeat="author in poster.authors" style="line-height: 150%">
+                      <small class="text-muted">{{author.firstName}} {{author.lastName}} </small>
+                  </li>
+                </ul>
+                <h6>Institutions</h6>
+                <ul class="list-unstyled" style="margin-left:16px">
+                  <li ng-repeat="author in poster.authors" style="line-height: 150%">
+                      <small class="text-muted">{{author.institution}} </small>
+                  </li>
+                </ul>
+            </script>
+
+
+            <div class="block-monitors">
+              <div class="monitors-in-room" data-ng-class="{'smaller-width': postersRoomsSplit.PostersOnRoomWithoutMonitor.left}">
+                <div class="monitors-container sortable-poster display-inline-block vertical-align-top" data-ng-repeat="monitor in postersRoomsSplit.currentRoom.left.monitors">
+
+                  <div data-index="{{$index}}"
+                       data-position="left"
+                       data-drop="true"
+                       jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropMonitor'}"
+                       data-jqyoui-options="{revert: true, greedy: true, hoverClass: 'bg-drop', tolerance: 'pointer'}"
+                       class="panel panel-default monitor monitor-{{postersRoomsSplit.monitorOverflow.left[$index]}}">
+
+                       <div class="panel-heading">
+                         <small class="text-muted">{{monitor.title}}</small>
+                         <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+                           <em class="fa fa-minus"></em>
+                         </a>
+                       </div>
+
+                       <div class="panel-wrapper collapse in" style="height: auto;">
+                         <div class="panel-body">
+
+                           <div ui-sortable="postersRoomsSplit.sortableOptions"
+                                data-ng-model="postersRoomsSplit.eventMonitor.left[$index]"
+                                class="floatingList"
+                                data-index="{{$index}}"
+                                data-position="left"
+                               >
+                             <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.left[$index]"
+                                  data-id="{{poster._id}}"
+                                  data-position="left"
+                                  class="item poster-wrapper panel"
+                                  ng-class="{'allocates-selected-poster': poster._id == postersRoomsSplit.selectedPoster}"
+
+                                  popover-template="postersRoomsSplit.posterDynamicPopover.templateUrl"
+                                  popover-placement="right"
+                                  popover-trigger="click"
+                                  >
+                             <small>{{poster.code}}</small>
+                             </div>
+                           </div>
+
+                         </div> <!-- /.panel-body -->
+                       </div> <!-- /.panel-wrapper collapse -->
+
+
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="posters-in-room">
+                <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.left['-1']"
+                     data-id="{{poster._id}}"
+                     data-drag="true"
+                     jqyoui-draggable="{animate:false}"
+                     data-jqyoui-options="{revert: true, revertDuration: 0}"
+                     class="item poster-wrapper panel"
+
+                     popover-template="postersRoomsSplit.posterDynamicPopover.templateUrl"
+                     popover-placement="top"
+                     popover-trigger="click"
+                     >
+                     <span class="label label-default ng-binding">{{poster.code}}</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary count-button" ng-click="">{{postersRoomsSplit.PostersOnRoomWithoutMonitor.left}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- right room -->
+      <div class="col-md-6 main">
+        <div class="panel panel-default">
+          <div id="right-room"
+               class="panel-body"
+               data-position="right"
+               data-drop="true"
+               data-jqyoui-options="{hoverClass: 'bg-drop', tolerance: 'pointer'}"
+               jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropRoom'}">
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Select Category of Rooms</label>
+              <ui-select ng-model="postersRoomsSplit.selectedCategory.right"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.changeSelectedRoom('right')">
+                <ui-select-match  placeholder="Select an room...">{{$select.selected}}</ui-select-match>
+                <ui-select-choices repeat="category in postersRoomsSplit.categories | filter: $select.search">
+                  <span  no-enter="true" ng-bind-html="category"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Room</label>
+
+              <ui-select ng-model="postersRoomsSplit.currentRoom.right"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.selectionOnRoom()">
+                <ui-select-match  placeholder="Select an room...">{{postersRoomsSplit.currentRoom.right.title}} - {{postersRoomsSplit.currentRoom.right.roomName}}</ui-select-match>
+                <ui-select-choices repeat="room in postersRoomsSplit.Rooms | roomByCategory: postersRoomsSplit.selectedCategory.right | filter: $select.search">
+                  <span  no-enter="true" ng-model="room.title" ng-bind-html="room.title">{{room.title}} - {{room.roomName}}</span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <!--
+               - TODO: Do we need a date control any more?
+               - -->
+            <div class="display-inline-block vertical-align-top" style="display:none">
+              <label>Date</label>
+              <input class="form-control" type="text" id="right-datepicker">
+            </div>
+
+
+
+            <div class="block-monitors">
+              <div class="monitors-in-room" data-ng-class="{'smaller-width':  postersRoomsSplit.PostersOnRoomWithoutMonitor.right}">
+                <div class="monitors-container sortable-poster display-inline-block vertical-align-top" data-ng-repeat="monitor in postersRoomsSplit.currentRoom.right.monitors">
+
+                  <div data-index="{{$index}}"
+                       data-position="right"
+                       data-drop="true"
+                       jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropMonitor'}"
+
+                       data-jqyoui-options="{revert: true, greedy: true, hoverClass: 'bg-drop', tolerance: 'pointer'}"
+                       class="panel panel-default monitor monitor-{{postersRoomsSplit.monitorOverflow.right[$index]}}">
+
+                       <div class="panel-heading">
+                         <small class="text-muted">{{monitor.title}}</small>
+                         <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+                           <em class="fa fa-minus"></em>
+                         </a>
+                       </div>
+
+                       <div class="panel-wrapper collapse in" style="height: auto;">
+                         <div class="panel-body">
+
+                           <div ui-sortable="postersRoomsSplit.sortableOptions"
+                                data-ng-model="postersRoomsSplit.eventMonitor.right[$index]"
+                                class="floatingList"
+                                data-index="{{$index}}"
+                                data-position="right"
+                               >
+                             <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.right[$index]"
+                                  data-id="{{poster._id}}"
+                                  data-position="right"
+                                  class="item poster-wrapper panel"
+
+                                  popover-template="postersRoomsSplit.posterDynamicPopover.templateUrl"
+                                  popover-placement="right"
+                                  popover-trigger="click"
+                                  >
+                                  <small>{{poster.code}}</small>
+                             </div>
+                           </div>
+
+                         </div> <!-- /.panel-body -->
+                       </div> <!-- /.panel-wrapper collapse -->
+
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="posters-in-room">
+                <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.right['-1']"
+                     data-id="{{poster._id}}"
+                     data-drag="true"
+                     jqyoui-draggable="{animate:false}"
+                     data-jqyoui-options="{revert: true, revertDuration: 0}"
+                     class="poster-wrapper panel"
+
+                     popover-template="postersRoomsSplit.posterDynamicPopover.templateUrl"
+                     popover-placement="top"
+                     popover-trigger="click"
+                     >
+                     <span class="label label-default ng-binding">{{poster.code}}</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary count-button" ng-click="">{{postersRoomsSplit.PostersOnRoomWithoutMonitor.right}}</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div ng-switch-default>
+        Sorry, we unable to load the content or there are less than two rooms.
+      </div>
+    </div>
+  </div>
+    <!-- END Page content-->
+    <!-- START Page footer-->
+    <footer ng-include="'app/posters/layout/footer.html'"></footer>
+    <!-- END Page Footer-->
+</section>

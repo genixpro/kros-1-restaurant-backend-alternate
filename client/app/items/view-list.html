@@ -1,0 +1,66 @@
+<div class="panel panel-default" ng-class="{'panel-danger': order.isDirty}">
+  <div class="panel-heading">{{'ITEMS_LIST_PANEL_HEADING' | translate}}
+    <select ng-model="selectedCategory"
+            ng-options="category.name for category in categories"
+            ng-show="!order.isDirty"
+            ng-change="changeselectedCategory()">
+            
+            
+      <option value="">-- {{'ITEMS_LIST_PANEL_HEADING_ALL_OPTION' | translate}} --</option>
+    </select>
+
+    <a ui-sref="items.add"
+       title="Add Menu item"
+       class="pull-right"
+       ng-show="!order.isDirty">{{'ITEMS_LIST_PANEL_ADD' | translate}}</a>
+
+    <div class="btn-group pull-right" ng-show="order.isDirty">
+      <button type="button" class="btn btn-success btn-xs" ng-click="saveOrder()">
+        {{'ITEMS_LIST_PANEL_SAVE_ORDER' | translate}}
+      </button>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="cancelOrder()">
+        {{'ITEMS_LIST_PANEL_CANCEL_ORDER' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+  <div class="panel-body">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the news when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'ITEMS_LIST_TABLE_NAME' | translate}}</th>
+              <th>{{'ITEMS_LIST_TABLE_CATEGORY' | translate}}</th>
+              <th class="cell-actions">{{'ITEMS_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+
+          <tbody ui-sortable="sortableOptions" ng-model="data.records">
+            <tr ng-repeat="record in data.records" ng-controller="ItemsItemCtrl">
+              <td ng-bind="record.name" ui-sref="items.details({id: record._id})"></td>
+              <td><span class="label label-default">{{record.category.name}}</span>  </td>
+              
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="items.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'ITEMS_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteItem(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'ITEMS_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Say sorry when we are not able to display the news -->
+      <div ng-switch-default>
+        {{'ITEMS_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    </div>
+  </div><!-- //.panel-body -->
+
+</div>

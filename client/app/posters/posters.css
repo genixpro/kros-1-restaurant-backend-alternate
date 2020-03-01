@@ -1,0 +1,298 @@
+@import '../../bower_components/jquery-ui/themes/smoothness/jquery-ui.css';
+
+
+.poster-wrapper{
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.btn-posterEdit{
+  margin-left: 1000px;
+}
+.poster-inf{
+  display: block;
+  margin-left: 20px;
+}
+.inp-search{
+  margin-bottom: 20px;
+}
+.panel-listP{
+  height: 39px;
+}
+.room-select{
+  width: 433px;
+}
+
+/*
+ * Posters / Monitors
+ */
+.screen-monitors{
+
+}
+
+.screen-monitors .poster-title{
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.monitors-container{
+  width: 30%;
+}
+
+.monitor{
+  /*width: 260px;*/
+  /*min-height: 200px;*/
+  /*min-height: 150px;*/
+  margin-right:12px ;
+}
+.block-monitors{
+  margin-top: 50px;
+  position: relative;
+/*margin-left: 180px;*/
+}
+.btn-room{
+
+}
+.float-right{
+    float: right;
+    cursor: pointer;
+}
+.display-inline-block{
+    display: inline-block;
+}
+.vertical-align-top{
+    vertical-align: top;
+}
+
+.count-div{
+  vertical-align: bottom;
+  /*position: relative;*/
+  height: 32px;
+}
+.count-button{
+    bottom: 25px;
+    position: absolute;
+    right: 20px;
+}
+.monitors-in-room{
+    width: auto;
+    display: inline-block;
+    min-width: 90%;
+    max-width: 90%;
+}
+.posters-in-room{
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    min-width: 5%;
+    position: relative;
+    float: right;
+    margin-bottom: 25px
+}
+.posters-in-room div{
+    /*width: 200px;*/
+}
+.smaller-width{
+    width: calc(100% - 200px); /*200px this width in: .posters-in-room div*/
+}
+
+.affix {
+  top:70px;
+}
+.delimiter div{
+  width: 200px;
+}
+.delimiter label{
+  vertical-align: bottom;
+}
+.input-file{
+  padding: 5px 0;
+}
+.checkbox-disable{
+  opacity: 0.5;
+}
+.delimiter-input{
+  text-align: left;
+  box-shadow: 0 0 0 #000 !important;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #333;
+  background-color: #fff;
+  margin-bottom: 0;
+  font-weight: normal;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-color: #ccc;
+  white-space: nowrap;
+  padding: 6px 12px;
+  height: 34px;
+}
+input[type="checkbox"]{
+  vertical-align: middle;
+}
+
+/*
+ * Calendar Screen
+ * regulates INPUT to enter the date
+ */
+.picker {
+  width:230px;
+  margin-left:5px;
+}
+.datetimesmarker{
+  font-size:20px;
+  margin:0 0 0 5px;
+}
+.input-group-btn .btn {
+  line-height:20px;
+}
+/* /regulates INPUT to enter the date */
+
+/*
+ * Monitors Screen
+ * Make the Sortable to work with inline items
+ */
+.floatingList > .item {
+  float: left;
+  width: 70px;
+  margin: 3px;
+}
+
+/* /Make the Sortable to work with inline items */
+
+
+/*
+ * Posters list Screen
+ * button "Batch assignment"
+ */
+.margin-right-15 {
+  margin-right: 15px;
+}
+
+/* /button "Batch assignment" */
+
+
+/*
+ * Hide the non relative to posters menu entries in the side bar
+ * Temporary solution.
+
+nav > ul.nav > li:nth-child(3),
+nav > ul.nav > li:nth-child(4),
+nav > ul.nav > li:nth-child(5),
+nav > ul.nav > li:nth-child(6),
+nav > ul.nav > li:nth-child(7),
+nav > ul.nav > li:nth-child(8),
+nav > ul.nav > li:nth-child(9),
+nav > ul.nav > li:nth-child(11){
+   display: none;
+ }
+*/
+
+/*
+ * Monitors Screen / Room-split Screen
+ * allocate monitor on overflow posters
+ */
+.monitor-overflow {
+  border-color: #f35839 !important;
+}
+
+.monitor-filled {
+  border-color: #7bbf62 !important;
+}
+
+.monitor-empty {
+  border-color: #ff902b !important;
+}
+
+/* allocate monitor on overflow posters */
+
+/*
+ * Monitor Screen / Split-room Screen
+ * background to highlight the element on which will be committed dragging
+ */
+.bg-drop{
+  background: #e1e2e3;
+}
+
+/* background to highlight the element on which will be committed dragging */
+
+/*
+ * Monitor Screen
+ * background to highlight the selected poster
+ */
+.allocates-selected-poster{
+  background: #FEFF00;
+}
+/* background to highlight the selected poster*/
+
+/*
+ * Search Screen (view-list)
+ * style for pagination
+ */
+.pager .pagination span{
+  padding: 5px 14px;
+  border: none;
+  display: inline-block;
+}
+/* style for pagination*/
+
+/*
+ * Backup-restore Screen
+ * style for input[type='file']
+ */
+.panel-footer input[type="file"]{
+  padding: 5px 15px;
+  display: inline-block;
+}
+/* style for input[type='file']*/
+
+/*
+ * shedule Screen
+ * style for panel header with button 'print'
+ */
+.wide-panel-header{
+  display: inline-block;
+  margin: 7px;
+}
+/* style for table header with button 'print'*/
+
+/*
+ * shedule Screen
+ * style for print
+ */
+@media print {
+  .print-none {
+    display: none;
+  }
+  .print{
+    display: block!important;
+  }
+}
+.print {
+  display: none;
+}
+/* style for print*/
+
+/*
+ * postersList Screen
+ * style for authors form when drag-n-drop
+ */
+.width-100-percent {
+  width: 100%;
+}
+/* style for authors form when drag-n-drop */
+
+
+/*
+ * manageSession Screen
+ * style for error
+ */
+.color-red {
+  color: red;
+}
+/* style for error */
+

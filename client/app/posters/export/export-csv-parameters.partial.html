@@ -1,0 +1,53 @@
+<fieldset>
+	<legend>Delimiter</legend>
+	<div class="row">
+		<div class="col-lg-2">
+			<div class="checkbox c-checkbox">
+				<label>
+					<input type="checkbox" ng-true-value="'YES'" ng-false-value="'NO'" data-ng-model="exportCsv.checkbox">
+					<span class="fa fa-times"></span>Select</label>
+			</div>
+		</div>
+		<div class="col-lg-10">
+			<ui-select ng-model="exportCsv.currentDelimiter" class="display-inline-block vertical-align-top room-select" theme="bootstrap"
+			ng-disabled="exportCsv.checkbox == 'NO'" reset-search-input="false" on-select="exportCsv.changeDelimiter()">
+				<ui-select-match>{{exportCsv.currentDelimiter}}</ui-select-match>
+				<ui-select-choices repeat="delimiter in exportCsv.delimiter">
+					<span no-enter="true">{{delimiter}}</span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2">
+			<div class="checkbox c-checkbox">
+				<label>
+					<input type="checkbox" ng-true-value="'NO'" ng-false-value="'YES'" data-ng-model="exportCsv.checkbox">
+					<span class="fa fa-times"></span>or specify</label>
+			</div>
+		</div>
+		<div class="col-lg-10">
+			<input ng-model="exportCsv.currentDelimiter" class="delimiter-input" type="text" ng-disabled="exportCsv.checkbox == 'YES'"
+			ng-blur="exportCsv.changeDelimiter()" />
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Encoding</legend>
+	<div class="row">
+		<div class="col-lg-2">
+			<div class="">
+				<label>Encoding</label>
+			</div>
+		</div>
+		<div class="col-lg-10">
+			<ui-select ng-model="exportCsv.currentEncoding" class="display-inline-block vertical-align-top room-select" theme="bootstrap"
+			reset-search-input="false" on-select="exportCsv.csvFile()">
+				<ui-select-match>{{exportCsv.currentEncoding}}</ui-select-match>
+				<ui-select-choices repeat="encoding in exportCsv.encoding">
+					<span no-enter="true">{{encoding}}</span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+</fieldset>

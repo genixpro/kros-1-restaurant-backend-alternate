@@ -1,0 +1,31 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <button type="button" class="btn btn-primary pull-right" ui-sref="rooms.add">
+      <em class="fa fa-plus-circle fa-fw mr-sm"></em>Add Session</button>
+    <h3>Manage Sessions
+    </h3>
+    <div class="row">
+      <div class="col-md-6 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-6 main" ui-view="rightPane">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- END Page content-->
+
+  <!-- START Page footer-->
+  <footer>
+    <small><strong><a href="http://www.eposterslive.com/" target="_blank">ePosterSchedule is part of ePostersLive®</a></strong>. Copyright © 2010-2015 SciGen® Technologies. All rights reserved. ePostersLive, PosterGenius and SciGen are USPTO registered trademarks of SciGen Technologies.</small>
+  </footer>
+  <!-- END Page Footer-->
+</section>

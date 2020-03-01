@@ -1,0 +1,77 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('downloads.update'), 'csspinner traditional': ui.inProgress}">
+
+  <div class="panel-heading">{{'DOWNLOADS_EDIT_PANEL_HEADING' | translate}}</div>
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_TITLE_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'DOWNLOADS_EDIT_FORM_TITLE_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.name" required>
+      </div>
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_IDENTIFIER_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'DOWNLOADS_EDIT_FORM_IDENTIFIER_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.identifier">
+      </div>
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_DEMO_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'DOWNLOADS_EDIT_FORM_DEMO_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.demo">
+      </div>
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_WIKI_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'DOWNLOADS_EDIT_FORM_WIKI_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.wiki">
+      </div>
+
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_INFO_LABEL' | translate}}</label>
+        <textarea class="form-control ng-pristine ng-valid ng-touched" type="text" ng-model="data.model.info" value="" placeholder="{{'DOWNLOADS_EDIT_FORM_INFO_PLACEHOLDER' | translate}}">
+        </textarea>
+      </div>
+      <div class="form-group">
+        <label>{{'DOWNLOADS_EDIT_FORM_S3KEYS_LABEL' | translate}}</label> <a title="Add more s3Keys" class="pull-right" ng-click="addOptionInputs()">{{'DOWNLOADS_EDIT_FORM_S3KEYS_ADD_NEW_TITLE' | translate}}</a>
+        <div class="well">
+          <table class="table-condensed option-group-table s3-keys-table">
+              <tr>
+                <th>{{'DOWNLOADS_EDIT_FORM_S3KEYS_VERSION_TITLE' | translate}}</th>
+                <th>{{'DOWNLOADS_EDIT_FORM_S3KEYS_KEY_TITLE' | translate}}</th>
+                <th>{{'DOWNLOADS_EDIT_FORM_UPDATEINSTRUCTIONS_KEY_TITLE' | translate}}</th>
+                <th>{{'DOWNLOADS_EDIT_FORM_UPDATEINSTRUCTIONS_ISLATEST_TITLE' | translate}}</th>
+                <th></th>
+              </tr>
+              <tr ng-repeat="option in data.model.s3Keys">
+                <td>
+                  <input class="form-control" type="text" ng-model="option.version" value="" placeholder="{{'DOWNLOADS_EDIT_FORM_S3KEYS_VERSION_PLACEHOLDER' | translate}}">
+                </td>
+                <td>
+                  <input class="form-control" type="text" ng-model="option.key" value="" placeholder="{{'DOWNLOADS_EDIT_FORM_S3KEYS_KEY_PLACEHOLDER' | translate}}">
+                </td>
+                <td>
+                  <input class="form-control" type="text" ng-model="option.updateInstructions" value="" placeholder="{{'DOWNLOADS_EDIT_FORM_S3KEYS_UPDATEINSTRUCTIONS_PLACEHOLDER' | translate}}">
+                </td>
+                <td>
+                 <input type="checkbox" value="" ng-model="option.isLatest">
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeOptionInputs($index)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Remove</span>
+                  </button>
+                </td>
+              </tr>
+          </table>
+        </div><!-- /.well -->
+      </div><!-- /.form-group -->
+
+
+
+
+      <div class="required">* {{'DOWNLOADS_EDIT_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div>
+
+    <div class="panel-footer">
+      <button ng-disabled="(updateForm.$valid) ? false : true" class="btn btn-success" ng-click="update()">{{'DOWNLOADS_EDIT_FORM_UPDATE_BUTTON' | translate}}</button>
+      <button ui-sref="downloads.details({id: data.model._id})" class="btn btn-warning">{{'DOWNLOADS_EDIT_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+
+  </form>
+
+
+</div>

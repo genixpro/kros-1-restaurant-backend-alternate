@@ -1,0 +1,21 @@
+<div class="panel panel-default"
+  ng-class="{ active: $state.includes('catalogueCategories.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this category" class="fa fa-edit pull-right"
+      ui-sref="simpleLists.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <h4>Body</h4>
+    <pre>{{data.model.body}}</pre>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary"
+      ui-sref="simpleLists.update({id: data.model._id})">{{'SIMPLELISTS_DETAILS_EDIT_BUTTON' | translate}}
+    </button>
+  </div>
+
+</div>

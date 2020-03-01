@@ -1,0 +1,31 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('catalogueCategories.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this category" class="fa fa-edit pull-right" ui-sref="catalogueCategories.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <h4>Description</h4>
+    <p>
+      {{data.model.description}}
+    </p>
+    <h4>Parent category</h4>
+    <p>
+     Name: {{data.model.parentCategory.name}}
+    </p>
+    <h4>Featured</h4>
+    <p>
+     Featured: {{data.model.featured ?'Yes':'No'}}
+    </p>
+
+    <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="catalogueCategories.update({id: data.model._id})">{{'CATEGORIES_DETAILS_EDIT_BUTTON' | translate}}</button>
+  </div>
+
+</div>

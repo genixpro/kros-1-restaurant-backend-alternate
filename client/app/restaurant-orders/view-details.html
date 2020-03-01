@@ -1,0 +1,131 @@
+  <p class="no-print">
+    <a ui-sref="restaurant_orders({status: 'all'})" class="return-back print {{ui.ref}} btn btn-primary" ng-class="{'btn btn-primary': ui.ref=='back'}"><em class="fa fa-reply"></em> Return back to orders list</a>
+  </p>
+  <div class="panel">
+    <div class="panel-body">
+      <button type="button" class="pull-right btn btn-default btn-sm">{{'RESTAURANT_ORDER_DETAILS_COPY_INVOICE' | translate}}</button>
+      <h3>{{order.deliveryMethod | translate}}</h3>
+      <h3 class="mt0">{{'RESTAURANT_ORDER_DETAILS_ORDER' | translate}} {{order.friendlyID}}</h3>
+      <span class="label label-default ng-binding no-print"
+        ng-class="{'label-success': (order.status === 'STATUS_DELIVERED'), 'label-info': (order.status === 'STATUS_NEW'), 'label-warning': (order.status === 'STATUS_CANCELED')}">
+        {{order.status | translate}}</span>
+      <hr>
+      <div class="row mb-lg">
+        <div class="col-lg-4 col-xs-12 br pv no-print">
+          <div class="row">
+            <div class="col-md-2 text-center visible-md visible-lg">
+              <em class="fa fa-envelope fa-3x text-muted"></em>
+            </div>
+            <div class="col-md-10">
+              <h4>{{order.restaurant.name}}</h4>
+              <address>{{order.restaurant.address}}</address>
+              <br>{{order.restaurant.city}}, {{order.restaurant.zip}}
+              <br>{{order.restaurant.country}}</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-12 br pv">
+          <div class="row">
+            <div class="col-md-2 text-center visible-md visible-lg">
+              <em class="fa fa-truck fa-3x text-muted"></em>
+            </div>
+            <div class="col-md-10">
+              <h4>{{order.shipping.fullname}}</h4>
+              <address>{{order.shipping.address}}</address>
+              <br>{{order.shipping.city}}, {{order.shipping.zip}}
+              <br>{{order.shipping.country}}
+              <br><span ng-if="(order.deliveryMethod==='METHOD_DELIVERY') && order.shipping.floor">Floor: {{order.shipping.floor}}</span>
+              <br><span ng-if="(order.deliveryMethod==='METHOD_DELIVERY')">Location: {{order.shipping.coords.lat}}, {{order.shipping.coords.lon}}</span>
+              <br>{{order.shipping.phone}}
+              </div>
+          </div>
+        </div>
+        <div class="clearfix hidden-md hidden-lg">
+          <hr>
+        </div>
+        <div class="col-lg-4 col-xs-12 pv">
+          <div class="clearfix">
+            <p class="pull-left">{{'RESTAURANT_ORDER_DETAILS_ORDER_NO' | translate}}</p>
+            <p class="pull-right mr">{{order.friendlyID}}</p>
+          </div>
+          <div class="clearfix">
+            <p class="pull-left">{{'RESTAURANT_ORDER_DETAILS_DATE' | translate}}</p>
+            <p class="pull-right mr">{{order.date | localdate | date:'d MMMM yyyy'}}</p>
+          </div>
+          <div class="clearfix" style="display:none">
+            <p class="pull-left">{{'RESTAURANT_ORDER_DETAILS_DUE_DATE' | translate}}</p>
+            <p class="pull-right mr">{{order.date | localdate | date:'d MMMM yyyy'}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive table-bordered mb-lg">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="no-print">{{'RESTAURANT_ORDER_DETAILS_ITEM_#' | translate}}</th>
+              <th>{{'RESTAURANT_ORDER_DETAILS_DESCRIPTION' | translate}}</th>
+              <th><span class="no-print">{{'RESTAURANT_ORDER_DETAILS_QUANTITY' | translate}}</span><span class="print-only">QTY</span></th>
+              <th>{{'RESTAURANT_ORDER_DETAILS_UNIT_PRICE' | translate}}</th>
+              <th class="hidden">{{'RESTAURANT_ORDER_DETAILS_TAX_%' | translate}}</th>
+              <th class="text-right">{{'RESTAURANT_ORDER_DETAILS_TOTAL' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in order.items">
+              <td class="no-print">{{$index+1}}</td>
+              <td><span class="product-name">{{item.name}}</span> <br> <pre class="item-description">{{item.description}}</pre></td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.unitPrice | currency : "€"}}</td>
+              <td class="hidden">{{item.tax.value}}%</td>
+              <td class="text-right">{{item.totalPrice | currency : "€"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-sm-8 pv">
+            <p class="pull-left">{{order.notes}}</p>
+        </div>
+        <div class="col-sm-4 pv">
+          <div class="clearfix hidden">
+            <p class="pull-left">{{'RESTAURANT_ORDER_DETAILS_SUBTOTAL' | translate}}</p>
+            <p class="pull-right mr">{{order.netTotal | currency : "€"}}</p>
+          </div>
+          <div class="clearfix hidden">
+            <div ng-repeat="t in order.tax" class="clearfix">
+              <p class="pull-left">{{'RESTAURANT_ORDER_DETAILS_TAX' | translate}} ({{t.percentage | percentage}})</p>
+              <p class="pull-right mr">{{t.value | currency : "€"}}</p>
+            </div>
+          </div>
+          <div class="clearfix">
+            <p class="pull-left h3">{{'RESTAURANT_ORDER_DETAILS_GRAND_TOTAL' | translate}}</p>
+            <p class="pull-right mr h3">{{order.grandTotal | currency : "€"}}</p>
+          </div>
+        </div>
+      </div>
+      <hr class="hidden-print">
+      <div class="clearfix" class="no-print">
+        <button type="button" class="btn btn-default pull-left mr" ng-click="open()">{{'RESTAURANT_ORDER_DETAILS_NEW' | translate}}</button>
+        <button type="button" class="btn btn-info pull-left mr" ng-click="progress()">{{'RESTAURANT_ORDER_DETAILS_PROGRESS' | translate}}</button>
+        <button type="button" class="btn btn-success pull-left mr" ng-click="shipped()">{{'RESTAURANT_ORDER_DETAILS_SHIPPED' | translate}}</button>
+        <button type="button" class="btn btn-success pull-left mr" ng-click="complete()">{{'RESTAURANT_ORDER_DETAILS_COMPLETE' | translate}}</button>
+        <button type="button" class="btn btn-warning pull-left mr" ng-click="cancel()">{{'RESTAURANT_ORDER_DETAILS_CANCEL' | translate}}</button>
+        <button type="button" class="btn btn-default pull-left mr" ng-click="archive()">{{'RESTAURANT_ORDER_DETAILS_ARCHIVE' | translate}}</button>
+        <button type="button" onclick="window.print();" class="btn btn-default pull-left">{{'RESTAURANT_ORDER_DETAILS_PRINT' | translate}}</button>
+        <button type="button" class="btn btn-info pull-right">{{'RESTAURANT_ORDER_DETAILS_SEND_INVOICE' | translate}}</button>
+      </div>
+    </div>
+  </div>
+
+<!--
+<script>
+  $(document).ready(function(){
+
+  var interval = setTimeout(function(){
+    var a = window.print();
+
+    console.log("Print return %o", a);
+  },500);
+
+});
+</script>
+-->

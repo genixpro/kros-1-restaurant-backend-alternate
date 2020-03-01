@@ -1,0 +1,43 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('rooms.details') }">
+  <div class="panel-heading">
+    {{data.model.title}} <span class="label label-default ml">{{data.model.roomName}}</span>
+    <a href title="Edit this room" class="fa fa-edit pull-right" ui-sref="rooms.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <span class="label label-primary pull-right">{{data.model.startDate | localdate | date: 'yyyy-MM-dd hh:mm a'}}</span>
+    <p ng-bind="data.model.body"></p>
+    <p><span class="text-muted" >Presentation Duration: </span>{{data.model.presentationDuration}} <span class="text" > minutes</span></p>
+    <p><span class="text-muted" >Category: </span>{{data.model.category}}</p>
+    <div ng-repeat="item in data.model.availability">
+      <h5 class="text-muted" >Availability {{ $index + 1}}: <strong></strong></h5>
+      <div class="panel-body">
+        <p >{{item.startDate | localdate | date: 'MMM dd, hh:mm a' }} ~ {{item.endDate | localdate | date: 'MMM dd, hh:mm a'}}</p>
+      </div>
+    </div>
+    
+    <div> 
+      <table class="table-condensed">
+            <tr>
+              <th><strong>Monitor #</strong></th>
+              <th><strong>Description</strong></th>
+              <th></th>
+            </tr>
+
+            <tr ng-repeat="item in data.model.monitors">
+              <td>
+              <span class="text"> {{item.title}} </span>
+              </td>
+              <td>
+              <span class="text"> {{item.body}} </span>
+              </td>    
+            </tr>
+          </table>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="rooms.update({id: data.model._id})">Edit</button>
+  </div>
+</div>

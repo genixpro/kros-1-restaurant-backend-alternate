@@ -1,0 +1,105 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content" ng-class="{'csspinner traditional': clearBatchAssignment.ui.inProgress }" >
+
+    <button type="button" class="btn btn-danger pull-right" data-ng-click="clearBatchAssignment.onDelete()">
+      <em class="fa fa-trash-o fa-fw mr-sm "></em>Delete all posters</button>
+
+    <button type="button" class="btn btn-primary pull-right margin-right-15" ui-sref="posters.add">
+      <em class="fa fa-plus-circle fa-fw mr-sm"></em>Add Poster</button>
+
+    <button ng-if="clearBatchAssignment.mode == 'advanced'" type="button" class="btn btn-danger pull-right margin-right-15" data-ng-click="clearBatchAssignment.onClearAssignment()">
+      <em class="fa fa-trash-o fa-fw mr-sm "></em>Clear assignments</button>
+
+    <!-- Todo: Remove this and any related client and server side code -->
+    <button ng-if="false" type="button" class="btn btn-primary pull-right margin-right-15" data-ng-click="clearBatchAssignment.onBatchAssignment()">
+      <em class="fa fa-plus-circle fa-fw mr-sm "></em>Batch assignment</button>
+
+    <h3>Posters  List
+      <br>
+      <small>
+        List of Posters in the database.
+        <span ng-if="clearBatchAssignment.countPostersByPresentationType.length">
+          <span ng-repeat="countPoster in clearBatchAssignment.countPostersByPresentationType">{{countPoster.count}} {{countPoster._id}}<span ng-hide="$index == clearBatchAssignment.countPostersByPresentationType.length-1">, </span></span>.
+        </span>
+      </small>
+    </h3>
+    <div class="row">
+      <div ng-if="clearBatchAssignment.mode == 'advanced'" class="col-md-12 col-md main">
+        <div class="panel panel-default">
+          <div class="panel-heading">Assign panel
+            <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+              <em class="fa fa-minus"></em>
+            </a>
+          </div>
+          <div class="panel-wrapper collapse in" style="height: auto;">
+            <div class="panel-body">
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-md-6 col-md">
+                    <label>Select Posters</label>
+                    <ui-select ng-model="clearBatchAssignment.selectedPresentationType"
+                               class=""
+                               theme="bootstrap"
+                               ng-disabled="disabled"
+                               reset-search-input="false"
+                               on-select="">
+                      <ui-select-match  placeholder="Select an type...">
+                        <span >{{$select.selected._id}}</span>
+                        <span ng-show="$select.selected.count"> (non assigned: {{$select.selected.count}} )</span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="presentationType in clearBatchAssignment.presentationType">
+                        <span no-enter="true" ng-bind-html="presentationType._id"></span>
+                        <span ng-show="presentationType.count" no-enter="true" ng-bind-html="'(non assigned: '+presentationType.count+' )'"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="col-md-6 col-md">
+                    <label>Select Monitors</label>
+                    <ui-select ng-model="clearBatchAssignment.selectedCategories"
+                               class=""
+                               theme="bootstrap"
+                               ng-disabled="disabled"
+                               reset-search-input="false"
+                               on-select="">
+                      <ui-select-match  placeholder="Select an type...">{{$select.selected}}</ui-select-match>
+                      <ui-select-choices repeat="categories in clearBatchAssignment.categories">
+                        <span no-enter="true" ng-bind-html="categories"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+
+                </div> <!-- /.row -->
+              </div> <!-- /.form-group -->
+
+            </div><!-- /.panel-body -->
+            <div class="panel-footer">
+              <input type="button" class="btn btn-primary" ng-click="clearBatchAssignment.onBatchAssignment()" value="Proced with the assignment" ng-disabled=""/>
+            </div> <!-- /panel-footer -->
+
+          </div>
+        </div>
+      </div>
+    </div><!-- /.row -->
+
+    <div class="row">
+
+      <div class="col-md-6 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-6 main" ui-view="rightPane">
+      </div>
+
+    </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer ng-include="'app/posters/layout/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>

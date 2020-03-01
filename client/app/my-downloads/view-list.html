@@ -1,0 +1,80 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{'RESTAURANT_ORDER_LIST_PANEL_HEADING' | translate}}
+
+    <select ng-model="selectedStatus"
+            ng-options="status as status | translate for status in statuses"
+            ng-change="changeselectedStatus()">
+      >
+      <option value="">-- {{'RESTAURANT_ORDER_LIST_PANEL_HEADING_ALL_OPTION' | translate}} --</option>
+    </select>
+
+
+  </div>
+  <div class="panel-body">
+
+    <div ng-switch on="data.length > 0">
+      <!-- Display the news when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+          <tr role="row">
+            <th>Purchase Id</th>
+            <th>Purchase Date</th>
+            <th>Email</th>
+            <th>{{'RESTAURANT_ORDER_LIST_TABLE_ACTIONS' | translate}}</th>
+
+
+          </thead>
+
+          <tbody ng-init="openIndex=-1">
+          <tr ng-repeat="item in data" ui-sref="my_downloads.details({id:item._id})">
+            <td>{{item.purchaseId}}</td>
+            <td>{{item.purchaseDate | localdate | date:'d MMMM yyyy H:mm'}}</td>
+            <td>{{item.email}}</td>
+            <td>
+              <button ng-click="preview($index)" type="button" class="btn btn-default"><em class="fa fa-eye"></em></button>
+              <button type="button" ui-sref="restaurant_orders.details({id: item._id, ref:'print'})" class="btn btn-default"><em class="fa fa-print"></em></button>
+            </td>
+
+
+          </tr>
+          </tbody>
+        </table>
+
+        <!-- news pager -->
+        <ul class="pager">
+          <!-- Previous button when enabled-->
+          <li class="previous" ng-hide="paginator.previous()">
+            <a href ng-click="fetchData(currentPage-1)">{{'RESTAURANT_ORDER_LIST_PAGER_PREVIOUS' | translate}}</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="paginator.previous()">
+            <a href>{{'RESTAURANT_ORDER_LIST_PAGER_PREVIOUS' | translate}}</a>
+          </li>
+
+          <li>
+            page {{currentPage}} / {{totalPages}}
+          </li>
+
+          <!-- Next button when enabled-->
+          <li class="next" ng-hide="paginator.next()">
+            <a ng-click="fetchData(currentPage+1)">{{'RESTAURANT_ORDER_LIST_PAGER_NEXT' | translate}}</a>
+          </li>
+
+          <!-- Next button when disabled-->
+          <li class="next disabled" ng-show="paginator.next()">
+            <a href>{{'RESTAURANT_ORDER_LIST_PAGER_NEXT' | translate}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Say sorry when we are not able to display the news -->
+      <div ng-switch-default>
+        There are no data available.
+      </div>
+    </div>
+  </div><!-- //.panel-body -->
+
+</div>

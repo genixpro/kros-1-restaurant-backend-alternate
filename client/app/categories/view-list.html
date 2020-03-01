@@ -1,0 +1,56 @@
+<div class="panel panel-default" ng-class="{'panel-danger': order.isDirty}">
+  <div class="panel-heading">{{'CATEGORIES_LIST_PANEL_HEADING' | translate}}
+    <a ui-sref="categories.add" title="Add Category" class="pull-right" ng-show="!order.isDirty">{{'CATEGORIES_LIST_PANEL_ADD' | translate}}</a>
+    <div class="btn-group pull-right" ng-show="order.isDirty">
+      <button type="button" class="btn btn-success btn-xs" ng-click="saveOrder()">
+        {{'CATEGORIES_LIST_PANEL_SAVE_ORDER' | translate}}
+      </button>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="cancelOrder()">
+        {{'CATEGORIES_LIST_PANEL_CANCEL_ORDER' | translate}}
+      </button>
+    </div>
+
+  </div>
+
+  <div class="panel-body warning">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the records when available -->
+      <div ng-switch-when="true">
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'CATEGORIES_LIST_TABLE_NAME' | translate}}</th>
+              <th class="cell-actions">{{'CATEGORIES_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+
+          <tbody ui-sortable="sortableOptions" ng-model="data.records">
+            <tr ng-repeat="record in data.records" ng-controller="CategoriesItemCtrl">
+              <td ng-bind="record.name" ui-sref="categories.details({id: record._id})"></td>
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="categories.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'CATEGORIES_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteCategory(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'CATEGORIES_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <!-- Say sorry when we are not able to display the records -->
+      <div ng-switch-default>
+        {{'CATEGORIES_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+  <div class="panel-footer">
+    <p ng-show="order.isDirty">
+      {{'CATEGORIES_LIST_ORDER_CHANGED' | translate}}
+    </p>
+  </div>
+
+</div>

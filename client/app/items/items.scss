@@ -1,0 +1,12 @@
+.basic-options-table {
+  th:nth-child(2),
+  td:nth-child(2) {
+    max-width: 80px;
+  }
+}
+.extra-options-table {
+  th:nth-child(2),
+  td:nth-child(2) {
+    max-width: 110px;
+  }
+}

@@ -1,0 +1,99 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('products.details') }">
+  <div class="panel-heading">
+    {{data.model.title}}
+
+    <a href title="Edit this product" class="fa fa-edit pull-right" ui-sref="products.update({id: data.model._id})"></a>
+  </div>
+  <div class="panel-body">
+
+    <!-- <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p> -->
+
+    <div class="row">
+      <div ng-repeat="picture in data.model.pictures" class="image col-sm-6">
+        <img ng-if="picture" ng-src="{{picture}}" class="img-responsive img-thumbnail" alt="{{data.model.title}}"
+             width="100%">
+      </div>
+    </div>
+    <style>
+      .row > div.image:nth-child(odd) {
+        clear: both;
+      }
+    </style>
+
+
+    <p ng-bind="data.model.description"></p>
+
+    <div>
+      <h4>{{'PRODUCT_DETAILS_PRICE_LABEL' | translate}}</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr>
+            <th>{{data.model.price | currency}}</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h4>{{'PRODUCT_DETAILS_URL_LABEL' | translate}}</h4>
+      <ul>
+        <li>{{'PRODUCT_DETAILS_URL' | translate}}: <a href="{{data.model.url}}" target="_blank">{{data.model.url}}</a>
+        </li>
+        <li>{{'PRODUCT_DETAILS_PDFURL' | translate}}: <a href="{{data.model.pdfUrl}}" target="_blank">{{data.model.pdfUrl}}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>{{'PRODUCTS_LIST_TABLE_CATEGORY' | translate}}</h4>
+      <table class="table table-hover">
+        <tr>
+          <th>{{data.model.category.name}}</th>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <h4>{{'PRODUCT_ADD_FORM_CUSTOMFIELDS_LABEL' | translate}}</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr>
+            <th>{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL' | translate}}</th>
+            <th>{{'PRODUCT_ADD_FORM_CUSTOMFIELD_VALUE' | translate}}</th>
+            <th>{{'PRODUCT_ADD_FORM_CUSTOMFIELD_TYPE' | translate}}</th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="filed in data.model.customFields">
+            <td>
+              <span ng-bind="filed.name"></span>
+            </td>
+            <td>
+              <span ng-bind="filed.value"></span>
+            </td>
+            <td>
+              <span ng-bind="filed.valueType"></span>
+            </td>
+
+          </tr>
+
+        </table>
+      </div>
+    </div>
+
+
+    <div>
+      <h4>{{'PRODUCT_DETAILS_FEATURED_LABEL' | translate}}</h4>
+      <table class="table table-hover">
+        <tr>
+          <th>{{data.model.featured ?'Yes':'No'}}</th>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+  <!-- //.panel-body -->
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="products.update({id: data.model._id})">Edit</button>
+  </div>
+</div>

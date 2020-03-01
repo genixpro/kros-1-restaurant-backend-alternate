@@ -1,0 +1,28 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <div class="main-content platform-orders">
+    <button type="button" class="btn btn-primary pull-right" ui-sref="platform_orders.add">
+      <em class="fa fa-plus-circle fa-fw mr-sm"></em>{{'PLATFORM_ORDERS_PAGE_ADD_BUTTON' | translate}}
+    </button>
+    <h3>{{'PLATFORM_ORDERS_PAGE_HEADING' | translate}}
+      <br>
+      <small>{{'PLATFORM_ORDERS_PAGE_DESCRIPTION' | translate}}</small>
+    </h3>
+    <div class="row">
+      <div class="col-md-6 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-6 main" ui-view="rightPane">
+      </div>
+    </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer class="no-print" ng-include="'components/footer/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>

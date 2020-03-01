@@ -1,0 +1,25 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('applications.details') }">
+  <div class="panel-heading">
+    {{application.name}}
+    <small><em>({{typeName(application.type)}})</em></small>
+    <a href title="Edit this application" class="fa fa-edit pull-right"
+       ui-sref="applications.edit({id: application._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <p>Application ID: {{application._id}}</p>
+    <p ng-bind="application.description"></p>
+
+    <p>
+      Owners:
+    <ul>
+      <li ng-repeat="owner in owners">{{owner.email}}</li>
+    </ul>
+    </p>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="applications.edit({id: application._id})">Edit</button>
+  </div>
+</div>

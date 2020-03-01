@@ -1,0 +1,35 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('posters.details') }">
+  <div class="panel-heading">
+    {{data.model.code}}
+    <a href title="Edit this poster" class="fa fa-edit pull-right" ui-sref="posters.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <span class="label label-primary pull-right">{{data.model.presentationType}}</span>
+    <h4>{{data.model.title}}</h4>
+
+    <p><span class="text-muted" >Room: </span>{{selects.room.title}}</p>
+    <p><span class="text-muted" >Monitor: </span>{{selects.monitor.title}}</p>
+    <p><span class="text-muted" >Date: </span>{{selects.date | localdate | date:'d MMM yyyy'}}</p>
+    <p><span class="text-muted" >Time: </span>{{selects.startTime | localdate | date:'hh:mm a'}} <span class="text-muted">-</span> {{selects.endTime | localdate | date:'hh:mm a'}}</p>
+    <p><span class="text-muted" >Canceled: </span>{{data.model.isCanceled}}</p>
+    <div>
+      <table class="table-condensed">
+        <tr>
+          <th><strong>Authors</strong></th>
+        </tr>
+        <tr ng-repeat="item in selects.authors">
+          <td>
+            <span class="text"> {{item.firstName}} {{item.lastName}} </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="posters.update({id: data.model._id})">Edit</button>
+  </div>
+</div>

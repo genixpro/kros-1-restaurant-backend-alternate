@@ -1,0 +1,313 @@
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Dashboard Conference
+       <br>
+       <small>Welcome user</small>
+    </h3>
+    <div data-toggle="notify" data-onload data-message="&lt;b&gt;Welcome Visitor!&lt;/b&gt; Dismiss this message with a click or wait for it to disappear." data-options="{&quot;status&quot;:&quot;danger&quot;, &quot;pos&quot;:&quot;top-right&quot;}"
+    class="hidden-xs"></div>
+    <div class="row">
+       <!-- START dashboard main content-->
+       <section class="col-md-9">
+          <!-- START Secondary Widgets-->
+          <div class="row">
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget min-height">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-thumb-tack fa-2x"></em>
+                      </div>
+                      <h3 class="mt0" ng-bind="summary.totalNumber_posters"></h3>
+                      <p class="text-muted">Total Posters</p>
+                      <div class="progress progress-striped progress-xs">
+                         <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-success progress-100">
+                            <span class="sr-only">100% Complete</span>
+                         </div>
+                      </div>
+
+                      <ul>
+                          <li ng-repeat="o in summary.totalNumber_posters_by_presentationType">{{o._id}}: {{o.count}}</li>
+                      </ul>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget min-height">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-list-alt fa-2x"></em>
+                      </div>
+                      <h3 class="mt0" ng-bind="summary.totalNumber_presentationTypes.count"></h3>
+                      <p class="text-muted">Types of Presentations</p>
+                      <div class="progress progress-striped progress-xs">
+                         <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-info progress-100">
+                            <span class="sr-only">100% Complete</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget min-height">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-bullseye fa-2x"></em>
+                      </div>
+                      <h3 class="mt0" ng-bind="summary.totalNumber_rooms"></h3>
+                      <p class="text-muted">Sessions</p>
+                      <div class="progress progress-striped progress-xs">
+                         <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-warning progress-100">
+                            <span class="sr-only">100% Complete</span>
+                         </div>
+                      </div>
+
+                      <ul>
+                          <li ng-repeat="o in summary.totalNumber_rooms_by_categories">{{o._id}}: {{o.count}}</li>
+                      </ul>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+
+             </div>
+          </div> <!-- 1st row widgets -->
+
+         <div class="row">
+           <div class="col-md-12">
+             <h3>Warnings</h3>
+             <p>Messages that need your attention.  <a ng-click="check()">Check again</a> </p>
+           </div>
+
+           <div class="col-md-4">
+             <!-- START widget-->
+             <div class="panel widget min-height">
+                <div class="panel-body">
+                   <div class="text-right text-muted">
+                      <em class="fa fa-exclamation-circle fa-2x"></em>
+                   </div>
+                   <h3 class="mt0">{{summary.totalNumber_non_assigned_posters}}</h3>
+                   <p class="text-muted">Posters</p>
+                   <ul>
+                     <li>Non Assigned: {{summary.totalNumber_non_assigned_posters}}</li>
+                  </ul>
+                </div>
+             </div>
+             <!-- END widget-->
+           </div>
+
+
+           <div class="col-md-4">
+             <!-- START widget-->
+             <div class="panel widget min-height">
+                <div class="panel-body">
+                   <div class="text-right text-muted">
+                      <em class="fa fa-exclamation-circle fa-2x"></em>
+                   </div>
+                   <h3 class="mt0">{{summary.totalNumber_empty_sessions + summary.totalNumber_overflown_sessions}}</h3>
+                   <p class="text-muted">Sessions</p>
+                   <ul>
+                     <li>Empty: {{summary.totalNumber_empty_sessions}}</li>
+                     <li>Overflown: {{summary.totalNumber_overflown_sessions}}</li>
+                  </ul>
+                </div>
+             </div>
+             <!-- END widget-->
+           </div>
+
+
+         </div>
+
+          <!-- 2nd row widgets -->
+          <div class="row actions">
+            <div class="col-md-12">
+              <h3>Actions</h3>
+              <p>Takes you to the corresponding page.</p>
+            </div>
+
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="upload-csv">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-upload fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">01.</h3>
+                      <p class="text-muted">Import new spreadsheet »</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="posters">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-search fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">02.</h3>
+                      <p class="text-muted">Posters List »</p>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="monitors">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-hand-o-right fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">03.</h3>
+                      <p class="text-muted">Assign »</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 2nd row widgets -->
+
+          <!-- 3rd row widgets -->
+          <div class="row actions">
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="rooms-split">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-pencil-square-o fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">04.</h3>
+                      <p class="text-muted">Re-schedule »</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="rooms">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-tasks fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">05.</h3>
+                      <p class="text-muted">Manage Sessions »</p>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="export-csv">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-external-link fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">06.</h3>
+                      <p class="text-muted">Export Posters »</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 3rd row widgets -->
+
+          <!-- 4th row widgets -->
+          <div class="row actions">
+            <div class="col-md-4">
+               <!-- START widget-->
+               <div class="panel widget" ui-sref="schedule">
+                  <div class="panel-body">
+                     <div class="text-right text-muted">
+                        <em class="fa fa-hdd-o fa-2x"></em>
+                     </div>
+                     <h3 class="mt0">07.</h3>
+                     <p class="text-muted">Export Progam »</p>
+                  </div>
+               </div>
+               <!-- END widget-->
+            </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="backup-restore">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-hdd-o fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">08.</h3>
+                      <p class="text-muted">Backup and Restore »</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 4th row widgets -->
+
+          <!-- 5th row -->
+          <div class="row actions">
+            <div class="col-md-12">
+              <h3>Questions or Difficulties?</h3>
+              <p><a href= "http://www.postergenius.com/livesupport/livezilla.php" target="_blank">Chat with us live</a> or email us at <a href="mailto:support@scigentech.com">support@scigentech.com</a>.</p>
+            </div>
+            <div class="col-md-4">
+               <!-- START widget-->
+               <a href= "http://www.postergenius.com/livesupport/livezilla.php" target="_blank" style="text-decoration:none !important">
+               <div class="panel widget">
+                  <div class="panel-body">
+                     <div class="text-right text-muted">
+                        <em class="fa fa-comments-o fa-2x"></em>
+                     </div>
+                     <h3 class="mt0">Live support</h3>
+                     <p class="text-muted">Chat with us live »</p>
+                  </div>
+               </div>
+               <!-- END widget-->
+               </a>
+            </div>
+          </div><!-- 5th row widgets -->
+
+          <!-- END Secondary Widgets-->
+       </section>
+       <!-- END dashboard main content-->
+       <!-- START dashboard sidebar-->
+       <aside class="col-md-3">
+          <!-- START widget-->
+          <div class="panel widget">
+             <div class="panel-body bg-warning text-center">
+                <div class="text-lg" ng-bind="dateDay">{{dateDay}}</div>
+                <div class="text m0" ng-bind="dateShort">{{dateShort}}</div>
+                <div class="mb-lg"></div>
+                <em class="fa fa-heart-o fa-2x"></em>
+             </div>
+          </div>
+          <!-- END widget-->
+
+          <!-- START widget-->
+          <div class="panel widget">
+             <div class="panel-body bg-info text-center">
+                <em class="fa fa-comments-o fa-2x"></em>
+                <h3>Questions or Difficulties?</h3>
+                <p><a href= "http://www.postergenius.com/livesupport/livezilla.php" target="_blank">Chat with us live</a> or email us at <a href="mailto:support@scigentech.com">support@scigentech.com</a>.</p>
+             </div>
+             <style media="screen">
+              .panel .bg-info a{
+                color: #ececec;
+              }
+             </style>
+          </div>
+          <!-- END widget-->
+
+       </aside>
+       <!-- END dashboard sidebar-->
+    </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>
+    <small><strong><a href="http://www.eposterslive.com/" target="_blank">ePosterSchedule is part of ePostersLive®</a></strong>. Copyright © 2010-2015 SciGen® Technologies. All rights reserved. ePostersLive, PosterGenius and SciGen are USPTO registered trademarks of SciGen Technologies.</small>
+  </footer>
+  <!-- END Page Footer-->

@@ -1,0 +1,65 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('categories.add'), 'csspinner traditional': ui.inProgress}">
+  <div class="panel-heading">{{'CATEGORIES_ADD_PANEL_HEADING' | translate}}</div>
+
+  <form role="form" name="addForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'CATEGORIES_ADD_FORM_TITLE_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'CATEGORIES_ADD_FORM_TITLE_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.name" required>
+      </div>
+
+      <div class="form-group">
+        <label>{{'CATEGORIES_ADD_FORM_DESCRIPTION_LABEL' | translate}}</label>
+        <textarea class="form-control ng-pristine ng-valid ng-touched" type="text" ng-model="data.model.description" value="" placeholder="{{'CATEGORIES_ADD_FORM_DESCRIPTION_PLACEHOLDER' | translate}}">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label>{{'CATEGORIES_ADD_FORM_PHOTO_LABEL' | translate}}</label>
+        <div class="well">
+          <p>
+            <div ng-repeat="image in data.uploadedImages">
+              <img ng-src="{{image.file.path}}" class="img-responsive img-thumbnail" alt="Uploaded Image" width="100%" ng-file-drop="onFileSelect($files)">
+            </div>
+          </p>
+          <p ng-if="data.uploadedImages.length">
+            <button type="button" class="btn btn-danger btn-xs" ng-click="deleteImage(data.model)">
+              <span aria-hidden="true">&times;</span>
+              <!--
+              <span class="sr-only">Close</span>
+              -->
+              <span>{{'CATEGORIES_ADD_FORM_PHOTO_DELETE' | translate}}</span>
+            </button>
+          <p>
+          <div
+               ng-file-drop="onFileSelect($files)"
+               ng-file-select="onFileSelect($files)"
+               ng-file-drag-over-class="bg-success"
+               ng-show="dropSupported"
+               class="drop-box">
+               {{'CATEGORIES_ADD_FORM_PHOTO_PLACEHOLDER' | translate}}
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true"
+               ng-show="!dropSupported">
+               {{'CATEGORIES_ADD_FORM_HTML5_DROP' | translate}}
+               <input type="file" name="image" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+
+            <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ui.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="required">* {{'CATEGORIES_ADD_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(addForm.$valid && !ui.inProgress) ? false : true" class="btn btn-success" ng-click="save()">{{'CATEGORIES_ADD_FORM_SAVE_BUTTON' | translate}}</button>
+      <button ui-sref="categories" class="btn btn-warning">{{'CATEGORIES_ADD_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  </form>
+</div>

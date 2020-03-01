@@ -1,0 +1,77 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <base href="/">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(client) app/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/fullcalendar/fullcalendar.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css({.tmp,client}) app/app.css -->
+  <link rel="stylesheet" href="app/app.css">
+  <!-- injector:css -->
+  <link rel="stylesheet" href="app/posters/posters.css">
+  <!-- endinjector -->
+  <!-- endbuild -->
+
+  <!-- 3rd party theme -->
+  <link rel="stylesheet" href="thirdparty/wintermin/vendor/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/vendor/animo/animate+animo.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/vendor/csspinner/csspinner.min.css">
+
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/app.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/wintermin-theme-b.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/app-fix.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/common.css">
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/common-fix.css">
+
+  <link rel="stylesheet" href="thirdparty/wintermin/app/css/local.css">
+  <!-- end 3rd party theme -->
+</head>
+<body>
+<div class="main-content">
+  <h3>Schedule Posters</h3>
+  <div class="row ">
+    <div class="panel-body">
+        <% for(var prop1 in data) { %>
+      <div>
+        <h2><%= prop1 %></h2>
+          <% for(var prop2 in data[prop1]) { %>
+        <div class="panel-body">
+          <h3><%= prop2 %></h3>
+          <% for(var i=0; i<data[prop1][prop2].length; i++) { %>
+          <div class="panel-body">
+            <p><%= data[prop1][prop2][i].code %></p>
+            <p><b><%= data[prop1][prop2][i].title %></b></p>
+            <% for(var j=0; j<data[prop1][prop2][i].authors.length; j++) { %>
+            <p style="white-space: nowrap; display: inline-block">
+              <span><%= data[prop1][prop2][i].authors[j].firstName %></span>
+              <span> <%= data[prop1][prop2][i].authors[j].lastName %></span>
+            </p>
+            <% } %>
+            <p><b>Session: </b><%= data[prop1][prop2][i].room ? data[prop1][prop2][i].room.title+'-'+data[prop1][prop2][i].room.roomName : 'No Room' %>/<%= data[prop1][prop2][i].monitor == -1 ? 'No Monitor' : data[prop1][prop2][i].monitor %></p>
+            <p><b>Start date/time: </b><%= data[prop1][prop2][i].currentDate  %></p>
+            <p><b>Presentation type: </b><%= data[prop1][prop2][i].presentationType %></p><hr/><br/>
+          </div>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+        <% } %>
+    </div>
+  </div>
+</div>
+</body>

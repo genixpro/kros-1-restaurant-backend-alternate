@@ -1,0 +1,87 @@
+'use strict';
+
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
+
+var schemaOptions = {
+  collection: 'business'
+};
+
+var BusinessSchema = new Schema({
+  createdBy: {
+    type: String,
+    ref: 'User'
+  },
+  business: {
+    name:         { type: String, default: '' },
+    description:  { type: String, default: '' },
+    hours:        {
+      zone :      { type: Number, number: 0, default: 0 }, //GMT +x
+      days :[{
+        day :     { type: Number, number: 0 },
+        openAt :  { type: Number, number: 1417248005669 },
+        closeAt : { type: Number, number: 1417284005677 }
+      }]
+      },
+    website:      { type: String, default: '' },
+    email:        { type: String, default: '' },
+    address:      { type: String, default: '' },
+    addressExtra: { type: String, default: '' },
+    area:         { type: String, default: '' },
+    zipcode:      { type: String, default: '' },
+    latlong:      { type: String, default: '' },
+    annotationTitle: {type: String, default: ''},
+    zoom:         { type: String, default: '' },
+    social:{
+      facebookPage: { type: String, default: '' },
+      instagram: { type: String, default: '' },
+      twitter: { type: String, default: '' },
+      pinterest: { type: String, default: '' }
+
+    }
+  },
+  invoice: {
+    name:           { type: String, default: '' },
+    organisationId: { type: String, default: '' },
+    phone:          { type: String, default: '' },
+    email:          { type: String, default: '' },
+    address:        { type: String, default: '' },
+    addressExtra:   { type: String, default: '' },
+    zipcode:        { type: String, default: '' },
+    state:          { type: String, default: '' }
+  },
+  contact: {
+    name:           { type: String, default: '' },
+    phone:          { type: String, default: '' },
+    email:          { type: String, default: '' }
+  },
+  orders: {
+    discountPercentage: { type: Number },
+    minimumOrder: { type: Number },
+    preparationTime: { type: Number },
+    disableOrders: { type: Boolean }
+  },
+  settings: [
+    {
+      key: String,
+      value: String,
+      castType: String
+    }
+  ],
+  cuisines: [],
+  // list of media associated with this document
+  media: [{
+    type: String,
+    ref: 'Media'
+  }],
+  // we use this field when the first time news created
+  createdAt: Number,
+  // we use this field when the news is updated
+  modifiedAt: Number,
+  application: {
+    type: String,
+    ref: 'Application'
+  }
+});
+
+module.exports = mongoose.model('Business', BusinessSchema);

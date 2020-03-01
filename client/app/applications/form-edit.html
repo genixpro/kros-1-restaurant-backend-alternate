@@ -1,0 +1,69 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('applications.edit') }">
+  <div class="panel-heading">Edit Application</div>
+
+  <div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#basics" aria-controls="basics" role="tab" data-toggle="tab">Basics</a>
+      </li>
+      <li role="presentation">
+        <a href="#owners" aria-controls="owners" role="tab" data-toggle="tab">Owners</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="basics">
+        <form name="applicationForm">
+          <div class="form-group"
+               ng-class="{'has-success': applicationForm.name.$valid, 'has-error': applicationForm.name.$invalid}">
+            <label class="control-label" for="name">Name *</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Application name"
+                   ng-model="application.name" required>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="description">Description</label>
+            <textarea class="form-control" rows="3" id="description" name="description"
+                      placeholder="Application description" ng-model="application.description"></textarea>
+          </div>
+          <div class="form-group has-success">
+            <label class="control-label" for="type">Type *</label>
+            <span class="form-control" id="type" name="type" disabled>{{typeName(application.type)}}</span>
+          </div>
+
+          <div class="required">* Erforderliche Felder</div>
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="owners">
+        <form class="form-horizontal">
+          <div class="form-group has-feedback" ng-repeat="owner in owners"
+               ng-class="{'has-success': owner.success, 'has-error': owner.error}">
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="owner.email" ng-disabled="owner.me"
+                     aria-describedby="inputStatus{{owner.id}}" ng-change="checkOwner(owner)">
+              <span ng-show="owner.success" class="glyphicon glyphicon-ok form-control-feedback"
+                    aria-hidden="true"></span>
+              <span ng-show="owner.error" class="glyphicon glyphicon-remove form-control-feedback"
+                    aria-hidden="true"></span>
+              <span ng-show="owner.success" id="inputStatus{{owner.id}}" class="sr-only">(success)</span>
+              <span ng-show="owner.error" id="inputStatus{{owner.id}}" class="sr-only">(error)</span>
+            </div>
+            <button type="button" class="btn btn-primary pull-right" ng-if="owner.me" ng-click="addOwner()">
+              <i class="fa fa-plus-circle"></i> Add
+            </button>
+            <button type="button" class="btn btn-danger" ng-if="!owner.me" ng-click="deleteOwner(owner)">
+              <i class="fa fa-trash-o"></i> Delete
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ng-click="save()" ng-disabled="applicationForm.$invalid || invalidOwners">
+      Save
+    </button>
+    <button ui-sref="applications.details({id: application._id})" class="btn btn-warning">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Search panel
+    <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+      <em class="fa fa-minus"></em>
+    </a>
+  </div>
+  <!-- /search field heading -->
+  <div class="panel-body collapse in" style="height: auto;">
+    <input type="text" class="form-control inp-search" ng-model="listCtrl.search" ng-change="listCtrl.filteringBySearch()" ng-model-options="{debounce: 750}">
+    <p> <strong>Hint: </strong> provide <em>productID, name, email, abstractID, submissionCode or purchaseID</em> </p>
+  </div>
+  <!-- /search field -->
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">{{'SUBMISSIONCODES_ORDERS_LIST_PANEL_HEADING' | translate}}
+    <a ui-sref="submissioncodes_orders.add" title="Add Submisioncodes Order" class="pull-right" ng-show="!order.isDirty">{{'SUBMISSIONCODES_ORDERS_LIST_PANEL_ADD' | translate}}</a>
+  </div>
+<div class="panel-body warning">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the records when available -->
+      <div ng-switch-when="true">
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'SUBMISSIONCODES_ORDERS_LIST_TABLE_NAME' | translate}}</th>
+              <th class="cell-actions">{{'SUBMISSIONCODES_ORDERS_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+          <tbody ng-model="data.records">
+            <tr ng-repeat="record in data.records" ng-controller="SubmissioncodesOrdersItemCtrl">
+              <td ng-bind="record.purchaseId" ui-sref="submissioncodes_orders.details({id: record._id})"></td>
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="submissioncodes_orders.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'SUBMISSIONCODES_ORDERS_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteSubmissioncodesOrder(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'SUBMISSIONCODES_ORDERS_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- pager -->
+        <ul class="pager">
+          <!-- First page button when enabled-->
+          <li ng-hide="listCtrl.paginator.previous()" class="previous">
+            <a href ng-click="listCtrl.firstPage()" style="margin-right: 3px">First</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="listCtrl.paginator.previous()">
+            <a href style="margin-right: 3px">First</a>
+          </li>
+
+          <!-- Previous button when enabled-->
+          <li ng-hide="listCtrl.paginator.previous()" class="previous">
+            <a href ng-click="listCtrl.previousPage()">Prev</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="listCtrl.paginator.previous()">
+            <a href>Prev</a>
+          </li>
+
+          <li class="pagination">
+            <span>Pages {{listCtrl.paginator.getPage()}} of {{listCtrl.paginator.getPages()}}</span>
+          </li>
+
+          <!-- Last page button when enabled-->
+          <li ng-hide="listCtrl.paginator.next()" class="next">
+            <a href ng-click="listCtrl.lastPage()">Last</a>
+          </li>
+
+          <!-- Last page button when disabled-->
+          <li class="next disabled" ng-show="listCtrl.paginator.next()">
+            <a href>Last</a>
+          </li>
+
+          <!-- Next button when enabled-->
+          <li ng-hide="listCtrl.paginator.next()" class="next">
+            <a href ng-click="listCtrl.nextPage()" style="margin-right: 3px">Next</a>
+          </li>
+
+          <!-- Next button when disabled-->
+          <li class="next disabled" ng-show="listCtrl.paginator.next()">
+            <a href style="margin-right: 3px">Next</a>
+          </li>
+        </ul>
+
+        <div class="text-center">
+          <label style="padding: 0px 5px 0px 7px;">Records/Page</label>
+          <select class="" ng-model="listCtrl.limit" ng-options="r as r for r in listCtrl.rec_per_page" ng-change="listCtrl.selectRecPerPage()">
+          </select>
+
+        </div>
+
+      </div>
+      <div ng-switch-default>
+        {{'SUBMISSIONCODES_ORDERS_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    </div> <!-- data-records -->
+  </div> <!-- panel-body -->
+</div>

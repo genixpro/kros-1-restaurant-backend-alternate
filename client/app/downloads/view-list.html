@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{'DOWNLOADS_LIST_PANEL_HEADING' | translate}}
+    <a ui-sref="downloads.add" title="Add Download" class="pull-right" ng-show="!order.isDirty">{{'DOWNLOADS_LIST_PANEL_ADD' | translate}}</a>
+  </div>
+  
+  <div class="panel-body warning">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the records when available -->
+      <div ng-switch-when="true">
+      
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'DOWNLOADS_LIST_TABLE_NAME' | translate}}</th>
+              <th class="cell-actions">{{'DOWNLOADS_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+
+          <tbody ng-model="data.records">
+            <tr ng-repeat="record in data.records" ng-controller="DownloadsItemCtrl">
+              <td ng-bind="record.name" ui-sref="downloads.details({id: record._id})"></td>
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="downloads.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'DOWNLOADS_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteDownload(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'DOWNLOADS_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+      
+      </div>
+      <div ng-switch-default>
+        {{'DOWNLOADS_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    
+    
+    </div>
+  
+  </div>
+  
+  
+  
+
+</div>

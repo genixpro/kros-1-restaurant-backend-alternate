@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h3>{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_HEADING' | translate}}</h3>
+</div>
+
+<div class="modal-body">
+  <div class="row mb-lg">
+    <div class="col-lg-6 col-xs-12 br pv">
+      <div class="row">
+        <div class="col-md-2 text-center visible-md visible-lg">
+          <em class="fa fa-plane fa-4x text-muted"></em>
+        </div>
+        <div class="col-md-10">
+          <h4>{{order.shipping.fullname}}</h4>
+          <address>{{order.shipping.address}}</address>
+          <br>{{order.shipping.city}}, {{order.shipping.zip}}
+          <br>{{order.shipping.country}}</div>
+      </div>
+    </div>
+    <div class="clearfix hidden-md hidden-lg">
+      <hr>
+    </div>
+    <div class="col-lg-6 col-xs-12 pv">
+      <div class="clearfix">
+        <p class="pull-left">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_INVOICE_NO' | translate}}</p>
+        <p class="pull-right mr">{{order.friendlyID}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_DATE' | translate}}</p>
+        <p class="pull-right mr">{{order.date | localdate | date:'d MMMM yyyy'}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_DUE_DATE' | translate}}</p>
+        <p class="pull-right mr">{{order.date | localdate | date:'d MMMM yyyy'}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive table-bordered mb-lg">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_ITEM' | translate}}</th>
+          <th>{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_DESCRIPTION' | translate}}</th>
+          <th>{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_QUANTITY' | translate}}</th>
+          <th>{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_UNIT_PRICE' | translate}}</th>
+          <th class="text-right">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_TOTAL' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in order.items" ng-controller="RestaurantOrdersDetailsCtrl">
+          <td>{{$index+1}}</td>
+          <td>{{item.name}}<br>{{item.description}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.unitPrice | currency : "€"}}</td>
+          <td class="text-right">{{item.totalPrice | currency : "€"}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-6 col-sm-6 pv">
+      <div class="clearfix" ng-if="false">
+        <p class="pull-left">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_SUBTOTAL' | translate}}</p>
+        <p class="pull-right mr">$ 10300 {tbd}</p>
+      </div>
+      <div class="clearfix hidden">
+        <p class="pull-left">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_TAX' | translate}} ({{order.tax.percentage | percentage}})</p>
+        <p class="pull-right mr">{{order.tax.value | currency : "€"}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left h4">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_GRAND_TOTAL' | translate}}</p>
+        <p class="pull-right mr h4">{{order.grandTotal | currency : "€"}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_VIEW_ORDER' | translate}}</button>
+  <button class="btn btn-warning" ng-click="cancel()">{{'RESTAURANT_ORDER_LIST_PREVIEW_MODAL_CLOSE' | translate}}</button>
+</div>

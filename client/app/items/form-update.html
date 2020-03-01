@@ -1,0 +1,193 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('items.update'), 'csspinner traditional': ui.inProgress }" ng-file-drop="onFileSelect($files)">
+  <div class="panel-heading">{{'ITEMS_EDIT_PANEL_HEADING' | translate}}</div>
+
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_NAME_LABEL' | translate}} *</label>
+        <input class="form-control" type="text" ng-model="data.model.name" value="" placeholder="{{'ITEMS_EDIT_FORM_NAME_PLACEHOLDER' | translate}}" required>
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_INTRO_LABEL' | translate}}</label>
+        <input class="form-control" type="text" ng-model="data.model.intro" value="" placeholder="{{'ITEMS_EDIT_FORM_INTRO_PLACEHOLDER' | translate}}">
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_DESCRIPTION_LABEL' | translate}}</label>
+        <textarea class="form-control" type="text" ng-model="data.model.description" value="" placeholder="{{'ITEMS_EDIT_FORM_DESCRIPTION_PLACEHOLDER' | translate}}"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_CATEGORY_LABEL' | translate}} *</label>
+        <select ng-model="data.model.category" ng-options="category.name for category in data.categories" class="form-control" required>
+          <option value="">-- {{'ITEMS_EDIT_FORM_CATEGORY_NO_CATEGORY_OPTION' | translate}} --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+
+        <label>{{'ITEMS_EDIT_FORM_PRICES_LABEL' | translate}} *</label>
+        <a title="Add more prices" class="pull-right" ng-click="addPriceInputs()">{{'ITEMS_EDIT_FORM_PRICES_ADD' | translate}}</a>
+
+        <div class="well">
+          <table class="table-condensed">
+           <thead>
+              <tr>
+                <th>{{'ITEMS_EDIT_FORM_PRICES_TYPE_LABEL' | translate}}</th>
+                <th>{{'ITEMS_EDIT_FORM_PRICES_PRICE_LABEL' | translate}}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody ui-sortable="sortableOptions" ng-model="data.model.prices">
+              <tr ng-repeat-start="price in data.model.prices">
+                <td>
+                  <input class="form-control" type="text" ng-model="price.name" value="" placeholder="{{'ITEMS_EDIT_FORM_PRICES_TYPE_PLACEHOLDER' | translate}}" required>
+                </td>
+                <td>
+                  <input class="form-control" type="number" ng-model="price.value" value="" placeholder="{{'ITEMS_EDIT_FORM_PRICES_PRICE_PLACEHOLDER' | translate}}" required>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-xs pull-left" style="margin-right: 4px;" ng-click="addPriceChildInputs($index)">
+                   <span aria-hidden="true">&plus;</span>
+                   <span class="sr-only">Add</span>
+                  </button>
+
+                  <button ng-if="$index>0" type="button" class="btn btn-danger btn-xs pull-left" ng-click="removePriceInputs($index)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Remove</span>
+                  </button>
+                </td>
+              </tr>
+              <tr ng-repeat-end ng-repeat="child in price.children">
+                 <td style="padding-left: 10%">
+                   <input class="form-control" type="text" ng-model="child.name" value="" placeholder="{{'ITEMS_ADD_FORM_PRICES_TYPE_PLACEHOLDER' | translate}}" required>
+                 </td>
+                 <td>
+                   <input class="form-control" type="number" ng-model="child.value" value="" placeholder="{{'ITEMS_ADD_FORM_PRICES_PRICE_PLACEHOLDER' | translate}}" required>
+                 </td>
+                 <td>
+                   <button type="button" class="btn btn-danger btn-xs pull-left" ng-click="removePriceChildInputs($parent.$index, $index)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Remove</span>
+                   </button>
+                 </td>
+               </tr>
+            </tbody>
+          </table>
+        </div><!-- /.well -->
+
+      </div><!-- /.form-group -->
+
+      <div ng-repeat="group in data.model.optionsGroups">
+        <div class="form-group">
+          <label>{{group.title}}</label> <a title="Add more {{group.title}}" class="pull-right" ng-click="addOptionInputs($index)">{{'ITEMS_EDIT_FORM_OPTIONSGROUP_ADD_OPTION' | translate}} {{group.title}}</a>
+
+          <div class="well">
+            <table class="table-condensed option-group-table basic-options-table">
+              <tr>
+                <th>{{'ITEMS_EDIT_FORM_OPTIONSGROUP_OPTION_TITLE_LABEL' | translate}}</th>
+                <th ng-hide="group.fixedPrice">{{'ITEMS_EDIT_FORM_OPTIONSGROUP_OPTION_PRICE_LABEL' | translate}}</th>
+                <th>{{'ITEMS_EDIT_FORM_OPTIONSGROUP_OPTION_PRESELECTED_LABEL' | translate}}</th>
+                <th></th>
+              </tr>
+
+              <tr ng-repeat="option in group.optionItems">
+                <td>
+                  <input class="form-control" type="text" ng-model="option.title" value="" placeholder="{{'ITEMS_EDIT_FORM_OPTIONSGROUP_OPTION_TITLE_PLACEHOLDER' | translate}}" required>
+                </td>
+                <td ng-hide="group.fixedPrice">
+                  <input class="form-control" type="number" ng-model="option.price" value="" placeholder="{{'ITEMS_EDIT_FORM_OPTIONSGROUP_OPTION_PRICE_PLACEHOLDER' | translate}}" required>
+                </td>
+                <td>
+                 <input type="checkbox" value="" ng-model="option.preselected">
+                </td>
+                <td>
+                  <button ng-if="$index>=0" type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeOptionInputs($parent.$parent.$index, $index)">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Remove</span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div> <!-- /.well -->
+
+        </div><!-- /.form-group -->
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_TAX_CLASS_LABEL' | translate}}</label>
+        <select ng-model="data.model.tax" ng-options="tax.name for tax in data.taxes" class="form-control">
+          <option value="">-- {{'ITEMS_EDIT_FORM_TAX_CLASS_NO_TAX_CLASS_OPTION' | translate}} --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_PREPARATION_TIME_LABEL' | translate}}</label>
+        <select ng-model="data.model.preparation" ng-options="time.name for time in data.times" class="form-control">
+          <option value="">-- {{'ITEMS_EDIT_FORM_PREPARATION_TIME_NO_TIME_OPTION' | translate}} --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_PHOTO_LABEL' | translate}}</label>
+        <div class="well">
+          <p>
+            <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+          </p>
+
+          <p>
+            <button ng-if="data.model.picture" type="button" class="btn btn-danger btn-xs" ng-click="deleteImage()">
+              <span aria-hidden="true">&times;</span>
+              <!--
+              <span class="sr-only">Close</span>
+              -->
+              <span>{{'ITEMS_EDIT_FORM_PHOTO_DELETE' | translate}}</span>
+            </button>
+          </p>
+
+          <div ng-file-drop="onFileSelect($files)"
+               ng-file-select="onFileSelect($files)"
+               ng-file-drag-over-class="bg-success"
+               ng-show="dropSupported"
+               class="drop-box">
+               {{'ITEMS_EDIT_FORM_PHOTO_PLACEHOLDER' | translate}}
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true"
+               ng-show="!dropSupported">
+               {{'ITEMS_EDIT_FORM_HTML5_DROP' | translate}}
+               <input type="file" name="image" ng-model="data.model.file" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ui.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>{{'ITEMS_EDIT_FORM_LINK_LABEL' | translate}}</label>
+        <input class="form-control" type="text" ng-model="data.model.link" value="" placeholder="{{'ITEMS_EDIT_FORM_LINK_PLACEHOLDER' | translate}}">
+      </div>
+
+      <div class="checkbox c-checkbox">
+        <label>
+          <input type="checkbox" ng-model="data.model.outOfStock">
+          <span class="fa fa-check"></span>{{'ITEMS_EDIT_FORM_OUTOFSTOCK_LABEL' | translate}}
+        </label>
+      </div>
+
+      <div class="required">* {{'ITEMS_EDIT_FORM_REQUIRED_FIELDS' | translate}}</div>
+
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(updateForm.$valid) ? false : true" class="btn btn-success" ng-click="update()">{{'ITEMS_EDIT_FORM_UPDATE_BUTTON' | translate}}</button>
+      <button ui-sref="items.details({id: data.model._id})" class="btn btn-warning">{{'ITEMS_EDIT_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  </form>
+
+</div>

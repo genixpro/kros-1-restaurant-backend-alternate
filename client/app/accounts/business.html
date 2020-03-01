@@ -1,0 +1,190 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>{{'ACCOUNTS_BUSINESS_PAGE_HEADING' | translate}}
+       <br>
+       <small>{{'ACCOUNTS_BUSINESS_PAGE_DESCRIPTION' | translate}}</small>
+    </h3>
+    <div class="row">
+      <form role="form" name="accountForm" class="form-horizontal">
+
+        <div class="col-md-12 col-md main" ui-view="mainPane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">{{'ACCOUNTS_BUSINESS_PANEL_HEADING' | translate}}</div>
+
+            <div class="panel-body">
+
+              <fieldset>
+                <legend>{{'ACCOUNTS_BUSINESS_PANEL_BUSINESS_FIELDSET_LEGEND' | translate}}</legend>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_NAME_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.name" value="" placeholder="{{'ACCOUNTS_BUSINESS_NAME_FIELD_PLACEHOLDER' | translate}}">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_DESCRIPTION_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <textarea class="form-control" type="text" ng-model="data.model.business.description" value="" rows="3" placeholder="{{'ACCOUNTS_BUSINESS_DESCRIPTION_FIELD_PLACEHOLDER' | translate}}"></textarea>
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_WEBSITE_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.website" value="" placeholder="http://www.mybusiness.com">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_EMAIL_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.email" value="" placeholder="info@mybusiness.com">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_ADDRESS_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.address" value="" placeholder="{{'ACCOUNTS_BUSINESS_ADDRESS_FIELD_PLACEHOLDER' | translate}}">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_ADDRESS2_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.addressExtra" value="" placeholder="{{'ACCOUNTS_BUSINESS_ADDRESS2_FIELD_PLACEHOLDER' | translate}}">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_ZIP_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.zipcode" value="" placeholder="621 00">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_LATLONG_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.latlong" value="" placeholder="40.7421, -70.345">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_MAP_ANOTATION_TITLE_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.annotationTitle" value="" placeholder="{{'ACCOUNTS_BUSINESS_MAP_ANOTATION_TITLE_FIELD_PLACEHOLDER' | translate}}">
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_MAP_ZOOM_LEVEL_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.zoom" value="" placeholder="{{'ACCOUNTS_BUSINESS_MAP_ZOOM_LEVEL_FIELD_PLACEHOLDER' | translate}}">
+                   </div>
+                </div>
+
+              </fieldset> <!-- / business -->
+
+              <fieldset>
+                <legend>{{'ACCOUNTS_BUSINESS_PANEL_SOCIAL_NETWORKS_FIELDSET_LEGEND' | translate}}</legend>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_PANEL_FACEBOOK_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <input class="form-control" type="text" ng-model="data.model.business.social.facebookPage" value="" placeholder="https://www.facebook.com/ionicframework">
+                   </div>
+                </div>
+              </fieldset> <!-- / social -->
+
+              <fieldset>
+                <legend>{{'ACCOUNTS_BUSINESS_PANEL_OPENING_HOURS_FIELDSET_LEGEND' | translate}}</legend>
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_PANEL_TIMEZONE_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <select ng-model="data.model.business.hours.zone" class="form-control"
+                      ng-options="option.value as option.name for option in zones"
+                     >
+                     </select>
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   <label class="col-sm-2 control-label">{{'ACCOUNTS_BUSINESS_PANEL_OPENING_HOURS_FIELD' | translate}}</label>
+                   <div class="col-sm-10">
+                     <a title="Add more prices" class="pull-right" ng-click="addOpenHourInputs()">{{'ACCOUNTS_BUSINESS_PANEL_ADD_OPENING_HOUR' | translate}}</a>
+                     <table class="table table-condensed table-striped">
+                       <tr>
+                         <th>{{'ACCOUNTS_BUSINESS_PANEL_OPENING_HOURS_TABLE_DAY' | translate}}</th>
+                         <th>{{'ACCOUNTS_BUSINESS_PANEL_OPENING_HOURS_TABLE_OPEN_AT' | translate}}</th>
+                         <th>{{'ACCOUNTS_BUSINESS_PANEL_OPENING_HOURS_TABLE_CLOSE_AT' | translate}}</th>
+                         <th></th>
+                       </tr>
+
+                       <tr ng-repeat="openHour in data.model.business.hours.days" >
+                         <td>
+                           <select ng-model="openHour.day" class="form-control"
+                            ng-options="option.value as option.name for option in weekdays"
+                           >
+                           </select>
+                         </td>
+                         <td>
+                           <timepicker ng-model="openHour.openAt" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                         </td>
+                         <td>
+                           <timepicker ng-model="openHour.closeAt" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                         </td>
+                         <td>
+                           <button ng-if="$index>0" type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeOpenHourInputs($index)">
+                             <span aria-hidden="true">&times;</span>
+                             <span class="sr-only">Close</span>
+                           </button>
+                         </td>
+                       </tr>
+                     </table>
+
+                   </div>
+                </div>
+
+              </fieldset> <!-- / Opening hours -->
+
+
+            </div><!-- //.panel-body -->
+
+            <div class="panel-footer">
+              <button ng-disabled="(accountForm.$valid) ? false : false" class="btn btn-primary" ng-click="update()">{{'ACCOUNTS_BUSINESS_PANEL_SAVE' | translate}}</button>
+              <button ng-click="cancel()" class="btn btn-warning">{{'ACCOUNTS_BUSINESS_PANEL_CANCEL' | translate}}</button>
+            </div>
+
+          </div> <!-- /.panel -->
+
+
+        </div> <!-- /ui main-view -->
+      </form>
+    </div> <!-- / .row -->
+
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer class="no-print" ng-include="'components/footer/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>
+
+<style>
+  /* This margin value is set to 0 when the form-group is into a fieldset
+   * We do not need this so re-set this in its initial value
+   */
+  fieldset .form-group {
+    margin-bottom: 15px;
+  }
+</style>

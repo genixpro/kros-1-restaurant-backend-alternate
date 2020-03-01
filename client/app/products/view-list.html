@@ -1,0 +1,79 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Search panel
+    <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+      <em class="fa fa-minus"></em>
+    </a>
+  </div>
+  <div class="panel-wrapper collapse in" style="height: auto;">
+    <div class="panel-body">
+      <label>Field Name</label>
+      <select class="form-control" name="typeSelect" ng-model="fieldName" ng-change="filteringBySearch()">
+        <option value="">-- Select Field Name --</option>
+        <option ng-repeat="fieldName in customFields track by $index" value="{{fieldName}}">{{fieldName}}</option>
+      </select>
+      <label>Field Value</label>
+      <input type="text" class="form-control" ng-model="search" placeholder="Custom field value" ng-change="filteringBySearch()">
+      <label>Category</label>
+      <select class="form-control" name="typeSelect" ng-model="categorySearch" ng-change="filteringBySearch()">
+        <option value="">-- Select Category --</option>
+        <option ng-repeat="category in categories track by $index" value="{{category._id}}">{{category.deepName}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{'PRODUCTS_LIST_PANEL_HEADING' | translate}}
+    <select ng-model="selectedCategory"
+            ng-options="category.deepName for category in categories"
+            ng-change="changeselectedCategory()">
+
+
+      <option value="">-- {{'PRODUCTS_LIST_PANEL_HEADING_ALL_OPTION' | translate}} --</option>
+    </select>
+
+    <a ui-sref="products.add"
+       title="Add Menu product"
+       class="pull-right">{{'PRODUCT_LIST_ADD_LINK' | translate}}</a>
+
+  </div>
+
+  <div class="panel-body">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the news when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>{{'PRODUCTS_LIST_TABLE_NAME' | translate}}</th>
+              <th>{{'PRODUCTS_LIST_TABLE_CATEGORY' | translate}}</th>
+              <th class="cell-actions">{{'PRODUCTS_LIST_TABLE_ACTIONS' | translate}}</th>
+          </thead>
+
+          <tbody ng-model="data.records">
+            <tr ng-repeat="record in data.records" ng-controller="ProductsItemCtrl">
+              <td ng-bind="record.title" ui-sref="products.details({id: record._id})"></td>
+              <td><span class="label label-default">{{record.category.name}}</span>  </td>
+
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="products.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>{{'PRODUCTS_LIST_RECORD_EDIT' | translate}}
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteProduct(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>{{'PRODUCTS_LIST_RECORD_DELETE' | translate}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Say sorry when we are not able to display the news -->
+      <div ng-switch-default>
+        {{'PRODUCTS_LIST_NOT_AVAILABLE' | translate}}
+      </div>
+    </div>
+  </div><!-- //.panel-body -->
+
+</div>

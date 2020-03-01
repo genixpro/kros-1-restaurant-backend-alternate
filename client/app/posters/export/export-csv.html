@@ -1,0 +1,50 @@
+<!-- START aside-->
+<aside class="aside">
+	<div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<section>
+	<!-- START Page content-->
+	<div class="main-content">
+		<h3>Export Spreadsheet
+			<br>
+			<small>Use the form below to export the spreadsheet with your ePoster program.</small>
+		</h3>
+		<div class="row">
+			<div class="panel panel-default" ng-class="{'csspinner traditional': exportCsv.ui.inProgress }">
+				<div class="panel-heading">Export Posters
+					<a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right"
+					data-original-title="Collapse Panel">
+						<em class="fa fa-minus"></em>
+					</a>
+				</div>
+				<div class="panel-wrapper collapse in" style="height: auto;">
+					<div class="panel-body">
+						<div class="col-md-8">
+							<div ng-include="'app/posters/export/export-csv-parameters.partial.html'"></div>
+						</div>
+						<div class="col-md-4">
+							<div ng-include="'app/posters/export/export-csv-headers.partial.html'"></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div ng-include="'app/posters/export/export-csv-export-button.partial.html'"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div ng-switch on="exportCsv.filteredPostersList.length > 0">
+						<div class="row" ng-switch-when="true">
+							<div ng-include="'app/posters/export/export-csv-preview.partial.html'"></div>
+						</div>
+						<div ng-switch-default>Sorry, we unable to load the content.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!-- /main-content -->
+	<!-- END Page content-->
+	<footer ng-include="'app/posters/layout/footer.html'"></footer>
+</section>

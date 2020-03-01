@@ -1,0 +1,55 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('downloads.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this download" class="fa fa-edit pull-right" ui-sref="downloads.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <div ng-if="data.model.identifier">
+      <label>{{'DOWNLOADS_DETAILS_IDENTIFIER_LABEL' | translate}}</label>: <span>{{data.model.identifier}}</span>
+    </div>
+    
+    <div ng-if="data.model.demo">
+      <label>{{'DOWNLOADS_DETAILS_DEMO_LABEL' | translate}}</label>: <span>{{data.model.demo}}</span>
+    </div>
+    <div ng-if="data.model.wiki">
+      <label>{{'DOWNLOADS_DETAILS_WIKI_LABEL' | translate}}</label>: <span>{{data.model.wiki}}</span>
+    </div>
+    <div ng-if="data.model.info">
+      <label>{{'DOWNLOADS_DETAILS_INFO_LABEL' | translate}}</label>: <span>{{data.model.info}}</span>
+    </div>
+    
+    <h4 ng-if="data.model.s3Keys.length">{{'DOWNLOADS_DETAILS_S3KEYS_TITLE' | translate}}</h4>
+    <div class="table-responsive" ng-if="data.model.s3Keys.length">
+      <table class="table table-hover">
+        <tr>
+          <th>{{'DOWNLOADS_DETAILS_VERSION_TITLE' | translate}}</th>
+          <th>{{'DOWNLOADS_DETAILS_KEY_TITLE' | translate}}</th>
+          <th>{{'DOWNLOADS_DETAILS_UPDATEINSTRUCTIONS_TITLE' | translate}}</th>
+          <th>{{'DOWNLOADS_DETAILS_ISLATEST_TITLE' | translate}}</th>
+        </tr>
+
+        <tr ng-repeat="option in data.model.s3Keys">
+          <td>
+            <span ng-bind="option.version"></span>
+          </td>
+          <td>
+            <span ng-bind="option.key"></span>
+          </td>
+          <td>
+            <span ng-bind="option.updateInstructions"></span>
+          </td>
+          <td>
+            <input type="checkbox" value="" ng-model="option.isLatest" disabled="disabled">
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="downloads.update({id: data.model._id})">{{'DOWNLOADS_DETAILS_EDIT_BUTTON' | translate}}</button>
+  </div>
+
+</div>

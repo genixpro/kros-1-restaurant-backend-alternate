@@ -1,0 +1,98 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('submissioncodes_orders.update'), 'csspinner traditional': ui.inProgress}">
+
+  <div class="panel-heading">{{'SUBMISSIONCODES_ORDERS_EDIT_PANEL_HEADING' | translate}}</div>
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PURCHASEID_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PURCHASEID_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.purchaseId" required>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PURCHASEDATE_LABEL' | translate}} *</label>
+        <div class='input-group'>
+          <input type='text' class="form-control" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PURCHASEDATE_PLACEHOLDER' | translate}}" ng-model="data.model.purchaseDate" required datetime-picker="dd MMM yyyy HH:mm" is-open="isOpen"/>
+          <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="openCalendar($event, prop)"><i class="fa fa-calendar"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ABSTRACTID_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ABSTRACTID_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.abstractId" required>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PRODUCTID_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_PRODUCTID_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.productId" required>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_QUANTITY_LABEL' | translate}} *</label>
+        <input type="number" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_QUANTITY_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.quantity" required>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_EMAIL_LABEL' | translate}} *</label>
+        <input type="email" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_EMAIL_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.email" required>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_NAME_LABEL' | translate}} *</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_NAME_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.name">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ADDITIONALEMAILS_LABEL' | translate}}</label>
+        <a title="Add more s3Keys" class="pull-right" ng-click="addOptionInputs()">{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ADDITIONALEMAILS_ADD_NEW_TITLE' | translate}}</a>
+        <div class="well">
+          <table class="table-condensed additional-emails-table">
+            <tr>
+              <th>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_EMAIL_LABEL' | translate}}</th>
+              <th></th>
+            </tr>
+            <tr ng-repeat="email in data.model.additionalEmails">
+              <td>
+                <input type="email" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ADDITIONALEMAILS_PLACEHOLDER' | translate}}" class="form-control" ng-model="email.val"  >
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeOptionInputs($index)">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Remove</span>
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_RUNNINGNO_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_RUNNINGNO_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.runningNo">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_COMPANY_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_COMPANY_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.company">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_STREET_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_STREET_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.street">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_COUNTRY_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_COUNTRY_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.country">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_CITY_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_CITY_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.city">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ZIP_LABEL' | translate}}</label>
+        <input type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_ZIP_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.zip">
+      </div>
+      <div class="form-group">
+        <label>{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_NOTES_LABEL' | translate}}</label>
+        <textarea type="text" placeholder="{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_NOTES_PLACEHOLDER' | translate}}" class="form-control" ng-model="data.model.notes"  rows="3"></textarea>
+      </div>
+      <div class="required">* {{'SUBMISSIONCODES_ORDERS_EDIT_FORM_REQUIRED_FIELDS' | translate}}</div>
+    </div>
+
+    <div class="panel-footer">
+      <button ng-disabled="(updateForm.$valid) ? false : true" class="btn btn-success" ng-click="update()">{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_UPDATE_BUTTON' | translate}}</button>
+      <button ui-sref="submissioncodes_orders.details({id: data.model._id})" class="btn btn-warning">{{'SUBMISSIONCODES_ORDERS_EDIT_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  <form>
+</div>

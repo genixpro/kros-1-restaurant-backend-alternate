@@ -1,0 +1,121 @@
+.return-back{
+  width: 100%;
+}
+
+.restaurant-orders .print-only {
+  display: none;
+}
+
+@media print{
+
+  * {
+    font-family: Arial, sans-serif !important;
+  }
+
+  .restaurant-orders .main-content {
+    min-height: auto !important
+  }
+
+  .restaurant-orders h3,
+  .restaurant-orders .h3 {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .restaurant-orders h4,
+  .restaurant-orders .h4 {
+    font-size: 14px;
+  }
+
+  .restaurant-orders{
+    font-size: 14px;
+  }
+
+  .restaurant-orders .no-print {
+    display: none;
+  }
+
+  .restaurant-orders .print-only {
+    display: inherit;
+  }
+
+  .restaurant-orders .product-name{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .restaurant-orders .panel-body{
+    padding: 0px;
+  }
+
+  .restaurant-orders .pv{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .restaurant-orders .mr {
+    margin-right: 0 !important;
+  }
+
+  .restaurant-orders .mb-lg {
+    margin-bottom: 0px !important;
+  }
+
+  .restaurant-orders address {
+    margin-bottom: 0px;
+  }
+
+  .restaurant-orders hr {
+    display: none;
+  }
+
+  .restaurant-orders .table > thead > tr > th,
+  .restaurant-orders .table > thead > tr > td,
+  .restaurant-orders .table > tbody > tr > th,
+  .restaurant-orders .table > tbody > tr > td,
+  .restaurant-orders .table > tfoot > tr > th,
+  .restaurant-orders .table > tfoot > tr > td {
+    padding: 2px;
+    line-height: 100%;
+  }
+
+  .restaurant-orders  .table-bordered {
+    border: 0;
+  }
+
+  .table > tbody > tr > td {
+    vertical-align: top !important;
+  }
+
+  .table > tbody > tr > td:nth-child(4) {
+    display: none;
+  }
+
+  .table > thead > tr > th:nth-child(4) {
+    display: none;
+  }
+
+  .table td:nth-child(3)::before {
+    content: "x";
+  }
+
+  .table td:nth-child(3) {
+    text-align: right;
+  }
+
+  .table > thead > tr > th {
+    display: none;
+  }
+
+  .table .item-description {
+    padding: 0px;
+    line-height: 100%;
+  }
+
+}
+
+.table .item-description {
+  background-color: #fff;
+  border: 0px;
+  white-space: pre-line;
+}

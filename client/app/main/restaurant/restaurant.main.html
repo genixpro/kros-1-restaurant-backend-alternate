@@ -1,0 +1,180 @@
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>{{'DASHBOARD_RESTAURANT' | translate}}
+       <br>
+       <small>{{'DASHBOARD_RESTAURANT_WELCOME_USER' | translate}}</small>
+    </h3>
+    <div data-toggle="notify" data-onload data-message="&lt;b&gt;Welcome Visitor!&lt;/b&gt; Dismiss this message with a click or wait for it to disappear." data-options="{&quot;status&quot;:&quot;danger&quot;, &quot;pos&quot;:&quot;top-right&quot;}"
+    class="hidden-xs"></div>
+    <section class="col-md-9">
+          <!-- 1st row widgets -->
+          <div class="row actions">
+            <div class="col-md-12">
+              <h3>{{'DASHBOARD_RESTAURANT_ACTIONS' | translate}}</h3>
+              <p>{{'DASHBOARD_RESTAURANT_ACTIONS_DESC' | translate}}</p>
+            </div>
+
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="restaurant_orders({status: 'all'})">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-usd fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">01.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_ORDERS_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="categories">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-folder fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">02.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_MENU_CATEGORIES_ACTION' | translate}}</p>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="items({category: 'all'})">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-cutlery fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">03.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_MENU_ITEMS_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 1st row widgets -->
+
+          <!-- 2rd row widgets -->
+          <div class="row actions">
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="offers">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-exclamation fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">04.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_MENU_OFFERS_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="pages">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-newspaper-o fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">05.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_PAGES_ACTION' | translate}}</p>
+
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="reviews">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-thumbs-o-up fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">06.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_REVIEWS_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 2nd row widgets -->
+
+          <!-- 3rd row widgets -->
+          <div class="row actions">
+            <div class="col-md-4">
+               <!-- START widget-->
+               <div class="panel widget" ui-sref="businesses_info">
+                  <div class="panel-body">
+                     <div class="text-right text-muted">
+                        <em class="fa fa-info-circle fa-2x"></em>
+                     </div>
+                     <h3 class="mt0">07.</h3>
+                     <p class="text-muted">{{'DASHBOARD_RESTAURANT_BUSINESS_BUSINESS_ACTION' | translate}}</p>
+                  </div>
+               </div>
+               <!-- END widget-->
+            </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="businesses_photos">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-picture-o fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">08.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_BUSINESS_PHOTOS_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="businesses_invoice">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-credit-card fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">09.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_BUSINESS_INVOICE_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 3rd row widgets -->
+
+          <!-- 4th row widgets -->
+          <div class="row actions">
+             <div class="col-md-4">
+                <!-- START widget-->
+                <div class="panel widget" ui-sref="businesses_contact">
+                   <div class="panel-body">
+                      <div class="text-right text-muted">
+                         <em class="fa fa-user fa-2x"></em>
+                      </div>
+                      <h3 class="mt0">10.</h3>
+                      <p class="text-muted">{{'DASHBOARD_RESTAURANT_BUSINESS_CONTACT_ACTION' | translate}}</p>
+                   </div>
+                </div>
+                <!-- END widget-->
+             </div>
+          </div> <!-- 4th row widgets -->
+        </section>
+       <!-- END dashboard main content-->
+       <!-- START dashboard sidebar-->
+       <aside class="col-md-3">
+          <!-- START widget-->
+          <div class="panel widget">
+             <div class="panel-body bg-warning text-center">
+                <div class="text-lg" ng-bind="dateDay">{{dateDay}}</div>
+                <div class="text m0" ng-bind="dateShort">{{dateShort}}</div>
+                <div class="mb-lg"></div>
+                <em class="fa fa-heart-o fa-2x"></em>
+             </div>
+          </div>
+          <!-- END widget-->
+       </aside>
+       <!-- END dashboard sidebar-->
+    </div>
+  </div>
+  <!-- END Page content-->

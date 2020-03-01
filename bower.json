@@ -1,0 +1,46 @@
+{
+  "name": "appseed-platform",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": ">=1.4.3",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.0.1",
+    "jquery": "~1.11.0",
+    "jquery-ui": "~1.11.0",
+    "bootstrap-sass-official": "~3.1.1",
+    "bootstrap": "~3.3.4",
+    "angular-resource": "~1.4.*",
+    "angular-cookies": "~1.4.*",
+    "angular-sanitize": "~1.4.*",
+    "angular-bootstrap": "~0.13.0",
+    "font-awesome": ">=4.1.0",
+    "lodash": "~3.9.3",
+    "angular-ui-router": "~0.2.10",
+    "ng-file-upload": "~1.6.5",
+    "ng-file-upload-shim": "~1.6.5",
+    "angular-translate": "~2.5.2",
+    "angular-translate-loader-static-files": "~2.5.2",
+    "angular-youtube-mb": "~1.0.0",
+    "angular-ui-calendar": "~0.8.1",
+    "angular-dragdrop": "~1.0.11",
+    "angular-ui-utils": "~0.2.3",
+    "angular-ui-select": "~0.11.2",
+    "bootstrap-ui-datetime-picker": "~1.0.18",
+    "ng-csv": "~0.3.3",
+    "angular-filter": "~0.5.4",
+    "angular-timezone-selector": "~1.0.4",
+    "angular-moment": "~0.10.2",
+    "ngstorage": "~0.3.7",
+    "angular-audio": "^1.7.2"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.*",
+    "angular-scenario": ">=1.2.*"
+  },
+  "resolutions": {
+    "angular": "~1.4",
+    "jquery": "~1.10.2",
+    "jquery-ui": "~1.10.3",
+    "angular-bootstrap": "~0.13.0"
+  }
+}

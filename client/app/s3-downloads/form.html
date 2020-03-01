@@ -1,0 +1,109 @@
+<div class="panel panel-default"
+     ng-class="{ active: $state.includes('s3downloads.add'), 'csspinner traditional': ui.inProgress }">
+  <div class="panel-heading">{{'PRODUCT_PAGE_HEADING' | translate}}</div>
+
+  <form role="form" name="elementForm">
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label>Name *</label>
+        <input class="form-control" type="text" ng-disabled="disabledForm" ng-model="data.name" value=""
+               placeholder="{{'PRODUCT_ADD_FORM_TITLE_PLACEHOLDER' | translate}}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Product Id *</label>
+        <input class="form-control" type="text" ng-disabled="disabledForm" ng-model="data.productId" value=""
+               placeholder="{{'PRODUCT_ADD_FORM_TITLE_PLACEHOLDER' | translate}}" required>
+
+      </div>
+
+      <div class="form-group">
+        <label>Demo</label>
+        <input class="form-control" type="text" ng-disabled="disabledForm" ng-model="data.demo" value=""
+               placeholder="{{'PRODUCT_ADD_FORM_URL_PLACEHOLDER' | translate}}">
+
+      </div>
+
+      <div class="form-group">
+        <label>Wiki</label>
+        <input class="form-control" type="text" ng-disabled="disabledForm" ng-model="data.wiki" value=""
+               placeholder="{{'PRODUCT_ADD_FORM_PRICE_PLACEHOLDER' | translate}}">
+      </div>
+
+      <div class="form-group">
+        <label>Info</label>
+        <textarea class="form-control" type="text" ng-disabled="disabledForm" ng-model="data.info" value="" rows="3"
+                  placeholder="{{'PRODUCT_ADD_FORM_BODY_PLACEHOLDER' | translate}}"></textarea>
+      </div>
+
+
+      <div class="form-group">
+        <label>S3 keys *</label> <a title="Add field" class="pull-right"
+                                    ng-click="addS3KeysInputs()">{{'PRODUCT_ADD_FORM_CUSTOMFIELD_ADD' |
+        translate}}</a>
+
+        <div class="well">
+          <table class="table-condensed">
+            <thead>
+            <tr>
+              <th>is latest</th>
+              <th>version *</th>
+              <th>key *</th>
+              <th>updateInstructions</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody ui-sortable="sortableOptions" ng-model="data.s3_keys">
+            <tr ng-repeat="key in data.s3_keys track by $index">
+              <td style="width: 30%">
+                <input class="form-control" type="checkbox" ng-model="key.isLatest" ng-change="checkLatest($index)" value=""
+                       placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}">
+              </td>
+              <td style="width: 30%">
+                <input class="form-control" type="text" ng-model="key.version" value=""
+                       placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+              </td>
+              <td style="width: 30%">
+                <input class="form-control" type="text" ng-model="key.key" value=""
+                       placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+              </td>
+
+              <td style="width: 30%">
+                <input class="form-control" type="text" ng-model="key.updateInstructions" value=""
+                       placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" >
+                <!--<input class="form-control" type="text" ng-model="field.valueType" value="" placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_TYPE_PLACEHOLDER' | translate}}" required>-->
+              </td>
+              <td style="min-width: 53px">
+                <button type="button" class="btn btn-danger btn-xs pull-left"
+                        ng-click="removeS3KeysInputs($index)">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Remove</span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div><!-- /.well -->
+
+      </div><!-- /.form-group -->
+
+
+      <div class="required">* {{'PRODUCT_ADD_FORM_REQUIRED_FIELDS' | translate}}</div>
+
+    </div> <!-- /.panel-body -->
+
+    <div class="panel-footer">
+      <button ng-hide="disabledForm" ng-disabled="(!elementForm.$valid)" class="btn btn-success" ng-click="save()">
+        {{'PRODUCT_ADD_FORM_SAVE_BUTTON'
+        | translate}}
+      </button>
+      <button ng-show="disabledForm"  class="btn btn-success" ng-click="edit()">
+        Edit
+      </button>
+      <button ui-sref="s3downloads" class="btn btn-warning">{{'PRODUCT_ADD_FORM_CANCEL_BUTTON' | translate}}</button>
+    </div>
+  </form>
+
+
+</div>

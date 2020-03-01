@@ -1,0 +1,91 @@
+
+<!-- START wrapper-->
+<div class="login row row-table page-wrapper">
+   <div class="col-lg-5 col-md-6 col-sm-8 col-xs-12 align-middle">
+      <!-- START panel-->
+      <div class="panel panel-dark panel-flat">
+         <div class="panel-heading text-center">
+            <a href="#">
+               <img src="assets/images/wintermin/img/logo.png" alt="Image" class="block-center img-rounded">
+            </a>
+            <p class="text-center mt-lg">
+               <strong>SIGN UP TO CONTINUE.</strong>
+            </p>
+         </div>
+         <div class="panel-body">
+            <form role="form" class="mb-lg form" name="form" ng-submit="register(form)" novalidate>
+
+              <div class="form-group has-feedback" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                                               'has-error': form.name.$invalid && submitted }">
+                 <label for="exampleInputFullName" class="text-muted">Full name*</label>
+                 <input id="exampleInputFullName" type="text" name="name" placeholder="Enter your full name (e.g: John Smith)" class="form-control" ng-model="user.name" required>
+                 <span class="fa fa-user form-control-feedback text-muted"></span>
+              </div>
+
+               <div class="form-group has-feedback" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                                                'has-error': form.email.$invalid && submitted }">
+                  <label for="exampleInputEmail1" class="text-muted">Email address*</label>
+                  <input id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" class="form-control" ng-model="user.email" required>
+                  <span class="fa fa-envelope form-control-feedback text-muted"></span>
+               </div>
+
+               <div class="form-group has-feedback" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                                                'has-error': form.password.$invalid && submitted }">
+                  <label for="exampleInputPassword1" class="text-muted">Password*</label>
+                  <input id="exampleInputPassword1" type="password" name="password" placeholder="Password" class="form-control" ng-model="user.password" required>
+                  <span class="fa fa-lock form-control-feedback text-muted"></span>
+               </div>
+               <div class="form-group has-feedback">
+                  <label for="exampleInputPassword2" class="text-muted">Retype Password</label>
+                  <input id="exampleInputPassword2" type="password" name="passwordRetype" placeholder="Password" class="form-control" ng-model="user.passwordRetype" required pw-check="exampleInputPassword1">
+                  <span class="fa fa-lock form-control-feedback text-muted"></span>
+               </div>
+
+               <div class="form-group has-error">
+                 <p class="help-block" ng-show="form.name.$error.required && submitted">
+                   A name is required
+                 </p>
+
+                 <p class="help-block" ng-show="form.email.$error.email && submitted">
+                   Doesn't look like a valid email.
+                 </p>
+                 <p class="help-block" ng-show="form.email.$error.required && submitted">
+                   What's your email address?
+                 </p>
+                 <p class="help-block" ng-show="form.email.$error.mongoose">
+                   {{ errors.email }}
+                 </p>
+
+                 <p class="help-block" ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+                   Password must be at least 3 characters.
+                 </p>
+
+                 <p class="help-block" ng-show="form.passwordRetype.$error.pwmatch">
+                   Passwords don't match.
+                 </p>
+
+
+                 <p class="help-block" ng-show="form.password.$error.mongoose">
+                   {{ errors.password }}
+                 </p>
+
+                 <p class="help-block">{{ errors.other }}</p>
+               </div>
+
+               <div class="clearfix">
+                   <div class="checkbox c-checkbox pull-left mt0">
+                      <label>
+                         <input type="checkbox" value="">
+                         <span class="fa fa-check"></span>I agree with the <a href="#">terms</a>
+                      </label>
+                   </div>
+                </div>
+               <button type="submit" class="btn btn-block btn-success">Register</button>
+            </form>
+            <p>Have already an account? Please <a class="" href="/login">Login</a></p>
+         </div>
+      </div>
+      <!-- END panel-->
+   </div>
+</div>
+<!-- END wrapper-->

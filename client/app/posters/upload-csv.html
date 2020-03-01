@@ -1,0 +1,283 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Upload Spreadsheet
+      <br>
+      <small>Use the form below to upload the spreadsheet with your ePoster program. The spreadsheet should be in Comma Separated Values (CSV) format.</small>
+    </h3>
+    <div class="row">
+
+
+      <div class="panel panel-default" ng-class="{'csspinner traditional': uploadCsv.ui.inProgress }">
+        <div class="panel-heading">Upload Posters
+          <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+            <em class="fa fa-minus"></em>
+          </a>
+        </div>
+        <div class="panel-wrapper collapse in" style="height: auto;">
+          <div class="panel-body">
+
+            <fieldset>
+              <legend>Delimiter</legend>
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" ng-true-value="'YES'" ng-false-value="'NO'" data-ng-model="uploadCsv.checkbox">
+                      <span class="fa fa-times"></span>Select
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-lg-10">
+                  <ui-select ng-model="uploadCsv.currentDelimiter"
+                             class="display-inline-block vertical-align-top room-select"
+                             theme="bootstrap"
+                             ng-disabled="uploadCsv.checkbox == 'NO'"
+                             reset-search-input="false"
+                             on-select="uploadCsv.changeDelimiter()">
+                    <ui-select-match>{{uploadCsv.currentDelimiter}}</ui-select-match>
+                    <ui-select-choices repeat="delimiter in uploadCsv.delimiter">
+                      <span no-enter="true">{{delimiter}}</span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="checkbox c-checkbox">
+                    <label>
+                      <input type="checkbox" ng-true-value="'NO'" ng-false-value="'YES'" data-ng-model="uploadCsv.checkbox">
+                      <span class="fa fa-times"></span>or specify
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-lg-10">
+                  <input ng-model="uploadCsv.currentDelimiter" class="delimiter-input" type="text" ng-disabled="uploadCsv.checkbox == 'YES'" ng-blur="uploadCsv.changeDelimiter()"/>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <legend>Encoding</legend>
+
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="">
+                    <label>
+                       Encoding
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-lg-10">
+                  <ui-select ng-model="uploadCsv.currentEncoding"
+                             class="display-inline-block vertical-align-top room-select"
+                             theme="bootstrap"
+                             reset-search-input="false"
+                             on-select="uploadCsv.csvFile()">
+                    <ui-select-match>{{uploadCsv.currentEncoding}}</ui-select-match>
+                    <ui-select-choices repeat="encoding in uploadCsv.encoding">
+                      <span no-enter="true">{{encoding}}</span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <legend>CSV file</legend>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="">
+                    <input type="file" class="input-file" file-change="uploadCsv.csvFile(files)"/>
+                  </div>
+                </div>
+              </div>
+                <div class="alert alert-danger" role="alert" ng-show="uploadCsv.structureNotMatch">
+                    The structure of the provided file is not supported. Please check the file and the selected delimiter!
+                </div>
+
+            </fieldset>
+
+          </div> <!-- /panel-body -->
+        </div> <!-- /panel-wrapper -->
+      </div> <!-- /panel -->
+
+
+<!-- old form -->
+<div style="display:none">
+      <div>
+        <input type="checkbox" ng-true-value="'YES'" ng-false-value="'NO'" data-ng-model="uploadCsv.checkbox">
+        <div class="display-inline-block delimiter">
+          <label data-ng-class="{'checkbox-disable': uploadCsv.checkbox == 'NO'}">Select an delimiter</label>
+          <ui-select ng-model="uploadCsv.currentDelimiter"
+                     class="display-inline-block vertical-align-top room-select"
+                     theme="bootstrap"
+                     ng-disabled="uploadCsv.checkbox == 'NO'"
+                     reset-search-input="false"
+                     on-select="uploadCsv.changeDelimiter()">
+            <ui-select-match>{{uploadCsv.currentDelimiter}}</ui-select-match>
+            <ui-select-choices repeat="delimiter in uploadCsv.delimiter">
+              <span no-enter="true">{{delimiter}}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+      <div>
+        <input type="checkbox" ng-true-value="'NO'" ng-false-value="'YES'" data-ng-model="uploadCsv.checkbox">
+        <div class="delimiter display-inline-block">
+          <label data-ng-class="{'checkbox-disable': uploadCsv.checkbox == 'YES'}">or specify preferable delimiter</label>
+          <input ng-model="uploadCsv.currentDelimiter" class="delimiter-input" type="text" ng-disabled="uploadCsv.checkbox == 'YES'" ng-blur="uploadCsv.changeDelimiter()"/>
+        </div>
+      </div>
+
+      <div class="display-inline-block delimiter">
+        <label>select the encoding</label>
+        <ui-select ng-model="uploadCsv.currentEncoding"
+                   class="display-inline-block vertical-align-top room-select"
+                   theme="bootstrap"
+                   reset-search-input="false"
+                   on-select="uploadCsv.csvFile()">
+          <ui-select-match>{{uploadCsv.currentEncoding}}</ui-select-match>
+          <ui-select-choices repeat="encoding in uploadCsv.encoding">
+            <span no-enter="true">{{encoding}}</span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+
+      <input type="file" class="input-file" file-change="uploadCsv.csvFile(files)"/>
+
+      <input type="button" class="btn btn-primary" ng-click="uploadCsv.onSave()" value="save" ng-disabled="(uploadCsv.uploadedPosters.length==0)||(!uploadCsv.uploadedPosters.length)"/>
+</div> <!-- /old-form -->
+
+
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Preview and Import Posters
+          <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+            <em class="fa fa-minus"></em>
+          </a>
+        </div>
+
+        <div class="panel-body">
+
+          <div ng-switch on="uploadCsv.uploadedPosters.length > 0">
+            <div class="row" ng-switch-when="true">
+
+              <div class="panel-body">
+                <fieldset>
+                  <legend>Presentation type for uploaded Posters</legend>
+
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <div class="">
+                        <label>
+                          Presentation type
+                        </label>
+                      </div>
+                    </div> <!-- /col-lg-2 -->
+
+                    <div class="col-lg-10">
+                      <ui-select ng-model="uploadCsv.selectedPresentationType"
+                                 class="display-inline-block vertical-align-top room-select"
+                                 theme="bootstrap"
+                                 ng-disabled="disabled"
+                                 reset-search-input="false"
+                                 on-select="uploadCsv.onChangePresentationType()">
+                        <ui-select-match  placeholder="Select a presentation type...">{{$select.selected}}</ui-select-match>
+                        <ui-select-choices repeat="presentationType in uploadCsv.customPresentationType">
+                          <span no-enter="true" ng-bind-html="presentationType">{{presentationType}}</span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div> <!-- /col-lg-10 -->
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <div class="row">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <input type="button" class="btn btn-primary" ng-click="uploadCsv.onSave()" value="Proced with the import" ng-disabled="!uploadCsv.uploadedPosters.length || !uploadCsv.selectedPresentationType"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div> <!-- /panel-body -->
+
+              <table class="table table-striped table-hover">
+                <thead>
+                <tr role="row">
+                <th >Code</th>
+                <th >Title</th>
+                <th >Authors</th>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="record in uploadCsv.uploadedPosters">
+                  <td >
+                    <p>{{record.code}}</p>
+                  </td>
+                  <td>
+                    <p>{{record.title}}</p>
+                  </td>
+                  <td style="min-width: 120px">
+                    <p ng-repeat="author in record.authors" style="white-space: nowrap;">
+                      <span>{{author.firstName}}</span>
+                      <span> {{author.lastName}}</span>
+                      <sup><span ng-if="author.isPresenter" class="label label-primary">Presenter</span></sup>
+                      <sup><span ng-if="author.isCorresponding" class="label label-info">Corresponding</span></sup>
+                    </p>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+
+              <!-- pager -->
+              <ul class="pager" style="margin: 15px;">
+                <!-- Previous button when enabled-->
+                <li ng-hide="uploadCsv.paginator.previous()" class="previous">
+                  <a href ng-click="uploadCsv.previousPage()">Previous</a>
+                </li>
+
+                <!-- Previous button when disabled-->
+                <li class="previous disabled" ng-show="uploadCsv.paginator.previous()">
+                  <a href>Previous</a>
+                </li>
+
+                <!-- Next button when enabled-->
+                <li ng-hide="uploadCsv.paginator.next()" class="next">
+                  <a href ng-click="uploadCsv.nextPage()">Next</a>
+                </li>
+
+                <!-- Next button when disabled-->
+                <li class="next disabled" ng-show="uploadCsv.paginator.next()">
+                  <a href>Next</a>
+                </li>
+              </ul> <!-- /pager -->
+            </div>
+            <div ng-switch-default>
+              No results found. Please upload a valid CSV file.
+            </div>
+
+        </div>
+
+      </div><!-- /panel-body -->
+    </div><!-- /panel -->
+
+  </div><!-- /row -->
+</div><!-- /main-content -->
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer ng-include="'app/posters/layout/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>

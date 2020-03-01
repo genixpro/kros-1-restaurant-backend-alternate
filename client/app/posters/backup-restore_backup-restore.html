@@ -1,0 +1,123 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content"  ng-class="{'csspinner traditional': backupRestore.ui.inProgress }" >
+    <h3>Backup and Restore
+      <br>
+      <small>Backup and Restore</small>
+
+    </h3>
+    <div class="row">
+      <div class="col-md-12 col-md main">
+
+        <div class="col-md-6 col-md main">
+          <div class="panel panel-default">
+            <div class="panel-heading">Backup
+              <div class="panel-footer">
+                <input type="button" class="btn btn-primary" ng-click="backupRestore.onBackup()" value="Backup" ng-disabled=""/>
+
+                <input type="button" class="btn btn-primary"
+                       backup-json="backupRestore.backupDataForSaving"
+                       filename="backup.json"
+                       value="Save on file"
+                       ng-disabled="!backupRestore.backupData.length"
+                       ng-click="backupRestore.clearBackupData()"/>
+              </div> <!-- /panel-footer -->
+              <div class="panel-body">
+
+                <div ng-switch on="backupRestore.backupData.length > 0">
+                  <div class="row" ng-switch-when="true">
+                    <legend>Records for backup</legend>
+
+                    <table class="table table-striped table-hover">
+                      <thead>
+                      <tr role="row">
+                      <th >Collection name</th>
+                      <th >Count of records</th>
+                      </thead>
+
+                      <tbody>
+                      <tr ng-repeat="record in backupRestore.backupData" ng-show="record.records">
+                        <td >
+                          <p>{{record.name}}</p>
+                        </td>
+                        <td>
+                          <p>{{record.records}}</p>
+                        </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <div ng-switch-default>
+                    No records for backup.
+                  </div>
+
+                </div>
+
+              </div><!-- /panel-body -->
+            </div><!-- /.panel-heading -->
+          </div><!-- /.panel panel-default -->
+        </div><!-- /.col-md-6 col-md main -->
+
+        <div class="col-md-6 main">
+          <div class="panel panel-default">
+            <div class="panel-heading">Restore
+              <div class="panel-footer">
+                <input type="file" class="btn btn-primary" file-change="backupRestore.onUploadJson(files)" value="Restore"/>
+                <input type="button" class="btn btn-primary" ng-click="backupRestore.onRestore()" value="Restore" ng-disabled="!backupRestore.restoreData.length"/>
+
+              </div> <!-- /panel-footer -->
+              <div class="panel-body">
+
+                <div ng-switch on="backupRestore.restoreData.length > 0">
+                  <div class="row" ng-switch-when="true">
+                    <legend>Records for restore</legend>
+
+                    <table class="table table-striped table-hover">
+                      <thead>
+                      <tr role="row">
+                      <th >Collection name</th>
+                      <th >Count of records</th>
+                      </thead>
+
+                      <tbody>
+                      <tr ng-repeat="record in backupRestore.restoreData" ng-show="record.records">
+                        <td >
+                          <p>{{record.name}}</p>
+                        </td>
+                        <td>
+                          <p>{{record.records}}</p>
+                        </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <div ng-switch-default>
+                    No records for restore.
+                  </div>
+
+                </div>
+
+              </div><!-- /panel-body -->
+            </div><!-- /.panel-heading -->
+          </div><!-- /.panel panel-default -->
+        </div><!-- /.col-md-6 col-md main -->
+
+      </div><!-- /.col-md-12 col-md main -->
+    </div><!-- /.row -->
+
+
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer ng-include="'app/posters/layout/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>

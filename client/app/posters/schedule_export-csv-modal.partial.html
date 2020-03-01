@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h3>Export schedule to csv</h3>
+</div>
+
+<div class="modal-body">
+  You can choose the delimiter of the CSV
+  <select ng-model="exportModal.currentDelimiter" class="display-inline-block vertical-align-top" ng-options="option for option in exportModal.delimiterOptions">
+  </select>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" ng-click="ok()">Export</button>
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,428 @@
+<!-- START Top Navbar-->
+<nav role="navigation" class="navbar navbar-default navbar-top navbar-fixed-top" ng-controller="NavbarCtrl">
+   <!-- START navbar header-->
+   <div class="navbar-header">
+      <a href="http://www.epostersonline.com/asa2015" class="navbar-brand" target="_blank" style="color: white; padding: 20px 10px">
+        〈 Back to ePosters
+        <!--
+         <div class="brand-logo">
+            <img src="assets/images/logo.png" alt="App Logo" class="img-responsive">
+         </div>
+         <div class="brand-logo-collapsed">
+            <img src="assets/images/logo-single.png" alt="App Logo" class="img-responsive">
+         </div>
+        -->
+      </a>
+   </div>
+   <!-- END navbar header-->
+   <!-- START Nav wrapper-->
+   <div class="nav-wrapper">
+      <!-- START Left navbar-->
+      <ul class="nav navbar-nav">
+         <!-- START Messages menu (dropdown-list)-->
+         <!-- Do not display the notification bell for time being -->
+         <li class="dropdown dropdown-list" ng-if="!isAdmin() && false" dropdown>
+            <a href="#" dropdown-toggle class="dropdown-toggle">
+               <em class="fa fa-bell"></em>
+               <div class="label" ng-class="{'label-danger': daysLeft < 60, 'label-success': daysLeft >= 60  }">{{daysLeft}}</div>
+            </a>
+            <!-- START Dropdown menu-->
+            <ul class="dropdown-menu">
+               <li class="dropdown-menu-header">21 Days left until the end of this subscription. <br/>Renew now by choosing one of the the plans that follow:</li>
+               <li>
+                  <div class="scroll-viewport">
+                     <!-- START list group-->
+                     <div class="list-group scroll-content">
+                        <!-- START list group item-->
+                        <a href="#" class="list-group-item">
+                           <div class="media">
+                              <div class="pull-left">
+                                 <img src="assets/images/wintermin/img/user/01.jpg" alt="Image" class="media-object img-circle thumb48">
+                              </div>
+                              <div class="media-body clearfix" ng-click="toggledays()">
+                                 <small class="pull-right">$6.00 / year</small>
+                                 <strong class="media-heading text-primary">
+                                    <span class="point point-success point-md"></span>Plan A</strong>
+                                 <p class="mb-sm">
+                                    <small>Curabitur sodales nisl eu enim suscipit eu faucibus dui mattis.</small>
+                                 </p>
+                              </div>
+                           </div>
+                        </a>
+                        <!-- END list group item-->
+                        <!-- START list group item-->
+                        <a href="#" class="list-group-item">
+                           <div class="media">
+                              <div class="pull-left">
+                                 <img src="assets/images/wintermin/img/user/05.jpg" alt="Image" class="media-object img-circle thumb48">
+                              </div>
+                              <div class="media-body clearfix">
+                                 <small class="pull-right">$12.00 / year</small>
+                                 <strong class="media-heading text-primary">
+                                    <span class="point point-danger point-md"></span>Plan B</strong>
+                                 <p class="mb-sm">
+                                    <small>Curabitur sodales nisl eu enim suscipit eu faucibus dui mattis.</small>
+                                 </p>
+                              </div>
+                           </div>
+                        </a>
+                        <!-- END list group item-->
+
+                     </div>
+                     <!-- END list group-->
+                  </div>
+               </li>
+               <!-- START dropdown footer-->
+               <li class="p">
+                  <a href="#" class="text-center">
+                     <small class="text-primary">SEE ALL PLANS</small>
+                  </a>
+               </li>
+               <!-- END dropdown footer-->
+            </ul>
+            <!-- END Dropdown menu-->
+         </li>
+         <!-- END Messages menu (dropdown-list)-->
+         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+           <a ng-href="{{item.link}}"><em class="fa {{item.fa}}"></em> {{item.title}}</a>
+         </li>
+         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}" style="display:none"><a href="/admin"><em class="fa fa-users"></em> Admin</a>
+         </li>
+      </ul>
+      <!-- END Left navbar-->
+      <!-- START Right Navbar-->
+      <ul class="nav navbar-nav navbar-right">
+         <li>
+           <div style="padding-top: 13px;">Time zone <timezone-selector ng-model="timezone" ng-change="changeTimezone()"></div>
+         </li>
+         <!--
+         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}">
+           <a href="/settings">
+             <span class="glyphicon glyphicon-cog"></span>
+           </a>
+         </li>
+
+         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()"><em class="fa fa-sign-out"></em> Logout</a>
+         </li>
+          -->
+
+      </ul>
+      <!-- END Right Navbar-->
+   </div>
+   <!-- END Nav wrapper-->
+</nav>
+<!-- END Top Navbar-->
+
+  <!-- START Page content-->
+  <div class="main-content public-home" style="margin-top: 40px;">
+
+
+    <style>
+      .public-home p.searchtext {
+        text-align: center;
+        font-size: 130%;
+      }
+
+      .public-home #datestamps {
+        margin-top: 0px;
+        text-align: center;
+        padding-top: 5px;
+      }
+
+      .public-home #datestamps .point{
+        width: 5px;
+        height: 5px;
+        margin: 0.2em 1em;
+      }
+
+
+      .public-home #search-bar.input-group .form-control {
+         position: relative;
+         z-index: 2;
+         float: left;
+         width: 100%;
+         height: 60px;
+         margin-bottom: 0;
+         box-shadow: inset 0 1px 15px rgba(0, 0, 0, 0.15) !important;
+         padding-left: 20px;
+         font-size: 2em;
+      }
+
+      .public-home #search-bar.input-group .form-control:focus {
+      box-shadow: inset 0 1px 15px rgba(0, 148, 203, 0.3) !important;
+      border: 1px solid #0094cb;
+      }
+
+      .public-home #search-bar.input-group-addon {
+         padding: 6px 26px;
+         font-size: 20px;
+      }
+
+      .public-home #search-bar.input-group-addon:hover {
+         background-color: #0094cb;
+         color: #fff;
+      }
+
+
+    </style>
+    <p style="text-align: center; margin: 30px;">
+      <img src="http://skounis.s3.amazonaws.com/web-apps/eps/anes-2014-logo60.png">
+    </p>
+    <h4 style="text-align: center; margin: 30px;">ANESTHESIOLOGY® 2015 - ePosters Schedule</h4>
+    <p class="searchtext">Search for ePosters using author or institution names, poster titles or other keywords.</p>
+    <p><br></p>
+    <div class="allign-middle" style="margin: 30px auto 60px; width: 70%">
+
+      <div id="search-bar" class="input-group">
+        <input type="text" class="form-control inp-search room-select" ng-model="schedule.search" ng-change="schedule.filteringBySearch()" placeholder="Enter a search term ...">
+        <span class="input-group-addon">
+           <span class="fa-search fa"></span>
+        </span>
+      </div>
+      <p class="text-muted" style="padding: 10px; font-style: italic;">Hint: Try to seach for "Smith", or "MC1001", or "nasal"</p>
+
+      <div id="datestamps">
+        <span>
+           <a class="label label-default" ng-click="schedule.clearPosterDate()" style="cursor: pointer">All days</a> <span class="point"></span>
+        </span>
+        <span ng-repeat="link in schedule.dateLinks">
+         <a class="label label-primary" ng-click="schedule.setPosterDate(link, $event)" style="cursor: pointer">{{link | postersNoYear}}</a> <span ng-if="$index < schedule.dateLinks.length-1" class="point"></span>
+        </span>
+      </div>
+
+      <style media="screen">
+        #datestamps a{
+          padding: 10px;
+          font-size: 0.9em;
+        }
+      </style>
+
+    </div>
+
+    <div class="row print-none" ng-class="{'csspinner traditional': schedule.ui.inProgress }" >
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Advanced Search: Search by Presentation Type and Session
+          <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+            <em class="fa fa-minus"></em>
+          </a>
+        </div>
+        <div class="panel-wrapper collapse" style="height: auto;">
+          <div class="panel-body">
+            <div class="form-group" style="display:none">
+
+              <div class="display-inline-block vertical-align-top">
+                <label>Search</label>
+                <input type="text" class="form-control inp-search room-select" ng-model="schedule.search" ng-change="schedule.filteringBySearch()">
+              </div><!-- /display-inline-block -->
+
+              <div class="display-inline-block vertical-align-top">
+                <label>Start Date</label>
+                  <p class="input-group  room-select">
+                    <input type="text" class="form-control room-select" ng-change="changeDate()" datetime-picker="yyyy MMM dd" ng-model="dt" is-open="opened" min-date="'2015-01-01'" max-date="'2020-01-01'" enable-time="false" datepicker-options="dateOptions" close-text="Close" localdate />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default date-btn" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </p>
+
+                <span>
+                   <a ng-click="schedule.clearPosterDate()" style="cursor: pointer">All days</a> <span class="point"></span>
+                </span>
+                <span ng-repeat="link in schedule.dateLinks">
+                 <a ng-click="schedule.setPosterDate(link)" style="cursor: pointer">{{link}}</a> <span ng-if="$index < schedule.dateLinks.length-1" class="point"></span>
+                </span>
+
+              </div><!-- /display-inline-block -->
+            </div><!-- /form-group -->
+
+            <div class="form-group">
+              <div class="display-inline-block vertical-align-top">
+                <label>Presentation Type</label>
+                <ui-select ng-model="schedule.selectedPresentationType"
+                           class="room-select"
+                           theme="bootstrap"
+                           ng-disabled="disabled"
+                           reset-search-input="false"
+                           on-select="schedule.filteringByPresentationType()">
+                  <ui-select-match  placeholder="Select an type...">
+                    <span >{{$select.selected._id}}</span>
+                    <!--<span ng-show="$select.selected.count"> (non assigned: {{$select.selected.count}} )</span>-->
+                  </ui-select-match>
+                  <ui-select-choices repeat="presentationType in schedule.uniquePresentationType">
+                    <span no-enter="true" ng-bind-html="presentationType._id"></span>
+                    <!--<span ng-show="presentationType.count" no-enter="true" ng-bind-html="'(non assigned: '+presentationType.count+' )'"></span>-->
+                  </ui-select-choices>
+                </ui-select>
+              </div><!-- /display-inline-block -->
+
+              <div class="display-inline-block vertical-align-top">
+                <label>Session</label>
+                <ui-select ng-model="schedule.selectedRoom"
+                           class="room-select"
+                           theme="bootstrap"
+                           ng-disabled="disabled"
+                           reset-search-input="false"
+                           on-select="schedule.filteringByRoom()">
+                  <ui-select-match  placeholder="Select a session...">{{$select.selected.title}} - {{$select.selected.roomName}}</ui-select-match>
+                  <ui-select-choices repeat="room in schedule.Rooms | filter: $select.search">
+                    <span  no-enter="true">{{room.title}} - {{room.roomName}}</span>
+                  </ui-select-choices>
+                </ui-select>
+
+              </div><!-- /display-inline-block -->
+            </div><!-- /form-group -->
+
+          </div><!-- /panel-body -->
+        </div><!-- /panel-wrapper collapse in -->
+      </div><!-- /panel panel-default -->
+
+      <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center">
+          <div class="wide-panel-header"><h3>{{schedule.paginator.total}} Search Results » Currently showing: {{schedule.selectedPresentationType._id | postersNoYear}} for {{schedule.selectedDateFriendly | date :'MMM dd, yyyy'}}</h3></div>
+          <button type="button" class="btn btn-primary pull-right" data-ng-click="schedule.onExport()" style="display:none">
+            Export to CSV</button>
+          <button type="button" class="btn btn-primary pull-right <!--margin-right-15-->" data-ng-click="schedule.onPrint()">
+            Print friendly edition</button>
+        </div>
+        <div class="panel-body">
+
+          <div ng-switch on="schedule.postersList.length > 0">
+            <div class="row" ng-switch-when="true">
+
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr role="row">
+                  <!--
+                  <th >Code</th>
+                  -->
+                  <th >Poster Title and Authors</th>
+                  <th >Presentation info</th>
+                  <!--
+                  <th >Presentation Type</th>
+                  <th >Start Date and Time</th>
+                  <th >Duration (min)</th>
+                  -->
+                  <!--<th >Authors</th>-->
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="record in schedule.postersList">
+                  <!--
+                  <td >
+                    <p>{{record.code}}</p>
+                  </td>
+                  -->
+                  <td style="width:65%">
+                    <p ng-if="record.isCanceled" class="label label-danger ng-binding">Canceled</p>
+                    <p>{{record.code}}</p>
+                    <h4>{{record.title}}</h4>
+                    <span ng-repeat="author in record.authors" style="/*white-space: nowrap;*/">
+                      <span>{{author.firstName}}</span>
+                      <span> {{author.lastName}}</span>
+                      <sup><span ng-if="author.isPresenter" class="label label-primary">Presenter</span></sup>
+                      <sup><span ng-if="author.isCorresponding" class="label label-info">Corresponding</span></sup>
+                      <span ng-if="$index < record.authors.length-1" class="point"></span>
+                    </span>
+                  </td>
+                  <td style="width:35%">
+                    <p style="white-space: nowrap;"><span class="text-muted mr">Session:</span>
+                      {{record.room ? record.room.title+'-'+record.room.roomName : 'No Room'}}/{{record.room.monitors[record.monitor].title ? record.room.monitors[record.monitor].title:'No Monitor'}}
+                    </p>
+                    <p style="white-space: nowrap;"><span class="text-muted mr">Presentation type:</span>{{record.presentationType}}</p>
+                    <p style="white-space: nowrap;"><span class="text-muted mr">Starts at:</span>{{record.startDate | localdate | date :'MMM dd, yyyy - hh:mm a'}}</p>
+                    <p style="white-space: nowrap;"><span class="text-muted mr">Duration:</span>{{record.duration}} minutes</p>
+                  <!--
+                  <td style="min-width: 160px">
+                    <p>{{record.presentationType}}</p>
+                  </td>
+                  <td style="min-width: 100px">
+                    <p>{{record.startDate | localdate | date :'MMM dd, yyyy - hh:mm a'}}</p>
+                  </td>
+                  <td>
+                    <p>{{record.duration}}</p>
+                  </td>
+                -->
+                  <!--<td style="min-width: 120px">-->
+                    <!--<p ng-repeat="author in record.authors" style="white-space: nowrap;">-->
+                      <!--<span>{{author.firstName}}</span>-->
+                      <!--<span> {{author.lastName}}</span>-->
+                      <!--<sup><span ng-if="author.isPresenter" class="label label-primary">Presenter</span></sup>-->
+                      <!--<sup><span ng-if="author.isCorresponding" class="label label-info">Corresponding</span></sup>-->
+                    <!--</p>-->
+                  <!--</td>-->
+                </tr>
+                </tbody>
+              </table>
+
+
+              <!-- pager -->
+              <ul class="pager" style="margin: 15px;">
+                <!-- Previous button when enabled-->
+                <li ng-hide="schedule.paginator.previous()" class="previous">
+                  <a href ng-click="schedule.previousPage()">Previous</a>
+                </li>
+
+                <!-- Previous button when disabled-->
+                <li class="previous disabled" ng-show="schedule.paginator.previous()">
+                  <a href>Previous</a>
+                </li>
+
+
+                <li class="pagination" >
+                  <span>Pages {{schedule.paginator.getPage()}} of {{schedule.paginator.getPages()}}</span>
+                </li>
+
+                <!-- Next button when enabled-->
+                <li ng-hide="schedule.paginator.next()" class="next">
+                  <a href ng-click="schedule.nextPage()">Next</a>
+                </li>
+
+                <!-- Next button when disabled-->
+                <li class="next disabled" ng-show="schedule.paginator.next()">
+                  <a href>Next</a>
+                </li>
+              </ul> <!-- /pager -->
+            </div>
+            <div ng-switch-default>
+              No results found.
+            </div>
+
+          </div>
+
+        </div><!-- /panel-body -->
+      </div><!-- /panel panel-default-->
+
+    </div><!-- /row -->
+
+    <!--print page-->
+    <div class="row print">
+        <div class="panel-body">
+          <div ng-repeat="(type, firstGrouping) in schedule.printData | groupBy: 'presentationType'">
+            <h2>{{type}}</h2>
+
+            <div class="panel-body" ng-repeat="(date, secondGrouping) in firstGrouping | groupBy: 'sortDate'">
+              <h3>{{date | localdate | date :'MMM dd, yyyy'}}</h3>
+
+              <div class="panel-body" ng-repeat="record in secondGrouping |orderBy: 'startDate'">
+                <p>{{record.code}}</p>
+                <p><b>{{record.title}}</b></p>
+                <p ng-repeat="author in record.authors" style="white-space: nowrap; display: inline-block">
+                  <span>{{author.firstName}}</span>
+                  <span> {{author.lastName}}</span>
+                </p>
+                <p><b>Session: </b>{{record.room ? record.room.title+'-'+record.room.roomName : 'No Room'}}/{{record.monitor == -1 ? 'No Monitor' : record.monitor}}</p>
+                <p><b>Start date/time: </b>{{record.startDate | localdate | date :'MMM dd, yyyy - hh:mm a'}}</p>
+                <p><b>Presentation type: </b>{{record.presentationType}}</p><hr/><br/>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    </div><!-- /row -->
+
+    <!-- START Page footer-->
+    <footer ng-include="'app/posters/layout/footer.html'"></footer>
+    <!-- END Page Footer-->
+
+  </div><!-- /main-content -->
+  <!-- END Page content-->

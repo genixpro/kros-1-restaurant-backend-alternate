@@ -1,0 +1,77 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('my_downloads.details') }">
+  <div class="panel-heading">
+    {{data.purchaseId}}
+    <a href title="Edit this submissioncodes order" class="fa fa-edit pull-right"
+       ui-sref="submissioncodes_orders.update({id: data._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <div ng-if="data.abstractId">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_ABSTRACTID_LABEL' | translate}}</label>: <span>{{data.abstractId}}</span>
+    </div>
+    <div ng-if="data.submissionCode">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_SUBMISSIONCODE_LABEL' | translate}}</label>: <span>{{data.submissionCode}}</span>
+    </div>
+    <div ng-if="data.purchaseDate">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_PURCHASEDATE_LABEL' | translate}}</label>: <span>{{data.purchaseDate | date:'medium'}}</span>
+      <!-- | amDateFormat:'DD MMM YYYY HH:mm'} -->
+    </div>
+    <div ng-if="data.productId">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_PRODUCTID_LABEL' | translate}}</label>: <span>{{data.productId}}</span>
+    </div>
+
+    <div ng-if="data.name">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_NAME_LABEL' | translate}}</label>: <span>{{data.name}}</span>
+    </div>
+    <div ng-if="data.email">
+      <label>{{'SUBMISSIONCODES_ORDERS_DETAILS_EMAIL_LABEL' | translate}}</label>: <span>{{data.email}}</span>
+    </div>
+    <div ng-if="data.productName">
+      <label>Product Name</label>: <span>{{data.productName}}</span>
+    </div>
+
+    <div ng-if="data.s3_keys">
+      <label>S3 keys</label>
+      <div class="well">
+        <table class="table-condensed">
+          <thead>
+          <tr>
+            <th>is latest</th>
+            <th>version</th>
+            <th>key</th>
+            <th>updateInstructions</th>
+          </tr>
+          </thead>
+          <tbody ui-sortable="sortableOptions" ng-model="data.s3keys">
+          <tr ng-repeat="key in data.s3_keys track by $index">
+            <td style="width: 30%">
+              <input class="form-control" type="checkbox" disabled ng-model="key.isLatest" value=""
+                     placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+            </td>
+            <td style="width: 30%">
+              <input class="form-control" type="text" disabled ng-model="key.version" value=""
+                     placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+            </td>
+            <td style="width: 30%">
+              <input class="form-control" type="text" disabled ng-model="key.key" value=""
+                     placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+            </td>
+
+            <td style="width: 30%">
+              <input class="form-control" type="text" disabled ng-model="key.updateInstructions" value=""
+                     placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_LABEL_PLACEHOLDER' | translate}}" required>
+
+              <!--<input class="form-control" type="text" ng-model="field.valueType" value="" placeholder="{{'PRODUCT_ADD_FORM_CUSTOMFIELD_TYPE_PLACEHOLDER' | translate}}" required>-->
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div><!-- /.well -->
+    </div>
+
+
+  </div>
+
+
+</div>

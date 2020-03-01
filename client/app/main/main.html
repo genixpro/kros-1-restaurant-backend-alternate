@@ -1,0 +1,17 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<!-- START Main section-->
+<section>
+  <!-- TODO: Select the directives that will be activated -->
+  <!-- <dashboard-conference ng-if="selectedAppType=='conference'"></dashboard-conference> -->
+  <dashboard-restaurant ng-if="selectedAppType=='restaurant'"></dashboard-restaurant>
+  <dashboard-catalogue ng-if="selectedAppType=='catalogue'"></dashboard-catalogue>
+
+  <!-- START Page footer-->
+  <footer class="no-print" ng-include="'components/footer/footer.html'"></footer>
+  <!-- END Page Footer-->
+</section>

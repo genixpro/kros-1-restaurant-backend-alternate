@@ -1,0 +1,105 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('items.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this category" class="fa fa-edit pull-right" ui-sref="items.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <div class="pull-right">
+      <span ng-if="data.model.outOfStock" class="label label-danger">
+        <span>{{'ITEMS_DETAILS_OUTOFSTOCK' | translate}}</span>
+      </span>
+      <span ng-if="!data.model.outOfStock" class="label label-success">
+        <span>{{'ITEMS_DETAILS_INSTOCK' | translate}}</span>
+      </span>
+    </div>
+
+    <p class="lead" ng-bind="data.model.intro"></p>
+
+    <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p>
+
+    <p ng-bind="data.model.description"></p>
+
+    <div>
+      <h4>{{'ITEMS_DETAILS_PRICES_LABEL' | translate}}</h4>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr>
+            <th>{{'ITEMS_DETAILS_PRICES_TYPE' | translate}}</th>
+            <th>{{'ITEMS_DETAILS_PRICES_PRICE' | translate}}</th>
+          </tr>
+
+          <tr ng-repeat-start="price in data.model.prices | orderBy:'weight'">
+            <td>
+              <span ng-bind="price.name"></span>
+            </td>
+            <td>
+              <span ng-bind="price.value"></span>
+            </td>
+          </tr>
+          <tr ng-repeat-end ng-repeat="child in price.children">
+            <td style="padding-left: 10%">
+              <span ng-bind="child.name"></span>
+            </td>
+            <td>
+              <span ng-bind="child.value"></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div ng-repeat="group in data.model.optionsGroups" ng-init="parentIndex = $index">
+        <h4>{{group.title}}</h4>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tr>
+              <th>{{'ITEMS_DETAILS_GROUP_TITLE' | translate}}</th>
+              <th>{{'ITEMS_DETAILS_GROUP_PRICE' | translate}}</th>
+              <th>{{'ITEMS_DETAILS_GROUP_PRESELECTED' | translate}}</th>
+            </tr>
+
+            <tr ng-repeat="option in group.optionItems">
+              <td>
+                <span ng-bind="option.title"></span>
+              </td>
+              <td>
+                <span ng-bind="option.price"></span>
+              </td>
+              <td>
+                <input type="checkbox" value="" ng-model="option.preselected" disabled="disabled">
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+      <div>
+        <label>{{'ITEMS_DETAILS_TAXVAT' | translate}}</label>: <span>{{data.model.tax * 100}}%</span>
+      </div>
+    </div>
+
+    <div>
+      <label>{{'ITEMS_DETAILS_PREPARATION_TIME' | translate}}</label>:
+      <span>{{data.model.preparation}} {{'ITEMS_DETAILS_PREPARATION_TIME_MINUTES' | translate}}</span>
+    </div>
+
+    <div>
+      <label>{{'ITEMS_DETAILS_LINK' | translate}}</label>:
+      <span><a href="{{data.model.link}}" target="_blank">{{data.model.link}}</a></span>
+    </div>
+
+    <div class="pull-right">
+      <span class="label label-default">{{data.model.category.name}}</span>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="items.update({id: data.model._id})">{{'ITEMS_DETAILS_EDIT_BUTTON' | translate}}</button>
+  </div>
+
+</div>
