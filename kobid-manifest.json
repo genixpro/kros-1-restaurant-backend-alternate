@@ -1,8 +1,8 @@
 {
     "id": 1,
-    "name": "restaraunt-backend",
-    "title": "Restaraunt Backend",
-    "repository": "https://github.com/Kwola/kobid-1-restaraunt-backend",
+    "name": "restaurant-backend",
+    "title": "Restaurant Backend",
+    "repository": "https://github.com/Kwola/kobid-1-restaurant-backend",
     "frontend": "web",
     "backend": "node",
     "history": "template",
