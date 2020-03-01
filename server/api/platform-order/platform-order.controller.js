@@ -5,13 +5,13 @@ var _ = require('lodash'),
   PlatformOrder = require('./platform-order.model'),
   User = require('./../user/user.model'),
   async = require('async');
-  
-  
-  
+
+
+
 
 var pub = {
   index: function(req, res) {
-  
+
     // Mogoose sort
     // http://stackoverflow.com/questions/5825520/in-mongoose-how-do-i-sort-by-date-node-js
     PlatformOrder.find({
@@ -87,7 +87,7 @@ exports.index = function(req, res) {
         });
       });
   }
-  
+
 
 };
 
@@ -116,7 +116,7 @@ exports.create = function(req, res) {
 
   if (req.body) {
     var platformOrderData = req.body
-    
+
     platformOrderData.createdBy = req.user._id
 
     PlatformOrder.create(platformOrderData, function(err, doc) {
@@ -145,7 +145,7 @@ exports.update = function(req, res) {
         return d.val
       })
     }
-    
+
     PlatformOrder.findOneAndUpdate({
       _id: req.params.id
     }, data, function(err, doc) {
@@ -203,7 +203,7 @@ exports.fastspring = function (req, res) {
   newOrder.name = req.body.name;
   newOrder.company = req.body.company;
   newOrder.email = req.body.email;
-  
+
   async.waterfall([
     function (cb) {
       PlatformOrder.create(newOrder, function (err, order) {
@@ -236,7 +236,7 @@ exports.fastspring = function (req, res) {
     }
     res.send(200, {result: data})
   })
-  
+
 }
 
 

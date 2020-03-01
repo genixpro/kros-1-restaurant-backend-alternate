@@ -1,0 +1,11 @@
+{
+    "id": 1,
+    "name": "restaraunt-backend",
+    "title": "Restaraunt Backend",
+    "repository": "https://github.com/Kwola/kobid-1-restaraunt-backend",
+    "frontend": "web",
+    "backend": "node",
+    "history": "template",
+    "purpose": "domain_specific",
+    "container": "docker"
+}

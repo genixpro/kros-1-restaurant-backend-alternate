@@ -91,7 +91,7 @@ exports.create = function(req, res) {
       }
 
       return res.json(201, {
-        url: 'http://localhost:9000/api/downloads/' + doc._id,
+        url: 'http://localhost:3000/api/downloads/' + doc._id,
         jsonrpc: '2.0',
         result: doc
       });
@@ -115,7 +115,7 @@ exports.update = function(req, res) {
         handleError(res, err);
       } else {
         return res.json(200, {
-          url: 'http://localhost:9000/api/downloads/' + doc._id,
+          url: 'http://localhost:3000/api/downloads/' + doc._id,
           jsonrpc: '2.0',
           result: doc
         });

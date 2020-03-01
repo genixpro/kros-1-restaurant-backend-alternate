@@ -19,7 +19,7 @@ var all = {
   root: path.normalize(__dirname + '/../../..'),
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 3000,
 
   // Should we populate the DB with sample data?
   seedDB: false,
@@ -40,7 +40,7 @@ var all = {
   // },
 
   // App info
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:3000',
   appName: 'Midgard',
 
   // Secret for session, you will want to change this and make it an environment variable

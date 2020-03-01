@@ -90,7 +90,7 @@ function isAuthenticated(isAnonymousPermitted) {
       // through the JWT validation.
       //
       // For time being only one page requires anonymous access:
-      // http://localhost:9000/schedule-public
+      // http://localhost:3000/schedule-public
       //
       // console.log('Check authorization with isAnonymousPermitted : ' + isAnonymousPermitted);
       // console.log('Check authorization with referer ............ : ' + req.headers.referer);
