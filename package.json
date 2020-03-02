@@ -109,6 +109,7 @@
     "npm": "3.10.9"
   },
   "scripts": {
+    "serve": "grunt serve",
     "start": "node server/app.js",
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
