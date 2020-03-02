@@ -632,7 +632,6 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run([
-        'exec:bower',
         'build',
         'env:all',
         'env:prod',
@@ -647,7 +646,6 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'exec:bower',
         'env:all',
         'ngconstant:development',
         'injector:sass',
@@ -661,7 +659,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'exec:bower',
       'env:all',
       'ngconstant:development',
       'injector:sass',
