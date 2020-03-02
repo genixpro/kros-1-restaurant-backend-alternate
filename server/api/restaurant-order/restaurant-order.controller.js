@@ -98,6 +98,8 @@ exports.update = function(req, res) {
   if(data._id) delete data._id;
   if(data.__v) delete data.__v;
 
+  req.body = null;
+
   req.body.application =  req.app;
 
   RestaurantOrder.findOneAndUpdate({
