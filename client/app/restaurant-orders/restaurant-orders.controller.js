@@ -231,6 +231,7 @@ angular.module('newsApp')
      * Browse the next page of list
      */
     $scope.nextPage = function() {
+      $scope = null;
       $scope.selectStateStatus(paginator.getPage() + 1)
     };
 
