@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    bower: 'grunt-bower'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -610,6 +611,12 @@ module.exports = function (grunt) {
            {expand: true, flatten: true, src: ['.tmp/concat/app/app.js'], dest: '.tmp/concat/app/'}
          ]
       }
+    },
+
+    bower: {
+      all: {
+        dest: "client"
+      }
     }
   });
 
@@ -632,6 +639,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run([
+        'bower:all',
         'build',
         'env:all',
         'env:prod',
@@ -646,6 +654,7 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
+        'bower:all',
         'env:all',
         'ngconstant:development',
         'injector:sass',
@@ -659,6 +668,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'bower:all',
       'env:all',
       'ngconstant:development',
       'injector:sass',
