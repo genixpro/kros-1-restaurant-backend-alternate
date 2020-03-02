@@ -2,6 +2,7 @@
   "name": "kobid-1-restaurant-backend",
   "version": "1.0.0",
   "main": "server/app.js",
+  "cacheDirectories": ["client/bower_components", "node_modules"],
   "dependencies": {
     "async": "^0.9.0",
     "bcrypt": "~0.8.x",
