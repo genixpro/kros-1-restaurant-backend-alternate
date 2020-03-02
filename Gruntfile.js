@@ -17,8 +17,7 @@ module.exports = function (grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control',
-    bower: 'grunt-bower'
+    buildcontrol: 'grunt-build-control'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -612,11 +611,8 @@ module.exports = function (grunt) {
          ]
       }
     },
-
-    bower: {
-      all: {
-        dest: "client"
-      }
+    exec: {
+      bower: 'node_modules/bower/bin/bower install'
     }
   });
 
@@ -639,7 +635,7 @@ module.exports = function (grunt) {
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run([
-        'bower:all',
+        'exec:bower',
         'build',
         'env:all',
         'env:prod',
@@ -654,7 +650,7 @@ module.exports = function (grunt) {
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'bower:all',
+        'exec:bower',
         'env:all',
         'ngconstant:development',
         'injector:sass',
@@ -668,7 +664,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'bower:all',
+      'exec:bower',
       'env:all',
       'ngconstant:development',
       'injector:sass',
@@ -700,6 +696,7 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
+        'exec:bower',
         'env:all',
         'ngconstant:test',
         'injector:sass',
@@ -713,6 +710,7 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
+        'exec:bower',
         'env:all',
         'env:test',
         'ngconstant:test',
@@ -734,6 +732,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'exec:bower',
     'ngconstant:production',
     'injector:sass',
     'concurrent:dist',
