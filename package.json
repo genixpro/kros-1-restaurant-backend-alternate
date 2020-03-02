@@ -96,7 +96,7 @@
     "request": "^2.75.0",
     "requirejs": "~2.1.11",
     "s3": "^4.2.0",
-    "sass": "^1.26.2",
+    "sass": "~1.0.0",
     "serve-favicon": "~2.0.1",
     "should": "~3.3.1",
     "striptags": "~2.0.4",
