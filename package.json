@@ -40,9 +40,7 @@
     "serve-favicon": "~2.0.1",
     "striptags": "~2.0.4",
     "bcrypt": "~0.8.x",
-    "bson": "~0.2.x"
-  },
-  "devDependencies": {
+    "bson": "~0.2.x",
     "bluebird": "^2.10.0",
     "connect-livereload": "~0.4.0",
     "expect.js": "^0.3.1",
@@ -103,6 +101,9 @@
     "should": "~3.3.1",
     "supertest": "~0.11.0",
     "time-grunt": "~0.3.1"
+  },
+  "devDependencies": {
+    
   },
   "engines": {
     "node": "6.10.1",
