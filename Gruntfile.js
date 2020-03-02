@@ -610,9 +610,6 @@ module.exports = function (grunt) {
            {expand: true, flatten: true, src: ['.tmp/concat/app/app.js'], dest: '.tmp/concat/app/'}
          ]
       }
-    },
-    exec: {
-      bower: 'node_modules/bower/bin/bower install'
     }
   });
 
@@ -696,7 +693,6 @@ module.exports = function (grunt) {
     else if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'exec:bower',
         'env:all',
         'ngconstant:test',
         'injector:sass',
@@ -710,7 +706,6 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
-        'exec:bower',
         'env:all',
         'env:test',
         'ngconstant:test',
@@ -732,7 +727,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'exec:bower',
     'ngconstant:production',
     'injector:sass',
     'concurrent:dist',

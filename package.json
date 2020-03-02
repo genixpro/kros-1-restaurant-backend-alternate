@@ -110,6 +110,7 @@
     "npm": "3.10.9"
   },
   "scripts": {
+    "postinstall": "node_modules/bower/bin/bower install",
     "serve": "grunt serve",
     "start": "node server/app.js",
     "test": "grunt test",
