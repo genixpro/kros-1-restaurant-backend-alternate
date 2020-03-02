@@ -5,7 +5,7 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/news-dev'
+    uri: process.env.MONGODB_URI || 'mongodb://localhost/news-dev'
   },
   // AWS S3 storage configurations
   s3: {
