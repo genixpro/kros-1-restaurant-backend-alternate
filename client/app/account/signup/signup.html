@@ -15,6 +15,8 @@
          <div class="panel-body">
             <form role="form" class="mb-lg form" name="form" ng-submit="register(form)" novalidate>
 
+              <div ng-if="true" class="text-right mb-sm"><a href="/login" class="text-muted">Already have an account? Login here.</a></div>
+
               <div class="form-group has-feedback" ng-class="{ 'has-success': form.name.$valid && submitted,
                                                                'has-error': form.name.$invalid && submitted }">
                  <label for="exampleInputFullName" class="text-muted">Full name*</label>
@@ -82,7 +84,6 @@
                 </div>
                <button type="submit" class="btn btn-block btn-success">Register</button>
             </form>
-            <p>Have already an account? Please <a class="" href="/login">Login</a></p>
          </div>
       </div>
       <!-- END panel-->
