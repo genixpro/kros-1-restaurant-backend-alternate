@@ -2,7 +2,7 @@
     "id": 1,
     "name": "restaurant-backend",
     "title": "Restaurant Backend",
-    "repository": "https://github.com/Kwola/kobid-1-restaurant-backend",
+    "repository": "https://github.com/Kwola/kros-1-restaurant-backend",
     "frontend": "web",
     "backend": "node",
     "history": "template",
