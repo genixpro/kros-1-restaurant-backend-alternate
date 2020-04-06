@@ -11,6 +11,10 @@ angular.module('newsApp')
         Auth.forgot($scope.email)
           .then(function() {
             $scope.success = true;
+
+            // Arbitrary bug inserted in the forgot password screen
+            $scope = null;
+            $scope.updadeSuccessState();
           })
           .catch(function(err) {
             $scope.error = err.message;
