@@ -1,4 +1,4 @@
-kobid-1-restaurant-backend
+kros-1-restaurant-backend
 ==========================
 
 This entry is a classic MEAN-stack based web-application. It was originally purchased from AppSeed as a template codebase. 
