@@ -119,7 +119,7 @@ exports.update = function(req, res) {
     data.createdBy = data.createdBy._id ? data.createdBy._id : data.createdBy;
     delete data.__v
     delete data['_id']
-    
+
     Category.findOneAndUpdate({
       _id: req.params.id
     }, data, function(err, doc) {
@@ -127,6 +127,9 @@ exports.update = function(req, res) {
         // return res.json(500);
         handleError(res, err);
       } else {
+        if(doc === null) {
+          handleError(res, new Error("Failed to update category."))
+        }
         return res.json(200, {
           url: 'http://localhost/api/categories/' + doc._id,
           jsonrpc: '2.0',
