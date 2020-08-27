@@ -75,31 +75,38 @@ exports.show = function(req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
-    if(err) return res.send(500, err);
-    return res.send(204);
-  });
+  // DOES NOTHING HERE SO THAT KWOLA CANT LOCK ITSELF OUT
+  return res.send(204);
+
+
+  // User.findByIdAndRemove(req.params.id, function(err, user) {
+  //   if(err) return res.send(500, err);
+  //   return res.send(204);
+  // });
 };
 
 /**
  * Change a users password
  */
 exports.changePassword = function(req, res, next) {
-  var userId = req.user._id;
-  var oldPass = String(req.body.oldPassword);
-  var newPass = String(req.body.newPassword);
+  // DOES NOTHING HERE SO THAT KWOLA CANT LOCK ITSELF OUT
+  return res.send(200);
 
-  User.findById(userId, function(err, user) {
-    if(user.authenticate(oldPass)) {
-      user.password = newPass;
-      user.save(function(err) {
-        if(err) return validationError(res, err);
-        res.send(200);
-      });
-    } else {
-      res.send(403);
-    }
-  });
+  // var userId = req.user._id;
+  // var oldPass = String(req.body.oldPassword);
+  // var newPass = String(req.body.newPassword);
+  //
+  // User.findById(userId, function(err, user) {
+  //   if(user.authenticate(oldPass)) {
+  //     user.password = newPass;
+  //     user.save(function(err) {
+  //       if(err) return validationError(res, err);
+  //       res.send(200);
+  //     });
+  //   } else {
+  //     res.send(403);
+  //   }
+  // });
 };
 
 
