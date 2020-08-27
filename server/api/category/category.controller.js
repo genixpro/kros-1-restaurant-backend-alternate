@@ -128,7 +128,7 @@ exports.update = function(req, res) {
         handleError(res, err);
       } else {
         if(doc === null) {
-          handleError(res, new Error("Failed to update category."))
+          return handleError(res, new Error("Failed to update category."))
         }
         return res.json(200, {
           url: 'http://localhost/api/categories/' + doc._id,
