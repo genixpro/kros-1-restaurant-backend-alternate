@@ -98,7 +98,7 @@ exports.update = function(req, res) {
     Page.findOneAndUpdate({
       _id: req.params.id
     }, data, function(err, doc) {
-      if (err) {
+      if (err || !doc) {
         return res.json(500);
       } else {
         return res.json(200, {
