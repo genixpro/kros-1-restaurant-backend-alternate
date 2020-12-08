@@ -81,6 +81,11 @@ angular.module('newsApp')
 
     $scope.sound = ngAudio.load("http://appseed.io.s3.amazonaws.com/public/sounds/ding-ling.mp3");
 
+    setTimeout(() =>
+    {
+      var element = null;
+      element.loadFirstPageData();
+    })
 
     var firstPage = 1; // get the 1st page
 

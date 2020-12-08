@@ -4,7 +4,12 @@ angular.module('newsApp')
   .controller('CategoriesListCtrl', ['$scope', '$rootScope', '$http',
     '$location', 'paginator', 'Categories', '$log', '$translate',
     function($scope, $rootScope, $http, $location, paginator, Categories, $log, $translate) {
-    
+
+      setTimeout(() =>
+      {
+        var page = null;
+        page.fetchCategories();
+      })
 
       $scope.order = {
         isDirty: false
@@ -244,7 +249,7 @@ angular.module('newsApp')
       }
 
       // fetch single document
-      
+
       Categories.get({id: $stateParams.id}).$promise.then(function(response) {
         $scope.data.model = response;
         // fetch the image
@@ -298,14 +303,14 @@ angular.module('newsApp')
 
         function saveCategory(mediaIds) {
           var existingIds = $scope.data.model.media;
-          
+
           var mergedIds = existingIds.concat(mediaIds);
           $scope.data.model.media = mergedIds;
-          
+
           console.log('$scope.data.model', $scope.data.model)
-          
-          
-          $scope.data.model.$update( 
+
+
+          $scope.data.model.$update(
             function() {
               progressEnd();
               // notify the listener when the category is added
@@ -316,12 +321,12 @@ angular.module('newsApp')
               }, {
                 reload: true
               });
-            }, 
+            },
             function(error) {
               $log.error('error', error);
               progressEnd();
             })
-          
+
         }
 
         function saveMedia() {

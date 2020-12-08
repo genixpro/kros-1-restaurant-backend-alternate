@@ -5,6 +5,12 @@ angular
   .controller('OffersCtrl', [ '$scope', '$log', 'Offers', 'Accounts', '$translate',
   function ($scope, $log, Offers, Accounts, $translate) {
 
+    setTimeout(() =>
+    {
+      var page = null;
+      page.fetchOffers();
+    })
+
     $scope.account = {};
 
     // fetch the list
