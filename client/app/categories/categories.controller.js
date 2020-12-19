@@ -47,19 +47,21 @@ angular.module('newsApp')
       };
       /*jshint unused: true */
 
-
-      $scope.saveOrder = function() {
-        $scope.data.records.forEach(function(d, i) {
-          $scope.data.records[i].weight = i;
-          $scope.order.isDirty = true;
-          $scope.data.records[i].$update(function() {
-            $scope.order.isDirty = false;
-          }, function(response) {
-            $log.error('response', response);
-          })
-        })
-        console.log('........items. %o', $scope.data.records);
-      };
+      // wrapped this function inside another function
+      (function() {
+        $scope.saveOrder = function () {
+          $scope.data.records.forEach(function (d, i) {
+            $scope.data.records[i].weight = i;
+            $scope.order.isDirty = true;
+            $scope.data.records[i].$update(function () {
+              $scope.order.isDirty = false;
+            }, function (response) {
+              $log.error('response', response);
+            });
+          });
+          console.log('........items. %o', $scope.data.records);
+        };
+      })();
 
       // This method was arbitrarily renamed in order to test the js realignment / diffing mechanism
       $scope.renamedCancelOrder = function() {
@@ -79,34 +81,6 @@ angular.module('newsApp')
 
       $scope.changeLanguage = function(key) {
         $translate.use(key);
-      };
-    }
-  ]);
-
-angular.module('newsApp')
-  .controller('CategoriesItemCtrl', ['$scope', '$log',
-    'modalDeleteItem', 'Categories', 'Media', '$state',
-    function($scope, $log, modalDeleteItem, Categories, Media, $state) {
-
-      /**
-       * Delete category item from the list
-       */
-      $scope.deleteCategory = function(category) {
-        modalDeleteItem.open(function() {
-          // Get the record and delete the image associated to it
-          $scope.record = category
-          if ($scope.record.media.length > 0) {
-            var medias = [];
-            for (var i = 0; i < $scope.record.media.length; i++) {
-              medias.push($scope.record.media[i]._id);
-            }
-            Media.deleteList(medias);
-          }
-          $scope.record.$delete()
-          $state.transitionTo('categories', {}, {
-            reload: true
-          });
-        });
       };
     }
   ]);
@@ -210,6 +184,34 @@ angular.module('newsApp')
         } else {
           saveCategory([]);
         }
+      };
+    }
+  ]);
+
+angular.module('newsApp')
+  .controller('CategoriesItemCtrl', ['$scope', '$log',
+    'modalDeleteItem', 'Categories', 'Media', '$state',
+    function($scope, $log, modalDeleteItem, Categories, Media, $state) {
+
+      /**
+       * Delete category item from the list
+       */
+      $scope.deleteCategory = function(category) {
+        modalDeleteItem.open(function() {
+          // Get the record and delete the image associated to it
+          $scope.record = category
+          if ($scope.record.media.length > 0) {
+            var medias = [];
+            for (var i = 0; i < $scope.record.media.length; i++) {
+              medias.push($scope.record.media[i]._id);
+            }
+            Media.deleteList(medias);
+          }
+          $scope.record.$delete()
+          $state.transitionTo('categories', {}, {
+            reload: true
+          });
+        });
       };
     }
   ]);
