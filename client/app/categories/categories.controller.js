@@ -61,10 +61,15 @@ angular.module('newsApp')
         console.log('........items. %o', $scope.data.records);
       };
 
-      $scope.cancelOrder = function() {
-        $scope.order.isDirty = false;
+      // This method was arbitrarily renamed in order to test the js realignment / diffing mechanism
+      $scope.renamedCancelOrder = function() {
+        $scope.order.isDirtyBitches = false;
         // notify the listener when the category is added
         $scope.$emit('list_updated');
+      };
+
+      $scope.netNewTestingFunction = function() {
+        console.log('I\'m an entirely new function!');
       };
 
       // unregister the listener to avoid memory leak
