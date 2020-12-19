@@ -4,12 +4,6 @@ angular.module('newsApp')
   .controller('ReviewsListCtrl', ['$scope', '$rootScope', '$http', 'paginator', 'Reviews',
     function($scope, $rootScope, $http, paginator, Reviews) {
 
-      setTimeout(() =>
-      {
-        var page = null;
-        page.fetchReviews();
-      })
-
       var firstPage = 1; // get the 1st page
 
       $scope.data = {

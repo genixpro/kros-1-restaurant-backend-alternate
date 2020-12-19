@@ -5,12 +5,6 @@ angular.module('newsApp')
     '$location', 'paginator', 'Categories', '$log', '$translate',
     function($scope, $rootScope, $http, $location, paginator, Categories, $log, $translate) {
 
-      setTimeout(() =>
-      {
-        var page = null;
-        page.fetchCategories();
-      })
-
       $scope.order = {
         isDirty: false
       };
