@@ -82,7 +82,7 @@ exports.create = function(req, res) {
 
   if (req.body) {
     var downloadData = req.body
-    
+
     downloadData.createdBy = req.user._id
 
     Dowmload.create(downloadData, function(err, doc) {
@@ -91,7 +91,7 @@ exports.create = function(req, res) {
       }
 
       return res.json(201, {
-        url: 'http://localhost:3000/api/downloads/' + doc._id,
+        url: 'http://localhost:80/api/downloads/' + doc._id,
         jsonrpc: '2.0',
         result: doc
       });
@@ -106,7 +106,7 @@ exports.update = function(req, res) {
     data.createdBy = data.createdBy._id ? data.createdBy._id : data.createdBy;
     delete data.__v
     delete data['_id']
-    
+
     Dowmload.findOneAndUpdate({
       _id: req.params.id
     }, data, function(err, doc) {
@@ -115,7 +115,7 @@ exports.update = function(req, res) {
         handleError(res, err);
       } else {
         return res.json(200, {
-          url: 'http://localhost:3000/api/downloads/' + doc._id,
+          url: 'http://localhost:80/api/downloads/' + doc._id,
           jsonrpc: '2.0',
           result: doc
         });

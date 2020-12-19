@@ -108,7 +108,7 @@ exports.create = function(req, res) {
       }
 
       return res.json(201, {
-        url: 'http://localhost:3000/api/grades/' + doc._id,
+        url: 'http://localhost:80/api/grades/' + doc._id,
         jsonrpc: '2.0',
         result: doc
       });

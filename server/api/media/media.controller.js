@@ -74,7 +74,7 @@ function uploader(req, res) {
         if (err) return res.json(500, err);
 
         return res.json(201, {
-          url: 'http://localhost:3000/api/uploads/' + doc._id,
+          url: 'http://localhost:80/api/uploads/' + doc._id,
           jsonrpc: '2.0',
           result: doc
         });

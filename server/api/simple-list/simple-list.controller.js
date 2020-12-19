@@ -66,7 +66,7 @@ exports.create = function(req, res) {
       }
 
       return res.json(201, {
-        url: 'http://localhost:3000/api/simple-lists/' + doc._id,
+        url: 'http://localhost:80/api/simple-lists/' + doc._id,
         jsonrpc: '2.0',
         result: doc
       });

@@ -48,7 +48,7 @@ module.exports = {
     }
   },
 
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:80',
 
   reportsURL: 'http://ec2-54-216-165-84.eu-west-1.compute.amazonaws.com/birt/frameset?__report={DB_KEY}_eabstracts.rptdesign',
   reportsURLToken: '{DB_KEY}'

@@ -30,7 +30,7 @@ COPY / /app
 WORKDIR /app
 
 # Prep for execution
-EXPOSE 3000
+EXPOSE 80
 EXPOSE 5858
 ENTRYPOINT /app/run.sh
 

@@ -152,7 +152,7 @@ exports.create = function (req, res) {
         return handleError(res, err);
       }
       return res.json(201, {
-        url: 'http://localhost:3000/api/downloads/' + doc._id,
+        url: 'http://localhost:80/api/downloads/' + doc._id,
         jsonrpc: '2.0',
         result: doc
       });
@@ -181,7 +181,7 @@ exports.update = function (req, res) {
         handleError(res, err);
       } else {
         return res.json(200, {
-          url: 'http://localhost:3000/api/downloads/' + doc._id,
+          url: 'http://localhost:80/api/downloads/' + doc._id,
           jsonrpc: '2.0',
           result: doc
         });
@@ -211,7 +211,7 @@ exports.destroy = function (req, res) {
 /*
  * TODO: Enable this code. Isolate it within a method
 
-// var ip_list = ['192.168.88.247', 'http://testdomain2.com:5097', '127.0.0.1','http://localhost:3000/api/downloads/','::ffff:127.0.0.1','::1']
+// var ip_list = ['192.168.88.247', 'http://testdomain2.com:5097', '127.0.0.1','http://localhost:80/api/downloads/','::ffff:127.0.0.1','::1']
 var whiteIPList = config.submissionCode.whiteIPList;
 // Split
 // http://www.w3schools.com/jsref/jsref_obj_string.asp
